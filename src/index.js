@@ -1,25 +1,13 @@
-import { createContext } from 'react'
-import FirebaseApp from 'firebase/app'
-import 'firebase/firestore'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './components/App'
+import { FirebaseContext, Firebase } from './firebase'
 
-import { firebaseConfig } from './config'
+const rootNode = document.querySelector('#root')
 
-// Firebase class holds our firebase instance
-class Firebase {
-  constructor() {
-    if (!FirebaseApp.apps.length) {
-      FirebaseApp.initializeApp(firebaseConfig)
-      FirebaseApp.firestore()
-        .enablePersistence({ synchronizeTabs: true })
-        .catch(err => console.log(err))
-    }
-
-    // instance variables
-    this.db = FirebaseApp.firestore()
-    this.ideasCollection = this.db.collection('ideas')
-  }
-}
-
-const FirebaseContext = createContext(null)
-
-export { Firebase, FirebaseContext, FirebaseApp }
+ReactDOM.render(
+  <FirebaseContext.Provider value={new Firebase()}>
+    <App />
+  </FirebaseContext.Provider>,
+  rootNode
+)

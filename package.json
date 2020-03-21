@@ -18,10 +18,8 @@
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
+    "less": "^3.11.1",
     "parcel": "^1.12.4",
     "parcel-bundler": "^1.12.4"
   }
 }
-config.js
-index.js
-withFirebase.jsx
