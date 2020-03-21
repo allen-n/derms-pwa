@@ -8,6 +8,7 @@ import {
 import App from "./App";
 import Login from "./Login";
 import Start from "./Start";
+import Gmap from "./Gmap";
 
 
 class Main extends Component {
@@ -21,12 +22,14 @@ class Main extends Component {
                         <li><NavLink to="/">Home</NavLink></li>
                         <li><NavLink to="/app">App</NavLink></li>
                         <li><NavLink to="/login">Login</NavLink></li>
+                        <li><NavLink to="/gmap">gMap</NavLink></li>
                     </ul>
                     <div className="content">
                         {/* exact prevents '/' from matching '/.*' */}
                         <Route exact path="/" component={Start} />
                         <Route path="/app" component={App} />
                         <Route path="/login" component={Login} />
+                        <Route path="/gmap" component={Gmap} />
                     </div>
                 </div>
             </HashRouter>
