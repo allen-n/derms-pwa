@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Idea from './Idea'
 import { withFirebase } from '../firebase/withFirebase'
 import './App.less'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = props => {
     const { ideasCollection } = props.firebase
