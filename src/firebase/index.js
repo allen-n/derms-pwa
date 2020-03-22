@@ -1,6 +1,7 @@
 import { createContext } from 'react'
 import FirebaseApp from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/auth'
 
 import { firebaseConfig } from './config'
 
@@ -17,6 +18,17 @@ class Firebase {
     // instance variables
     this.db = FirebaseApp.firestore()
     this.ideasCollection = this.db.collection('ideas')
+    this.auth = FirebaseApp.auth()
+
+    // Manage persistent login state from here
+    this.auth.onAuthStateChanged(function (user) {
+      if (user) {
+        // User is signed in.
+        console.log(user.email + "is signed in")
+      } else {
+        console.log("User is signed out")
+      }
+    });
   }
 }
 
