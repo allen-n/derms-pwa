@@ -34,3 +34,20 @@ ul.header li a {
 .content li {
     margin-bottom: 10px;
 }
+
+
+/* ItemList CSS */
+.itemListContainer {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+/* ItemCarousel CSS */
+.categoryListNav {
+    max-width: 80vw;
+    overflow-x: auto;
+}
+
+.categoryListNav>.nav {
+    flex-wrap: nowrap;
+}
