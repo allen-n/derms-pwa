@@ -10,6 +10,8 @@ firebase-debug.log*
 .cache
 dist
 
+# DB Schemas
+.db*
 
 # Firebase cache
 .firebase/

@@ -40,6 +40,10 @@ const Login = props => {
             console.log(error);
             // [END_EXCLUDE]
         });
+
+        if (auth.currentUser != null) {
+            //TODO: Add user to user database
+        }
     }
 
     const signInUser = (email, password) => {
@@ -118,7 +122,6 @@ const Login = props => {
         if (currentUser == '') {
             return (
                 <Form onSubmit={handleSubmit}>
-                    <Form.Label>You are signed in as: {currentUser} </Form.Label>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" ref={formEmail} />

@@ -4,7 +4,7 @@ import { withFirebase } from '../firebase/withFirebase'
 import './App.less'
 
 const App = props => {
-    const { ideasCollection } = props.firebase
+    const { ideasCollection, auth } = props.firebase
     // useRef() returns a mutable ref object whose .current 
     // property is initialized to the passed argument
     const ideasContainer = useRef(null)
@@ -53,7 +53,8 @@ const App = props => {
 
         ideasCollection.add({
             idea,
-            timestamp: new Date()
+            timestamp: new Date(),
+            author_uid: auth.currentUser.uid
         })
     }
 

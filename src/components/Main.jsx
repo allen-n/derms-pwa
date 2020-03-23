@@ -11,15 +11,14 @@ import App from "./App";
 import Login from "./Login";
 import Start from "./Start";
 import Gmap from "./Gmap";
-import ItemCarousel from "./ItemCarousel";
-import ItemList from "./ItemList";
+import ReportItemType from "./ReportItemType";
 
 
 class Main extends Component {
     render() {
         return (
             <HashRouter>
-                <Container>
+                <Container fluid>
                     <div>
                         <h4>DERMS</h4>
                         <ul className="header">
@@ -28,8 +27,7 @@ class Main extends Component {
                             <li><NavLink to="/app">App</NavLink></li>
                             <li><NavLink to="/login">Login</NavLink></li>
                             <li><NavLink to="/gmap">gMap</NavLink></li>
-                            <li><NavLink to="/categories">Categories</NavLink></li>
-                            <li><NavLink to="/items">Items</NavLink></li>
+                            <li><NavLink to="/report">Report Item</NavLink></li>
 
                         </ul>
                         <div className="content">
@@ -38,8 +36,7 @@ class Main extends Component {
                             <Route path="/app" component={App} />
                             <Route path="/login" component={Login} />
                             <Route path="/gmap" component={Gmap} />
-                            <Route path="/categories" component={ItemCarousel} />
-                            <Route path="/items" component={ItemList} />
+                            <Route path="/report" component={ReportItemType} />
                         </div>
                     </div>
                 </Container>

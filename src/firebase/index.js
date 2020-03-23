@@ -17,7 +17,10 @@ class Firebase {
 
     // instance variables
     this.db = FirebaseApp.firestore()
-    this.ideasCollection = this.db.collection('ideas')
+    this.ideasCollection = this.db.collection('ideas') //TODO: Remove, was from tutorial
+    this.usersCollection = this.db.collection('users')
+    this.locationsCollection = this.db.collection('locations')
+    this.itemsCollection = this.db.collection('items')
     this.auth = FirebaseApp.auth()
 
     // Manage persistent login state from here
