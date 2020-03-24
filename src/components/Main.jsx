@@ -12,6 +12,7 @@ import Login from "./Login";
 import Start from "./Start";
 import Gmap from "./Gmap";
 import ReportItemType from "./ReportItemType";
+import leafMap from "./leafMap";
 
 
 class Main extends Component {
@@ -28,6 +29,7 @@ class Main extends Component {
                             <li><NavLink to="/login">Login</NavLink></li>
                             <li><NavLink to="/gmap">gMap</NavLink></li>
                             <li><NavLink to="/report">Report Item</NavLink></li>
+                            <li><NavLink to="/leafMap">lMap</NavLink></li>
 
                         </ul>
                         <div className="content">
@@ -37,6 +39,7 @@ class Main extends Component {
                             <Route path="/login" component={Login} />
                             <Route path="/gmap" component={Gmap} />
                             <Route path="/report" component={ReportItemType} />
+                            <Route path="/leafMap" component={leafMap} />
                         </div>
                     </div>
                 </Container>
