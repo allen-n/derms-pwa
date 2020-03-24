@@ -3,21 +3,24 @@ import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import { mapBoxConfig } from '../firebase/config'
 import { withFirebase } from '../firebase/withFirebase'
 import LocateControl from './LocateControl'
+import GeoCode from './GeoCode'
 import './leafMap.css'
 
 const leafMap = props => {
     const [latLng, setLatLng] = useState({ lat: 34.05, lng: -118.24 })
     const [zoom, setZoom] = useState(15)
     const [centerPos, setCenterPos] = useState({ lat: 34.05, lng: -118.24 })
+    const [searchPos, setSearchPos] = useState({ lat: 34.05, lng: -118.24 })
+
     const mapContainer = useRef(null)
     const centerMarker = useRef(null)
-
+    const chi = { lat: 41.8781, lng: 87.6298 }
     // NOTE: OSM Map Style Options:: https://leaflet-extras.github.io/leaflet-providers/preview/
 
     const centerMap = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                console.log(position.coords)
+                // console.log(position.coords)
                 var latit = position.coords.latitude;
                 var longit = position.coords.longitude;
                 setLatLng({ lat: latit, lng: longit });
@@ -29,16 +32,23 @@ const leafMap = props => {
         }
     }
 
-    const handleMoveEnd = event => {
-        var newCenter = event.target.getCenter() 
-        // console.log(event.target.getCenter())
+    const handleMove = event => {
+        var newCenter = event.target.getCenter()
         setCenterPos(newCenter)
     }
 
+    const handleMoveEnd = event => {
+        var newCenter = event.target.getCenter()
+        setSearchPos(newCenter)
+    }
 
+    const renderGeoCode = () => {
+        // console.log(searchPos)
+        return (<GeoCode searchLoc={searchPos} delta={0.5} limit={3} />);
+    }
 
     return (
-        <Map ref={mapContainer} center={latLng} zoom={zoom} whenReady={centerMap} onmove={handleMoveEnd}>
+        <Map ref={mapContainer} center={latLng} zoom={zoom} whenReady={centerMap} onmove={handleMove} onmoveend={handleMoveEnd}>
             {/* <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
@@ -61,6 +71,7 @@ const leafMap = props => {
                 </Popup>
             </Marker>
             <LocateControl />
+            {renderGeoCode()}
         </Map>
     );
 }
