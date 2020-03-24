@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import { mapBoxConfig } from '../firebase/config'
 import { withFirebase } from '../firebase/withFirebase'
@@ -8,6 +8,10 @@ import './leafMap.css'
 const leafMap = props => {
     const [latLng, setLatLng] = useState({ lat: 34.05, lng: -118.24 })
     const [zoom, setZoom] = useState(15)
+    const [centerPos, setCenterPos] = useState({ lat: 34.05, lng: -118.24 })
+    const mapContainer = useRef(null)
+    const centerMarker = useRef(null)
+
     // NOTE: OSM Map Style Options:: https://leaflet-extras.github.io/leaflet-providers/preview/
 
     const centerMap = () => {
@@ -17,6 +21,7 @@ const leafMap = props => {
                 var latit = position.coords.latitude;
                 var longit = position.coords.longitude;
                 setLatLng({ lat: latit, lng: longit });
+                setCenterPos({ lat: latit, lng: longit })
                 setZoom(15);
             })
         } else {
@@ -24,9 +29,16 @@ const leafMap = props => {
         }
     }
 
+    const handleMoveEnd = event => {
+        var newCenter = event.target.getCenter() 
+        // console.log(event.target.getCenter())
+        setCenterPos(newCenter)
+    }
+
+
 
     return (
-        <Map center={latLng} zoom={zoom} whenReady={centerMap}>
+        <Map ref={mapContainer} center={latLng} zoom={zoom} whenReady={centerMap} onmove={handleMoveEnd}>
             {/* <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
@@ -43,9 +55,9 @@ const leafMap = props => {
             />
 
 
-            <Marker position={latLng}>
+            <Marker position={centerPos} ref={centerMarker}>
                 <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
+                    A pretty CSS3 popup. <br /> In the middle of the map!
                 </Popup>
             </Marker>
             <LocateControl />
