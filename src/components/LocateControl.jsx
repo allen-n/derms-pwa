@@ -7,7 +7,7 @@ const LocateControl = props => {
     useEffect(() => {
         const { options, startDirectly } = props;
         const { map } = props.leaflet;
-
+        
         const lc = new Locate(options);
 
         lc.addTo(map);
