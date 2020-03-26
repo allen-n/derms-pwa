@@ -7,16 +7,16 @@ const ItemCarousel = props => {
     const [activeCategory, setActiveCategory] = useState("link-0")
 
     const renderCategories = () => {
-        if (!props.itemCategories.length) {
+        if (!props.categories.length) {
             return (
                 <Nav.Item>
                     <Nav.Link eventKey="link-0">No Categories...</Nav.Link>
                 </Nav.Item>);
         }
 
-        return props.itemCategories.map(category => (
-            <Nav.Item key={category}>
-                <Nav.Link eventKey={category} onSelect={handleSelect}>{category}</Nav.Link>
+        return props.categories.map(category => (
+            <Nav.Item key={category.id}>
+                <Nav.Link eventKey={category.id} onSelect={handleSelect}>{category.name}</Nav.Link>
             </Nav.Item>
         ));
 
@@ -24,15 +24,24 @@ const ItemCarousel = props => {
 
     const handleSelect = (selectedKey) => {
         setActiveCategory(selectedKey);
+        // if (props.returnActiveCategory != null) {
+        //     props.returnActiveCategory(selectedKey);
+        // }
     }
 
     // Note: the below does not work with defaultActiveKey
     // active key cannot be updated after render
     useEffect(() => {
-        if (props.itemCategories.length > 0) {
-            setActiveCategory(props.itemCategories[0])
+        if (props.categories.length > 0) {
+            setActiveCategory(props.categories[0].id)
         }
-    }, []);
+    }, [props.categories]);
+
+    useEffect(() => {
+        if (props.returnActiveCategory != null) {
+            props.returnActiveCategory(activeCategory);
+        }
+    }, [activeCategory]);
 
     return (
         <Container className="categoryListNav">
@@ -49,6 +58,7 @@ const ItemCarousel = props => {
 }
 
 ItemCarousel.defaultProps = {
-    itemCategories: ['Test1', 'Test2', 'Test3', 'Test4', 'Test5', 'Test6', ]
+    categories: ['Test1', 'Test2', 'Test3', 'Test4', 'Test5', 'Test6',],
+    returnActiveCategory: null
 }
 export default ItemCarousel

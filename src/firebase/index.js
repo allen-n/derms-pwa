@@ -21,6 +21,8 @@ class Firebase {
     this.usersCollection = this.db.collection('users')
     this.locationsCollection = this.db.collection('locations')
     this.itemsCollection = this.db.collection('items')
+    this.itemCategoryCollection = this.db.collection('item-categories')
+    
     this.auth = FirebaseApp.auth()
 
     // Manage persistent login state from here

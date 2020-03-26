@@ -4,19 +4,25 @@ import { Container, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const ItemList = props => {
 
-    const [activeItem, setActiveItem] = useState("link-0")
+    const [activeItem, setActiveItem] = useState("link-1")
+
 
     const renderItems = () => {
         if (!props.items.length) {
             return (
-                <ListGroup.Item eventKey="link-0">No Items...</ListGroup.Item>);
+                <ListGroup.Item key="link-1" eventKey="link-1">No Items...</ListGroup.Item>);
         }
 
-        return props.items.map(item => (
-            <ListGroup.Item action key={item} eventKey={item} onSelect={handleSelect}>{item}</ListGroup.Item>
+        return props.items.map((item, idx) => (
+            <ListGroup.Item key={idx} eventKey={item.id} onSelect={handleSelect}>{item.name}</ListGroup.Item>
         ));
 
     }
+
+    const [itemListGroup, setItemListGroup] = useState(null)
+    useEffect(() => {
+        setItemListGroup(renderItems())
+    }, [props.items])
 
     const handleSelect = (selectedKey) => {
         setActiveItem(selectedKey);
@@ -32,8 +38,8 @@ const ItemList = props => {
 
     return (
         <Container className="itemListContainer">
-            <ListGroup variant="flush" activeKey={activeItem}>
-                {renderItems()}
+            <ListGroup variant="flush" activeKey={activeItem} key={"ti12312312tle"}>
+                {itemListGroup}
             </ListGroup>
         </Container>
 
