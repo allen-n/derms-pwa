@@ -28,6 +28,12 @@ const ItemList = props => {
         setActiveItem(selectedKey);
     }
 
+    useEffect(() => {
+        if (props.returnActiveItem != null) {
+            props.returnActiveItem(activeItem);
+        }
+    }, [activeItem]);
+
     // Note: the below does not work with defaultActiveKey
     // active key cannot be updated after render
     // useEffect(() => {
@@ -48,6 +54,7 @@ const ItemList = props => {
 }
 
 ItemList.defaultProps = {
-    items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9']
+    items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9'],
+    returnActiveItem: null
 }
 export default ItemList

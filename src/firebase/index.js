@@ -17,11 +17,14 @@ class Firebase {
 
     // instance variables
     this.db = FirebaseApp.firestore()
+    this.firestore = FirebaseApp.firestore
     this.ideasCollection = this.db.collection('ideas') //TODO: Remove, was from tutorial
     this.usersCollection = this.db.collection('users')
-    this.locationsCollection = this.db.collection('locations')
+    this.recordCollection = this.db.collection('records')
     this.itemsCollection = this.db.collection('items')
     this.itemCategoryCollection = this.db.collection('item-categories')
+
+    this.dbData = {} // Dict where data to be written will stay/maintain state
     
     this.auth = FirebaseApp.auth()
 

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import ItemCarousel from './ItemCarousel'
 import ItemList from './ItemList'
 import { withFirebase } from '../firebase/withFirebase'
+import { Button } from 'react-bootstrap'
 
 
 const ReportItemType = props => {
@@ -9,8 +11,18 @@ const ReportItemType = props => {
     const [categoryNames, setCategoryNames] = useState([])
     const [categoryItemMap, setCategoryItemMap] = useState({})
     const [activeCategory, setActiveCategory] = useState(null)
+    const [activeItem, setActiveItem] = useState(null)
 
-    const { itemCategoryCollection, auth } = props.firebase
+    const { itemCategoryCollection, dbData, recordCollection, firestore, auth } = props.firebase
+
+    const history = useHistory();
+
+    const routeClick = () => {
+        dbData.timestamp = firestore.FieldValue.serverTimestamp();
+        recordCollection.add(dbData)
+        // dbData = {}
+        history.push("/");
+    }
 
     const returnActiveCategory = (newActiveCategory) => {
         // set active category with key passed from selected node 
@@ -19,11 +31,31 @@ const ReportItemType = props => {
 
     }
 
+    const returnActiveItem = (newActiveItem) => {
+        // set active category with key passed from selected node 
+        // in child item carousel, which is the category key
+        setActiveItem(newActiveItem)
+
+    }
+
     useEffect(() => {
         setItemNames(categoryItemMap[activeCategory])
     }, [categoryItemMap, activeCategory])
-    
 
+    useEffect(() => {
+        const itemInfo = {
+            category: {
+                name: null,
+                id: activeCategory
+            },
+            item: {
+                name: null,
+                id: activeItem
+            }
+        }
+        dbData.item = itemInfo
+        console.log(dbData)
+    }, [activeCategory, activeItem])
 
     useEffect(() => {
 
@@ -46,7 +78,7 @@ const ReportItemType = props => {
                             })
                             itemCategoryDict[doc.id] = itemsInCategory
                             // update state inside this .then since return is async
-                            setCategoryItemMap(itemCategoryDict) 
+                            setCategoryItemMap(itemCategoryDict)
                         })
 
                     const details = {
@@ -57,8 +89,8 @@ const ReportItemType = props => {
                     categoriesFromDB.push(details)
                     setCategoryNames(categoriesFromDB)
                 })
-                
-                
+
+
             })
 
         // prevents a memory leak
@@ -70,7 +102,8 @@ const ReportItemType = props => {
     return (
         <div>
             <ItemCarousel categories={categoryNames} returnActiveCategory={returnActiveCategory} />
-            <ItemList items={itemNames}></ItemList>
+            <ItemList items={itemNames} returnActiveItem={returnActiveItem}></ItemList>
+            <Button onClick={routeClick}> Confirm </Button>
         </div>
 
     );

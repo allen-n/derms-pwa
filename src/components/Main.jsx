@@ -7,6 +7,7 @@ import {
 
 import { Container, Row, Col } from 'react-bootstrap';
 
+import TransitionShell from "./TransitionShell"; // This component may go out of date soon
 import App from "./App";
 import Login from "./Login";
 import Start from "./Start";
@@ -32,11 +33,11 @@ class Main extends Component {
                         </ul>
                         <div className="content">
                             {/* exact prevents '/' from matching '/.*' */}
-                            <Route exact path="/" component={Start} />
-                            <Route path="/app" component={App} />
-                            <Route path="/login" component={Login} />
-                            <Route path="/report" component={ReportItemType} />
-                            <Route path="/locate" component={LocationSelect} />
+                            <Route exact path="/" component={TransitionShell(Start)} />
+                            <Route path="/app" component={TransitionShell(App)} />
+                            <Route path="/login" component={TransitionShell(Login)} />
+                            <Route path="/report" component={TransitionShell(ReportItemType)} />
+                            <Route path="/locate" component={TransitionShell(LocationSelect)} />
                         </div>
                     </div>
                 </Container>

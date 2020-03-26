@@ -66,8 +66,12 @@ const LeafMap = props => {
         geocoder.reverse(centerPos, zoom, results => {
             var r = results[0];
             setAddress(r)
-            if (props.returnAddress != null) {
-                props.returnAddress(r)
+            if (props.returnLocation != null) {
+                const newAddr = {
+                    latLng: centerPos,
+                    name:r.name
+                }
+                props.returnLocation(newAddr)
             }
         })
     }
@@ -110,7 +114,7 @@ LeafMap.defaultProps = {
     limit: 3,
     enableGeoCode: false,
     enableRevGeoCode: true, // Turn off if too many API requests
-    returnAddress: null // callback function to return address to parent component
+    returnLocation: null // callback function to return address to parent component
 }
 
 export default LeafMap

@@ -1,26 +1,37 @@
 import React, { useState, useRef } from 'react'
+import { useHistory } from 'react-router-dom';
 import { withFirebase } from '../firebase/withFirebase'
 import LeafMap from './LeafMap'
 import { Container, Row, Button, Text } from 'react-bootstrap'
 
 const LocationSelect = props => {
-    const [userAddress, setUserAddress] = useState(null)
-    // const mapRef = useRef(null)
+    const [userLocation, setUserLocation] = useState(null)
+    const history = useHistory();
 
-    const returnAddress = (address) => {
-        // console.log(address)
-        setUserAddress(address);
+    const { firestore, dbData } = props.firebase
+
+    const routeClick = () => {
+        history.push("/report");
+    }
+
+    const returnLocation = (loc) => {
+        const newAddr = {
+            latLng: new firestore.GeoPoint(loc.latLng.lat, loc.latLng.lng),
+            name:loc.name
+        }
+        dbData.location = newAddr;
+        setUserLocation(loc);
     }
 
     const handleClick = () => {
-        console.log(userAddress)
+        routeClick()
     }
 
     return (
         <Container fluid>
             <Row>
                 <LeafMap
-                    returnAddress={returnAddress}
+                    returnLocation={returnLocation}
                     // ref={mapRef}
                     delta={.5}
                     limit={3}
