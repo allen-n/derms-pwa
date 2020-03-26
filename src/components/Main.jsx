@@ -10,7 +10,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import App from "./App";
 import Login from "./Login";
 import Start from "./Start";
-import Gmap from "./Gmap";
 import ReportItemType from "./ReportItemType";
 import leafMap from "./leafMap";
 
@@ -27,7 +26,6 @@ class Main extends Component {
                             <li><NavLink to="/">Home</NavLink></li>
                             <li><NavLink to="/app">App</NavLink></li>
                             <li><NavLink to="/login">Login</NavLink></li>
-                            <li><NavLink to="/gmap">gMap</NavLink></li>
                             <li><NavLink to="/report">Report Item</NavLink></li>
                             <li><NavLink to="/leafMap">lMap</NavLink></li>
 
@@ -37,7 +35,6 @@ class Main extends Component {
                             <Route exact path="/" component={Start} />
                             <Route path="/app" component={App} />
                             <Route path="/login" component={Login} />
-                            <Route path="/gmap" component={Gmap} />
                             <Route path="/report" component={ReportItemType} />
                             <Route path="/leafMap" component={leafMap} />
                         </div>
