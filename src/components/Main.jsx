@@ -11,7 +11,7 @@ import App from "./App";
 import Login from "./Login";
 import Start from "./Start";
 import ReportItemType from "./ReportItemType";
-import leafMap from "./leafMap";
+import LocationSelect from "./LocationSelect";
 
 
 class Main extends Component {
@@ -27,7 +27,7 @@ class Main extends Component {
                             <li><NavLink to="/app">App</NavLink></li>
                             <li><NavLink to="/login">Login</NavLink></li>
                             <li><NavLink to="/report">Report Item</NavLink></li>
-                            <li><NavLink to="/leafMap">lMap</NavLink></li>
+                            <li><NavLink to="/locate">Locate</NavLink></li>
 
                         </ul>
                         <div className="content">
@@ -36,7 +36,7 @@ class Main extends Component {
                             <Route path="/app" component={App} />
                             <Route path="/login" component={Login} />
                             <Route path="/report" component={ReportItemType} />
-                            <Route path="/leafMap" component={leafMap} />
+                            <Route path="/locate" component={LocationSelect} />
                         </div>
                     </div>
                 </Container>
