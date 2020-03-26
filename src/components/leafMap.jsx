@@ -1,17 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import { mapBoxConfig } from '../firebase/config'
-import { withFirebase } from '../firebase/withFirebase'
 import LocateControl from './LocateControl'
 import GeoCode from './GeoCode'
 import Geocoder from "leaflet-control-geocoder"
-import './leafMap.css'
+import './LeafMap.css'
 
 const TextDiv = ({ name }) => {
     return (<h6>Location: {name}</h6>);
 }
 
-const leafMap = props => {
+const LeafMap = props => {
     const latLng = { lat: 34.05, lng: -118.24 } // Initial map lat and lng
     const [zoom, setZoom] = useState(15) // map zoom level
     const [centerPos, setCenterPos] = useState({ lat: 34.05, lng: -118.24 }) // Center position, update to update middle marker
@@ -67,6 +66,13 @@ const leafMap = props => {
         geocoder.reverse(centerPos, zoom, results => {
             var r = results[0];
             setAddress(r)
+            if (props.returnLocation != null) {
+                const newAddr = {
+                    latLng: centerPos,
+                    name:r.name
+                }
+                props.returnLocation(newAddr)
+            }
         })
     }
 
@@ -103,12 +109,13 @@ const leafMap = props => {
     );
 }
 
-leafMap.defaultProps = {
+LeafMap.defaultProps = {
     delta: .5,
     limit: 3,
     enableGeoCode: false,
-    enableRevGeoCode: true // Turn off if too many API requests
+    enableRevGeoCode: true, // Turn off if too many API requests
+    returnLocation: null // callback function to return address to parent component
 }
 
-export default withFirebase(leafMap)
+export default LeafMap
 

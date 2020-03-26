@@ -7,11 +7,12 @@ import {
 
 import { Container, Row, Col } from 'react-bootstrap';
 
+import TransitionShell from "./TransitionShell"; // This component may go out of date soon
 import App from "./App";
 import Login from "./Login";
 import Start from "./Start";
 import ReportItemType from "./ReportItemType";
-import leafMap from "./leafMap";
+import LocationSelect from "./LocationSelect";
 
 
 class Main extends Component {
@@ -27,16 +28,16 @@ class Main extends Component {
                             <li><NavLink to="/app">App</NavLink></li>
                             <li><NavLink to="/login">Login</NavLink></li>
                             <li><NavLink to="/report">Report Item</NavLink></li>
-                            <li><NavLink to="/leafMap">lMap</NavLink></li>
+                            <li><NavLink to="/locate">Locate</NavLink></li>
 
                         </ul>
                         <div className="content">
                             {/* exact prevents '/' from matching '/.*' */}
-                            <Route exact path="/" component={Start} />
-                            <Route path="/app" component={App} />
-                            <Route path="/login" component={Login} />
-                            <Route path="/report" component={ReportItemType} />
-                            <Route path="/leafMap" component={leafMap} />
+                            <Route exact path="/" component={TransitionShell(Start)} />
+                            <Route path="/app" component={TransitionShell(App)} />
+                            <Route path="/login" component={TransitionShell(Login)} />
+                            <Route path="/report" component={TransitionShell(ReportItemType)} />
+                            <Route path="/locate" component={TransitionShell(LocationSelect)} />
                         </div>
                     </div>
                 </Container>
