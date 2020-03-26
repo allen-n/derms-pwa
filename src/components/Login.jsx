@@ -1,18 +1,27 @@
 import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { withFirebase } from '../firebase/withFirebase'
-
+import { useHistory } from 'react-router-dom';
 
 const Login = props => {
 
     // Named export 'auth' from the prop injected by the withFirebase HOC 
     const { auth } = props.firebase
+
     const formEmail = useRef(null);
     const formPassword = useRef(null);
     const newUser = useRef(null);
     const [currentUser, setCurrentUser] = useState('')
 
-    const handleSubmit = event => {
+    // Page navigation
+    const history = useHistory();
+    const goToLocate = (event) => {
+        history.push("/locate");
+    }
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
         var email = formEmail.current.value
         var pass = formPassword.current.value
         var isNewUser = newUser.current.checked
@@ -24,7 +33,6 @@ const Login = props => {
         formEmail.current.value = ''
         formPassword.current.value = ''
     };
-
 
     const registerUser = (email, password) => {
         auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
@@ -60,6 +68,7 @@ const Login = props => {
             console.log(error);
             // [END_EXCLUDE]
         });
+
     }
 
     const signOutUser = () => {
@@ -145,6 +154,7 @@ const Login = props => {
             <Form>
                 <h5>{currentUser.email} is signed in.</h5>
                 <Button variant="secondary" onClick={signOutUser}>Sign Out</Button>
+                <Button onClick={goToLocate}>Tell us where you are</Button>
             </Form>
 
         );

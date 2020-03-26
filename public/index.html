@@ -45,56 +45,20 @@
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script> -->
 
-  <div id="notification" style="display: none">A new version of this app is available. Click <a id="reload">here</a> to update.</div>
+  <div id="notification" style="display: none">A new version of this app is available. Click <a id="reload">here</a> to
+    update.</div>
 
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
   <script src="../src/index.js"></script>
 
   <script>
-    let newWorker;
-    // The click event on the notification
-    document.getElementById('reload').addEventListener('click', function () {
-      newWorker.postMessage({ action: 'skipWaiting' });
-    });
-
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('serviceWorker.js').then(reg => {
-          reg.addEventListener('updatefound', () => {
+        navigator.serviceWorker.register('serviceWorker.js');
 
-            // An updated service worker has appeared in reg.installing!
-            newWorker = reg.installing;
-
-            newWorker.addEventListener('statechange', () => {
-
-              // Has service worker state changed?
-              switch (newWorker.state) {
-                case 'installed':
-
-                  // There is a new service worker available, show the notification
-                  if (navigator.serviceWorker.controller) {
-                    let notification = document.getElementById('notification ');
-                    notification.className = 'show';
-                  }
-
-                  break;
-              }
-            });
-          });
-        });
       });
     }
-
-
-    let refreshing;
-    // The event listener that is fired when the service worker updates
-    // Here we reload the page
-    navigator.serviceWorker.addEventListener('controllerchange', function () {
-      if (refreshing) return;
-      window.location.reload();
-      refreshing = true;
-    });
   </script>
 </body>
 

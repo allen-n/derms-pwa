@@ -1,25 +1,33 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { withFirebase } from '../firebase/withFirebase'
 import LeafMap from './LeafMap'
-import { Container, Row, Button, Text } from 'react-bootstrap'
+import { Container, Row, Button } from 'react-bootstrap'
 
 const LocationSelect = props => {
     const [userLocation, setUserLocation] = useState(null)
     const history = useHistory();
 
-    const { firestore, dbData } = props.firebase
+    const { firestore, reportData, userData } = props.firebase
 
     const routeClick = () => {
-        history.push("/report");
+        history.push("/report-type");
     }
+    
+    // Make sure user data up to now is collected, if not route back
+    useEffect(() => {
+        if (userData == null) {
+            history.push('/login')
+        }
+    }, [])
 
     const returnLocation = (loc) => {
         const newAddr = {
             latLng: new firestore.GeoPoint(loc.latLng.lat, loc.latLng.lng),
             name:loc.name
         }
-        dbData.location = newAddr;
+        reportData.latLng = newAddr.latLng;
+        reportData.locName = newAddr.name;
         setUserLocation(loc);
     }
 

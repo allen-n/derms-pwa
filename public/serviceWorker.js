@@ -12,7 +12,7 @@ const assetsToCache = [
 // Cache the necessary files
 self.addEventListener('install', (event) => {
     // Reasining src: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
-    self.skipWaiting(); // forces activation of current Service worker
+    // self.skipWaiting(); // forces activation of current Service worker
 
     // SW wont move on until 'caches' is resolved
     event.waitUntil(
@@ -33,29 +33,6 @@ self.addEventListener('fetch', (event) => {
         );
     }
 });
-
-self.addEventListener('message', function (event) {
-    if (event.data.action === 'skipWaiting') {
-      self.skipWaiting();
-    }
-  });
-
-// Delete old caches
-// self.addEventListener('activate', function(event) {
-//     event.waitUntil(
-//       caches.keys().then(function(cacheNames) {
-//         return Promise.all(
-//           cacheNames.filter(function(cacheName) {
-//             // Return true if you want to remove this cache,
-//             // but remember that caches are shared across
-//             // the whole origin
-//           }).map(function(cacheName) {
-//             return caches.delete(cacheName);
-//           })
-//         );
-//       })
-//     );
-//   });
 
 /**
  * Note:
