@@ -5,7 +5,7 @@
 *Note*: This is a re-creation of the [derms](https://github.com/allen-n/derms) repo, but using react to manage creating a single page PWA, the piecemeal way it was being done in the original derms repo was not working.
 
 ## What's the Point?
-Inspired by the COVID-19 epidemic, and the inability of many to get the supplies they desperately needed (often due to incorrect or out of date information on the availability of necessities), the DERMS project was born. 
+Driven by the COVID-19 epidemic, and the inability of many to get the supplies they desperately needed (often due to incorrect or out of date information on the availability of necessities), the DERMS project was born. 
 
 DERMS is simple: crowdsource data on the availability of necessities near you, to reduce unnecessary travel, human to human interaction (in the case of COVID-19), and economic and emotional burden on folks who really just need a roll of toilet paper and don't want to drive to 7 different stores and still not find any.
 
@@ -17,7 +17,14 @@ Current design ideation can be viewed in an Adobe XD mockup [here](https://xd.ad
 ### Software Requirements
 * NodeJS installation
 * Basic familiarity with your command line
-* Follow the tutorial [here](https://medium.com/dev-channel/learn-how-to-build-a-pwa-in-under-5-minutes-c860ad406ed) to get your environment set up 
+* Set up your repo dependencies (firebase, etc.) according to the steps in Ovie's excellent guide [here](https://blog.logrocket.com/creating-a-lists-pwa-with-react-and-firebase/)
+
+### Running
+```
+cd derms-pwa
+npm start # run app locally
+npm run deploy # deploy app to firebase host
+```
 
 ### APIs being used
 * [Firebase](https://firebase.google.com/docs/web/setup) for storage
