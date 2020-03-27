@@ -12,16 +12,14 @@ const ReportItemType = props => {
     const [categoryItemMap, setCategoryItemMap] = useState({})
     const [activeCategory, setActiveCategory] = useState(null)
     const [activeItem, setActiveItem] = useState(null)
+    const [submitDisabled, setSubmitDisabled] = useState(true) // disable submit til something is picked
 
-    const { itemCategoryCollection, dbData, recordCollection, firestore, auth } = props.firebase
+    const { itemCategoryCollection, reportData, userData } = props.firebase
 
     const history = useHistory();
 
     const routeClick = () => {
-        dbData.timestamp = firestore.FieldValue.serverTimestamp();
-        recordCollection.add(dbData)
-        // dbData = {}
-        history.push("/");
+        history.push("/report-info");
     }
 
     const returnActiveCategory = (newActiveCategory) => {
@@ -35,8 +33,14 @@ const ReportItemType = props => {
         // set active category with key passed from selected node 
         // in child item carousel, which is the category key
         setActiveItem(newActiveItem)
-
     }
+
+    // Make sure report data up to now is collected, if not route back
+    useEffect(() => {
+        if (reportData.latLng == null) {
+            history.push('/locate')
+        }
+    }, [])
 
     useEffect(() => {
         setItemNames(categoryItemMap[activeCategory])
@@ -53,12 +57,20 @@ const ReportItemType = props => {
                 id: activeItem
             }
         }
-        dbData.item = itemInfo
-        console.log(dbData)
+        
+        reportData.categoryId = itemInfo.category.id
+        reportData.categoryName = itemInfo.category.name
+        if (itemInfo.item.id != "link-1" && itemInfo.item.id != null) {
+            // If an item is picked, we can submit, 
+            // link-1 was default set in ItemList.jsx, to it starts as null
+            reportData.itemId = itemInfo.item.id
+            reportData.itemName = itemInfo.item.name
+            setSubmitDisabled(false)
+        }
+
     }, [activeCategory, activeItem])
 
     useEffect(() => {
-
         const getCategories = itemCategoryCollection
             .orderBy('name', 'desc')
             .onSnapshot(({ docs }) => { //fires any time the db changes
@@ -103,7 +115,7 @@ const ReportItemType = props => {
         <div>
             <ItemCarousel categories={categoryNames} returnActiveCategory={returnActiveCategory} />
             <ItemList items={itemNames} returnActiveItem={returnActiveItem}></ItemList>
-            <Button onClick={routeClick}> Confirm </Button>
+            <Button onClick={routeClick} disabled={submitDisabled}> Confirm </Button>
         </div>
 
     );
