@@ -6,7 +6,8 @@ import { useHistory } from 'react-router-dom';
 const Login = props => {
 
     // Named export 'auth' from the prop injected by the withFirebase HOC 
-    const { auth } = props.firebase
+    const { auth, firestore, usersCollection, authToUser } = props.firebase
+    // var {  } = props.firebase
 
     const formEmail = useRef(null);
     const formPassword = useRef(null);
@@ -35,23 +36,49 @@ const Login = props => {
     };
 
     const registerUser = (email, password) => {
-        auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // [START_EXCLUDE]
-            if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-            } else {
-                alert(errorMessage);
-            }
-            console.log(error);
-            // [END_EXCLUDE]
-        });
+        auth.createUserWithEmailAndPassword(email, password)
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // [START_EXCLUDE]
+                if (errorCode == 'auth/weak-password') {
+                    alert('The password is too weak.');
+                }
+                if (errorCode == 'auth/internal-error') {
+                    alert(`Your browser is blocking the Google login API we use. 
+                It's kosher, we promise. But to log in you'll have to turn that blocker off 🙏.`);
+                }
+                else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+                // [END_EXCLUDE]
+            });
+    }
 
-        if (auth.currentUser != null) {
-            //TODO: Add user to user database
-        }
+    const storeNewUser = (user) => {
+        var newUser = authToUser(user)
+        newUser.dateCreated = firestore.FieldValue.serverTimestamp();
+        newUser.lastLogIn = firestore.FieldValue.serverTimestamp();
+        newUser.status = 0
+        newUser.reportQuality = 0
+        newUser.referralSignUps = 0
+        newUser.isBusiness = false
+        newUser.reports = []
+
+        usersCollection.doc(newUser.uid).set(newUser)
+            .then(docRef => {
+                // NOTE: Can't get docref ID because we specified a doc
+                // console.log("Document written with ID: ", docRef.id, ", userID: ", newUser.uid);
+            })
+            .catch(error => console.error("Error adding new user: ", error))
+    }
+
+    const updateUserLoginDate = (user) => {
+        const uid = user.uid
+        usersCollection.doc(uid).update({ lastLogin: firestore.FieldValue.serverTimestamp() })
+            .catch(error => console.error("Error updating last login for user: ", error));
     }
 
     const signInUser = (email, password) => {
@@ -118,12 +145,23 @@ const Login = props => {
         // [END sendpasswordemail];
     }
 
-    auth.onAuthStateChanged(function (user) {
+    auth.onAuthStateChanged((user) => {
         if (user) {
             // User is signed in.
-            setCurrentUser(user)
+            if (currentUser == '') {
+                // Can only check when sign-in is rendered
+                if (newUser.current && newUser.current.checked) {
+                    storeNewUser(user);
+                } else {
+                    updateUserLoginDate(user);
+                }
+                setCurrentUser(user)
+            }
         } else {
-            setCurrentUser('')
+            if (currentUser != '') {
+                setCurrentUser('')
+            }
+            // console.log("User is signed out.")
         }
     });
 

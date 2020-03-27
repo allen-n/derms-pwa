@@ -26,7 +26,7 @@ class Firebase {
     // db collections
     this.ideasCollection = this.db.collection('ideas') //TODO: Remove, was from tutorial
     this.usersCollection = this.db.collection('users')
-    this.recordCollection = this.db.collection('records')
+    this.reportCollection = this.db.collection('reports')
     this.itemsCollection = this.db.collection('items')
     this.itemCategoryCollection = this.db.collection('item-categories')
 
@@ -34,25 +34,32 @@ class Firebase {
     this.reportData = {} // Dict where report data to be written will stay/maintain state
     this.userData = null
 
+    this.getUserData = () => {
+      return this.userData
+    }
 
+    this.authToUser = (user) => {
+      return ({
+        name: user.displayName,
+        email: user.email,
+        photoUrl: user.photoURL,
+        emailVerified: user.emailVerified,
+        uid: user.uid
+      });
+    }
 
     // Manage persistent login state from here
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         // User is signed in.
         console.log(user.email + "is signed in")
-        this.userData = {
-          name: user.displayName,
-          email: user.email,
-          photoUrl: user.photoURL,
-          emailVerified: user.emailVerified,
-          uid: user.uid
-        }
+        this.userData = this.authToUser(user)
       } else {
         console.log("User is signed out")
         this.userData = null
       }
     });
+    
   }
 }
 
