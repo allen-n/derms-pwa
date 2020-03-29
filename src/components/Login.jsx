@@ -7,7 +7,6 @@ const Login = props => {
 
     // Named export 'auth' from the prop injected by the withFirebase HOC 
     const { auth, firestore, usersCollection, authToUser } = props.firebase
-    // var {  } = props.firebase
 
     const formEmail = useRef(null);
     const formPassword = useRef(null);
@@ -16,8 +15,8 @@ const Login = props => {
 
     // Page navigation
     const history = useHistory();
-    const goToLocate = (event) => {
-        history.push("/locate");
+    const goHome = (event) => {
+        history.push("/");
     }
 
 
@@ -92,7 +91,7 @@ const Login = props => {
             } else {
                 alert(errorMessage);
             }
-            console.log(error);
+            console.error(error);
             // [END_EXCLUDE]
         });
 
@@ -139,7 +138,7 @@ const Login = props => {
             } else if (errorCode == 'auth/user-not-found') {
                 alert(errorMessage);
             }
-            console.log(error);
+            console.error(error);
             // [END_EXCLUDE]
         });
         // [END sendpasswordemail];
@@ -161,7 +160,6 @@ const Login = props => {
             if (currentUser != '') {
                 setCurrentUser('')
             }
-            // console.log("User is signed out.")
         }
     });
 
@@ -192,7 +190,7 @@ const Login = props => {
             <Form>
                 <h5>{currentUser.email} is signed in.</h5>
                 <Button variant="secondary" onClick={signOutUser}>Sign Out</Button>
-                <Button onClick={goToLocate}>Tell us where you are</Button>
+                <Button onClick={goHome}>Go Back</Button>
             </Form>
 
         );

@@ -47,7 +47,6 @@ const GeoCode = props => {
 
 
     useEffect(() => {
-        // console.log(options)
         const { map } = props.leaflet;
         var myGc = new Geocoder(options);
         myGc.addTo(map); // Leave out options for default
@@ -61,7 +60,6 @@ const GeoCode = props => {
     // useEffect(() => {
     //     if (gc != null) {
     //         gc.options.geocoder.options = initMapBoxOptions(props)
-    //         // console.log(gc.options.geocoder.options)
     //     }
 
 
