@@ -7,7 +7,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const ReportItemInfo = props => {
-    const { reportData, userData, storage, recordCollection, firestore } = props.firebase
+    const {
+        reportData,
+        userData,
+        storage,
+        reportCollection,
+        usersCollection,
+        firestore } = props.firebase
 
     // Image upload handling
     // src: https://dev.to/tallangroberg/how-to-do-image-upload-with-firebase-in-react-cpj
@@ -39,26 +45,6 @@ const ReportItemInfo = props => {
     const handleImageAsFile = (e) => {
         const image = e.target.files[0]
         setImageAsFile(image)
-    }
-
-    const handleDataUpload = (imgUrl) => {
-        reportData.timestamp = firestore.FieldValue.serverTimestamp();
-        reportData.stock = stockLevel;
-        if (imgUrl) {
-            reportData.imgurl = imgUrl
-        }
-        reportData.aisle = aisleRef.current.value
-        reportData.store = storeRef.current.value
-        
-        reportData.user = userData.uid
-
-        recordCollection.add(reportData).then(docRef => {
-            // console.log("Document written with ID: ", docRef.id);
-            alert('Submission complete, nice work!')
-            history.push("/"); // Go home
-        })
-            .catch(error => console.error("Error adding document: ", error))
-
     }
 
     const handleSubmit = (event) => {
@@ -112,6 +98,36 @@ const ReportItemInfo = props => {
                 });
             });
 
+    }
+
+    const handleDataUpload = (imgUrl) => {
+        reportData.timestamp = firestore.FieldValue.serverTimestamp();
+        reportData.stock = stockLevel;
+        if (imgUrl) {
+            reportData.imgurl = imgUrl
+        }
+        reportData.aisle = aisleRef.current.value
+        reportData.store = storeRef.current.value
+        reportData.user = userData.uid
+
+        alert('Submission complete, nice work!')
+        history.push("/"); // Go home
+
+        // Do work in the background (on home screen) fore responsiveness
+        reportCollection.add(reportData).then(docRef => {
+            // console.log("Document written with ID: ", docRef.id);
+            updateUserRecordArr(userData.uid, docRef.id)
+        })
+            .catch(error => console.error("Error adding document: ", error))
+
+    }
+
+    const updateUserRecordArr = (userID, recordID) => {
+        usersCollection.doc(userID).update({
+            reports: firestore.FieldValue.arrayUnion(recordID)
+        }).catch(error => {
+            console.log("Error updating user's submitted report array", error)
+        });
     }
 
     const renderUploadProg = () => {
