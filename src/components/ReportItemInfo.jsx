@@ -126,7 +126,7 @@ const ReportItemInfo = props => {
         usersCollection.doc(userID).update({
             reports: firestore.FieldValue.arrayUnion(recordID)
         }).catch(error => {
-            console.log("Error updating user's submitted report array", error)
+            console.error("Error updating user's submitted report array", error)
         });
     }
 

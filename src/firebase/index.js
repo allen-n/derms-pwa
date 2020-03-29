@@ -32,6 +32,7 @@ class Firebase {
 
     // db write data
     this.reportData = {} // Dict where report data to be written will stay/maintain state
+    this.searchData = {} // Dict where item search data to be written will stay/maintain state
     this.userData = null
 
     this.getUserData = () => {
