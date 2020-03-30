@@ -15,7 +15,7 @@ import ReportItemType from "./ReportItemType";
 import LocationSelect from "./LocationSelect";
 import ReportItemInfo from "./ReportItemInfo";
 import SearchItemType from "./SearchItemType";
-
+import LocateItem from "./LocateItem";
 
 class Main extends Component {
     render() {
@@ -42,6 +42,7 @@ class Main extends Component {
                             <Route path="/report-type" component={TransitionShell(ReportItemType)} />
                             <Route path="/report-info" component={TransitionShell(ReportItemInfo)} />
                             <Route path="/search-item-type" component={TransitionShell(SearchItemType)} />
+                            <Route path="/locate-item" component={TransitionShell(LocateItem)} />
                         </div>
                     </div>
                 </Container>

@@ -17,7 +17,8 @@ const LocationSelect = props => {
     // Make sure user data up to now is collected, if not route back
     useEffect(() => {
         if (userData == null) {
-            history.push('/login')
+            alert("You must be logged in to make reports.")
+            history.push('/')
         }
     }, [])
 
@@ -26,7 +27,7 @@ const LocationSelect = props => {
             latLng: new firestore.GeoPoint(loc.latLng.lat, loc.latLng.lng),
             name:loc.name
         }
-        reportData.latLng = newAddr.latLng;
+        reportData.coordinates = newAddr.latLng;
         reportData.locName = newAddr.name;
         setUserLocation(loc);
     }

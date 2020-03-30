@@ -8,7 +8,7 @@ const SearchItemType = props => {
 
     return (
         <ItemTypeSelect
-            routeClickDest={"/"}
+            routeClickDest={"/locate-item"}
             routeBackwardDest={"/"}
             searchData={searchData}>
         </ItemTypeSelect>

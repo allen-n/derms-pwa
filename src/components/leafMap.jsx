@@ -5,6 +5,8 @@ import LocateControl from './LocateControl'
 import GeoCode from './GeoCode'
 import Geocoder from "leaflet-control-geocoder"
 import './LeafMap.css'
+import MarkerClusterGroup from 'react-leaflet-markercluster';
+
 
 const TextDiv = ({ name }) => {
     return (<h6>Location: {name}</h6>);
@@ -45,7 +47,17 @@ const LeafMap = props => {
     const handleMoveEnd = event => {
         var newCenter = event.target.getCenter()
         setCenterPos(newCenter)
-        reverseGeoCode()
+        if (props.enableRevGeoCode) {
+            reverseGeoCode();
+        } else {
+            if (props.returnLocation != null) {
+                props.returnLocation({
+                    latLng: newCenter,
+                    name: "Geocoding Off"
+                })
+            }
+        }
+
     }
 
     const renderGeoCode = () => {
@@ -69,11 +81,18 @@ const LeafMap = props => {
             if (props.returnLocation != null) {
                 const newAddr = {
                     latLng: centerPos,
-                    name:r.name
+                    name: r.name
                 }
                 props.returnLocation(newAddr)
             }
         })
+    }
+
+    const clusterMarkerRender = () => {
+        if (props.clusterMarkerRender != null) {
+            return props.clusterMarkerRender()
+        }
+        return null
     }
 
     return (
@@ -99,8 +118,13 @@ const LeafMap = props => {
                 <Marker position={centerPos} ref={centerMarker}>
                     <Popup>
                         We think you're here.
-                </Popup>
+                    </Popup>
                 </Marker>
+                <MarkerClusterGroup
+                    onclusterclick={props.onClusterClick}>
+                    {clusterMarkerRender()}
+                </MarkerClusterGroup>
+
                 <LocateControl options={locateOptions} startDirectly={true} />
                 {renderGeoCode()}
             </Map>
@@ -114,7 +138,11 @@ LeafMap.defaultProps = {
     limit: 3,
     enableGeoCode: false,
     enableRevGeoCode: true, // Turn off if too many API requests
-    returnLocation: null // callback function to return address to parent component
+    returnLocation: null, // callback function to return address to parent component
+    clusterMarkerRender: null, // callback to render markers from parent component with clustering
+    markerRender: null, // callback to render markers from parent component without clustering
+    onClusterClick: null, // callback function when cluster is clicked
+    onMarkerClick: null // callback function when marker is clicked
 }
 
 export default LeafMap
