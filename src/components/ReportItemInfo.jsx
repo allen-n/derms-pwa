@@ -44,6 +44,10 @@ const ReportItemInfo = props => {
 
     const handleImageAsFile = (e) => {
         const image = e.target.files[0]
+        if (image.size > 10485760) {
+            alert('Image is too big (max. 10 Mb)');
+            return;
+        }
         setImageAsFile(image)
     }
 

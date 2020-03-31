@@ -95,6 +95,19 @@ const LeafMap = props => {
         return null
     }
 
+    const centerMarkerRender = () => {
+        if (props.displayCenterMarker) {
+            return (
+                <Marker position={centerPos} ref={centerMarker}>
+                    <Popup>
+                        We think you're here.
+                    </Popup>
+                </Marker>
+            );
+        }
+        return null
+    }
+
     return (
         <div>
             {renderRevGeoCode()}
@@ -104,24 +117,22 @@ const LeafMap = props => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+
                 {/* Mapbox option */}
                 {/* <TileLayer
-                url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
-                attribution='© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'
-                tileSize="256"
-                maxZoom="18"
-                id='mapbox/streets-v11'
-                accessToken={mapBoxConfig.apiKey}
-            /> */}
+                    url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
+                    attribution='© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'
+                    tileSize="256"
+                    maxZoom="18"
+                    id='mapbox/streets-v11'
+                    accessToken={mapBoxConfig.apiKey}
+                /> */}
 
-
-                <Marker position={centerPos} ref={centerMarker}>
-                    <Popup>
-                        We think you're here.
-                    </Popup>
-                </Marker>
+                {centerMarkerRender()}
                 <MarkerClusterGroup
-                    onclusterclick={props.onClusterClick}>
+                    onclusterclick={props.onClusterClick}
+                    spiderfyOnMaxZoom={false} // prevent spiderify of a cluster when we're zoomed in
+                >
                     {clusterMarkerRender()}
                 </MarkerClusterGroup>
 
@@ -142,7 +153,8 @@ LeafMap.defaultProps = {
     clusterMarkerRender: null, // callback to render markers from parent component with clustering
     markerRender: null, // callback to render markers from parent component without clustering
     onClusterClick: null, // callback function when cluster is clicked
-    onMarkerClick: null // callback function when marker is clicked
+    onMarkerClick: null, // callback function when marker is clicked
+    displayCenterMarker: true // display center marker on map
 }
 
 export default LeafMap
