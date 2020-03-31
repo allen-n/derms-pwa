@@ -29,7 +29,7 @@ const ReportItemInfo = props => {
 
     // Make sure report data up to now is collected, if not route back
     useEffect(() => {
-        if (reportData.latLng == null) {
+        if (reportData.coordinates == null) {
             history.push('/locate')
         }
         if (reportData.itemId == null) {

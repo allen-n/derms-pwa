@@ -3,6 +3,7 @@ import FirebaseApp from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/storage'
+import { GeoCollectionReference, GeoFirestore, GeoQuery, GeoQuerySnapshot } from 'geofirestore';
 
 import { firebaseConfig } from './config'
 
@@ -26,9 +27,16 @@ class Firebase {
     // db collections
     this.ideasCollection = this.db.collection('ideas') //TODO: Remove, was from tutorial
     this.usersCollection = this.db.collection('users')
-    this.reportCollection = this.db.collection('reports')
+    // this.reportCollection = this.db.collection('reports')
     this.itemsCollection = this.db.collection('items')
     this.itemCategoryCollection = this.db.collection('item-categories')
+
+    // Location based db collections
+    // Create a GeoFirestore reference
+    this.geofirestore = new GeoFirestore(this.db);
+
+    // Create a GeoCollection reference
+    this.reportCollection = this.geofirestore.collection('reports', ref => ref.orderBy('timestamp'));
 
     // db write data
     this.reportData = {} // Dict where report data to be written will stay/maintain state
@@ -60,7 +68,7 @@ class Firebase {
         this.userData = null
       }
     });
-    
+
   }
 }
 

@@ -17,7 +17,7 @@ const ItemTypeSelect = props => {
     // Vars to abstract: reportData
     // Fcns to abstract: 
 
-    const { itemCategoryCollection } = props.firebase
+    const { itemCategoryCollection, userData } = props.firebase
 
     const history = useHistory();
 
@@ -25,7 +25,15 @@ const ItemTypeSelect = props => {
     const routeBackwardDest = props.routeBackwardDest;
 
     const checkLocationSet = (reportData) => {
-        if (reportData.latLng == null) {
+        if (reportData.coordinates == null) {
+            alert("Location must be selected.")
+            history.push(routeBackwardDest)
+        }
+    }
+
+    const checkLoggedIn = () => {
+        if(userData == null) {
+            alert("You must be logged in.")
             history.push(routeBackwardDest)
         }
     }
@@ -80,6 +88,10 @@ const ItemTypeSelect = props => {
         // Make sure report data up to now is collected, if not route back
         if (props.reportData != null) {
             checkLocationSet(props.reportData);
+        }
+
+        if (props.searchData != null) {
+            checkLoggedIn();
         }
 
         // Check that either reportData or searchData is set

@@ -8,11 +8,11 @@ import { withFirebase } from '../firebase/withFirebase'
 const Start = (props) => {
 
     const { auth } = props.firebase
-    const [currentUser, setCurrentUser] = useState('')
+    const [currentUser, setCurrentUser] = useState(null)
     const history = useHistory();
 
     const handleReportClick = (event) => {
-        history.push("/login");
+        history.push("/locate");
     }
 
     const handleSearchClick = (event) => {
@@ -24,21 +24,30 @@ const Start = (props) => {
     }
 
     const renderUserEmail = () => {
+        // console.log(currentUser.email)
+        if (currentUser != null && currentUser.email != '') {
+            return (
+                <p>{currentUser.email} is signed in.</p>
+            );
+        }
         return (
-            <p>{currentUser.email} is signed in.</p>
-        );
+            <div>
+                <p style={{color: "red"}}>You must sign in to use the app.</p>
+                <p >(It's easy we promise)</p>
+            </div>);
+
     }
 
     auth.onAuthStateChanged((user) => {
         if (user) {
             // User is signed in.
-            if (currentUser == '') {
+            if (currentUser == null) {
                 // Can only check when sign-in is rendered
                 setCurrentUser(user)
             }
         } else {
-            if (currentUser != '') {
-                setCurrentUser('')
+            if (currentUser != null) {
+                setCurrentUser(null)
             }
         }
     });
