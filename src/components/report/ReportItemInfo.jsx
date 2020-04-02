@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { Form, Button, ButtonGroup, ProgressBar } from "react-bootstrap";
-import { withFirebase } from '../firebase/withFirebase'
+import { withFirebase } from '../../firebase/withFirebase'
 import { v4 as uuidv4 } from 'uuid';
 
 
 
 const ReportItemInfo = props => {
+    // db vars
     const {
         reportData,
         userData,
@@ -15,8 +16,9 @@ const ReportItemInfo = props => {
         usersCollection,
         firestore } = props.firebase
 
-    // Image upload handling
-    // src: https://dev.to/tallangroberg/how-to-do-image-upload-with-firebase-in-react-cpj
+    // Image upload handling howto: https://dev.to/tallangroberg/how-to-do-image-upload-with-firebase-in-react-cpj
+    
+    // State Vars
     const allInputs = { imgUrl: '' }
     const [imageAsFile, setImageAsFile] = useState('')
     const [stockLevel, setStockLevel] = useState(-1)
@@ -37,6 +39,8 @@ const ReportItemInfo = props => {
         }
     }, [])
 
+
+    // Callback / onclick handlers
     const handleStockLevel = (event) => {
         setStockLevel(event.target.value)
         setSubmitDisabled(false)

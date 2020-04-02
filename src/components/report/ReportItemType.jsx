@@ -1,6 +1,6 @@
 import React from 'react'
-import { withFirebase } from '../firebase/withFirebase'
-import ItemTypeSelect from './ItemTypeSelect'
+import { withFirebase } from '../../firebase/withFirebase'
+import ItemTypeSelect from '../utils/ItemTypeSelect'
 
 
 const ReportItemType = props => {

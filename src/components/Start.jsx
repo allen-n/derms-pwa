@@ -4,7 +4,10 @@ import { Button } from 'react-bootstrap'
 import { withFirebase } from '../firebase/withFirebase'
 
 
-
+/**
+ * The landing page for the app
+ * @param {*} props 
+ */
 const Start = (props) => {
 
     const { auth } = props.firebase
