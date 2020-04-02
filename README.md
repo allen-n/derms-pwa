@@ -15,13 +15,35 @@ Current design ideation can be viewed in an Adobe XD mockup [here](https://xd.ad
 ## Getting up and running (dev)
 
 ### Software Requirements
-* NodeJS installation
+* NodeJS + npm installation
 * Basic familiarity with your command line
 * Set up your repo dependencies (firebase, etc.) according to the steps in Ovie's excellent guide [here](https://blog.logrocket.com/creating-a-lists-pwa-with-react-and-firebase/)
+* Last, but not least, you'll need a config file, called config.js, that sits at ```derms-pwa/src/firebase/config.js```. The contents f the file should look like this:
+
+```
+export const firebaseConfig = {
+    apiKey: # Fill in from firebase console
+    authDomain: # Fill in from firebase console
+    databaseURL: # Fill in from firebase console
+    projectId: # Fill in from firebase console
+    storageBucket: # Fill in from firebase console
+    messagingSenderId: # Fill in from firebase console
+    appId: # Fill in from firebase console
+    measurementId: # Fill in from firebase console
+}
+
+export const mapBoxConfig = {
+    apiKey: # Fill in from mapbox console
+    username: # Fill in from mapbox console
+}
+```
+* Firebase info is at the [Firebase Console](https://console.firebase.google.com/) under ```project overview > settings (gear icon) > general > Firebase SDK snippet```
+* Mapbox info is at [Mapbox](https://account.mapbox.com/) under ```account > Access Tokens (on the main account page) ```
 
 ### Running
 ```
 cd derms-pwa
+npm install # run the very first time after you clone to install dependencies
 npm start # run app locally
 npm run deploy # deploy app to firebase host
 ```
