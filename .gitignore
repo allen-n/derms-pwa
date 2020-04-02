@@ -16,6 +16,9 @@ dist
 # Firebase cache
 .firebase/
 
+# VS code files
+.vscode
+
 # Key config
 config.js
 

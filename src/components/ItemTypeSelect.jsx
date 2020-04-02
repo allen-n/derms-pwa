@@ -33,7 +33,7 @@ const ItemTypeSelect = props => {
 
     const checkLoggedIn = () => {
         if(userData == null) {
-            alert("You must be logged in.")
+            // alert("You must be logged in.")
             history.push(routeBackwardDest)
         }
     }

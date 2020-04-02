@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Container, ListGroup } from 'react-bootstrap';
 
 
-const ItemList = props => {
+const ItemList = (props) => {
 
     const [activeItem, setActiveItem] = useState("link-1")
 
@@ -25,7 +25,10 @@ const ItemList = props => {
     }, [props.items])
 
     const handleSelect = (selectedKey) => {
-        setActiveItem(selectedKey);
+        if (!props.disableActiveItem) {
+            setActiveItem(selectedKey);
+        }
+
     }
 
     useEffect(() => {
@@ -54,7 +57,10 @@ const ItemList = props => {
 }
 
 ItemList.defaultProps = {
-    items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9'],
-    returnActiveItem: null
+    items: [],
+    // items: [{ name: 'Item 1' }, { name: 'Item 2' }, { name: 'Item 3' },
+    // { name: 'Item 4' }, { name: 'Item 5' }, { name: 'Item 6' }, { name: 'Item 7' }], // for testing
+    returnActiveItem: null,
+    disableActiveItem: false // disables the active item highlighting
 }
 export default ItemList
