@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
-import { withFirebase } from '../firebase/withFirebase'
-import LeafMap from './LeafMap'
+import { withFirebase } from '../../firebase/withFirebase'
+import LeafMap from '../map/LeafMap'
 import { Container, Row, Col, Button, Media } from 'react-bootstrap'
 import { Marker, Popup } from 'react-leaflet'
 import ReportListModal from './ReportListModal'

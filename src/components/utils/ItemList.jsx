@@ -1,12 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import { Container, ListGroup } from 'react-bootstrap';
 
-
+/**
+ * 
+ * @param {*} props, items, returnActiveItem, disableActiveItem 
+ * 
+ * * items: list of objects of form [{ name: 'Item 1', id: '1ao1' }] which will
+ *  be displayed as a vertically scrolling list, showing the 'name' property
+ * * returnActiveItem: an optional callback function to pass the 
+ * active category back to the parent component when updated, will be 
+ * passed the id of the active category when called
+ * * disableActiveItem: boolean, if true the active item selection highligting is disabled
+ */
 const ItemList = (props) => {
 
+    // State vars
     const [activeItem, setActiveItem] = useState("link-1")
+    const [itemListGroup, setItemListGroup] = useState(null)
 
+    // onClick handlers
+    const handleSelect = (selectedKey) => {
+        if (!props.disableActiveItem) {
+            setActiveItem(selectedKey);
+        }
 
+    }
+
+    // Component state update functions
+    useEffect(() => {
+        setItemListGroup(renderItems())
+    }, [props.items])
+
+    useEffect(() => {
+        if (props.returnActiveItem != null) {
+            props.returnActiveItem(activeItem);
+        }
+    }, [activeItem]);
+
+    // Render functions
     const renderItems = () => {
         if (!props.items.length) {
             return (
@@ -18,32 +49,6 @@ const ItemList = (props) => {
         ));
 
     }
-
-    const [itemListGroup, setItemListGroup] = useState(null)
-    useEffect(() => {
-        setItemListGroup(renderItems())
-    }, [props.items])
-
-    const handleSelect = (selectedKey) => {
-        if (!props.disableActiveItem) {
-            setActiveItem(selectedKey);
-        }
-
-    }
-
-    useEffect(() => {
-        if (props.returnActiveItem != null) {
-            props.returnActiveItem(activeItem);
-        }
-    }, [activeItem]);
-
-    // Note: the below does not work with defaultActiveKey
-    // active key cannot be updated after render
-    // useEffect(() => {
-    //     if (props.items.length > 0) {
-    //         setActiveItem(props.items[0])
-    //     }
-    // }, []);
 
     return (
         <Container className="itemListContainer">

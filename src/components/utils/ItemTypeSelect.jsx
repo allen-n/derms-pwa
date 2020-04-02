@@ -2,11 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import ItemCarousel from './ItemCarousel'
 import ItemList from './ItemList'
-import { withFirebase } from '../firebase/withFirebase'
+import { withFirebase } from '../../firebase/withFirebase'
 import { Button } from 'react-bootstrap'
 
-
+/**
+ * 
+ * @param {*} props see below
+ * * routeClickDest: default null, react router string for route to navigate to after submission
+ * * reportData: default null, not null if on the report flow, contains report data
+ * * searchData: default null, not null if on the search flow, contains search data
+ * * routeBackwardDest: default  null, react router string to route back to if data is missing 
+ */
 const ItemTypeSelect = props => {
+
+    // State Vars
     const [itemNames, setItemNames] = useState([])
     const [categoryNames, setCategoryNames] = useState([])
     const [categoryItemMap, setCategoryItemMap] = useState({})
@@ -14,9 +23,7 @@ const ItemTypeSelect = props => {
     const [activeItem, setActiveItem] = useState(null)
     const [submitDisabled, setSubmitDisabled] = useState(true) // disable submit til something is picked
 
-    // Vars to abstract: reportData
-    // Fcns to abstract: 
-
+    // Database vars
     const { itemCategoryCollection, userData } = props.firebase
 
     const history = useHistory();
@@ -24,6 +31,7 @@ const ItemTypeSelect = props => {
     const routeClickDest = props.routeClickDest;
     const routeBackwardDest = props.routeBackwardDest;
 
+    // Routing functions
     const checkLocationSet = (reportData) => {
         if (reportData.coordinates == null) {
             alert("Location must be selected.")
@@ -41,19 +49,30 @@ const ItemTypeSelect = props => {
         history.push(routeClickDest);
     }
 
+    // Callbacks for child components
+
+    /**
+     * Sets active category with key passed from selected node 
+     * in child item carousel, which is the category key
+     * @param {*} newActiveCategory a callback function to allow children to update
+     * state by passing a category id to this function 
+     */
     const returnActiveCategory = (newActiveCategory) => {
-        // set active category with key passed from selected node 
-        // in child item carousel, which is the category key
         setActiveCategory(newActiveCategory)
 
     }
 
+    /**
+     * Sets active item with key passed from selected node 
+     * in child item list, which is the item key
+     * @param {*} newActiveItem a callback function to allow children to update
+     * state by passing a category id to this function 
+     */
     const returnActiveItem = (newActiveItem) => {
-        // set active category with key passed from selected node 
-        // in child item carousel, which is the category key
         setActiveItem(newActiveItem)
     }
 
+    // Component state effects
     useEffect(() => {
         setItemNames(categoryItemMap[activeCategory])
     }, [categoryItemMap, activeCategory])

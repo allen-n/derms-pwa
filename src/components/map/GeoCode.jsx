@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { withLeaflet } from "react-leaflet";
 import Geocoder from "leaflet-control-geocoder"
-import { mapBoxConfig } from '../firebase/config'
+import { mapBoxConfig } from '../../firebase/config'
 
+/**
+ * Wrapper class for Geocoding functionality, wrapping leaflet-control-geocoder, 
+ * default configured for MapBox geocoding API
+ * 
+ * @param {*} props: 
+ * * props.limit, limit on number of results to return from forward geocoding
+ * * props.delta, longitude and latitude +/- to define box from which results are found
+ */
 const GeoCode = props => {
     const [gc, setGc] = useState(null)
 
@@ -11,9 +19,6 @@ const GeoCode = props => {
         const limit = props.limit
         const boundBox = [props.searchLoc.lng - delta, props.searchLoc.lat - delta, props.searchLoc.lng + delta, props.searchLoc.lat + delta] //[minLon,minLat,maxLon,maxLat]
         var bBoxString = "" + boundBox.join(",")
-        // boundBox.forEach(val => {
-        //     bBoxString += String(val) + "%2C"
-        // })
         const mapBoxOptions = {
             geocodingQueryParams: {
                 proximity: props.searchLoc,
@@ -61,8 +66,6 @@ const GeoCode = props => {
     //     if (gc != null) {
     //         gc.options.geocoder.options = initMapBoxOptions(props)
     //     }
-
-
     // }, [props.searchLoc])
 
     return null

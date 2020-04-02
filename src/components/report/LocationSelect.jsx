@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
-import { withFirebase } from '../firebase/withFirebase'
-import LeafMap from './LeafMap'
+import { withFirebase } from '../../firebase/withFirebase'
+import LeafMap from '../map/LeafMap'
 import { Container, Row, Button } from 'react-bootstrap'
 
 const LocationSelect = props => {
+    // State Vars
     const [userLocation, setUserLocation] = useState(null)
-    const history = useHistory();
 
+    // db variables
     const { firestore, reportData, userData } = props.firebase
+
+    // Routing functions
+    const history = useHistory();
 
     const routeClick = () => {
         history.push("/report-type");
     }
-    
+
     // Make sure user data up to now is collected, if not route back
     useEffect(() => {
         if (userData == null) {
@@ -22,16 +26,16 @@ const LocationSelect = props => {
         }
     }, [])
 
+    // onClick / callbacks
     const returnLocation = (loc) => {
         const newAddr = {
             latLng: new firestore.GeoPoint(loc.latLng.lat, loc.latLng.lng),
-            name:loc.name
+            name: loc.name
         }
         reportData.coordinates = newAddr.latLng;
         reportData.locName = newAddr.name;
         setUserLocation(loc);
     }
-
     const handleClick = () => {
         routeClick()
     }

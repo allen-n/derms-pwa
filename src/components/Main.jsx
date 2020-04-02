@@ -5,18 +5,21 @@ import {
     HashRouter
 } from "react-router-dom";
 
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
-import TransitionShell from "./TransitionShell"; // This component may go out of date soon, causing warnings 
-import App from "./App";
+// TransitionShell may go out of date soon, currently causing warnings 
+import TransitionShell from "./utils/TransitionShell"; 
 import Login from "./Login";
 import Start from "./Start";
-import ReportItemType from "./ReportItemType";
-import LocationSelect from "./LocationSelect";
-import ReportItemInfo from "./ReportItemInfo";
-import SearchItemType from "./SearchItemType";
-import LocateItem from "./LocateItem";
+import LocationSelect from "./report/LocationSelect";
+import ReportItemType from "./report/ReportItemType";
+import ReportItemInfo from "./report/ReportItemInfo";
+import SearchItemType from "./search/SearchItemType";
+import LocateItem from "./search/LocateItem";
 
+/**
+ * Main is the entry point of the app, and houses all the other views
+ */
 class Main extends Component {
     render() {
         return (
@@ -25,18 +28,12 @@ class Main extends Component {
                     <div>
                         <h4>DERMS</h4>
                         <ul className="header">
-                            {/* to prop is identified to load correct content */}
+                            {/* 'to' prop is identified to load correct content */}
                             <li><NavLink to="/">Home</NavLink></li>
-                            {/* <li><NavLink to="/app">App</NavLink></li>
-                            <li><NavLink to="/login">Login</NavLink></li>
-                            <li><NavLink to="/locate">Locate</NavLink></li>
-                            <li><NavLink to="/report-type">Report Item</NavLink></li>
-                            <li><NavLink to="/report-info">Item Info</NavLink></li> */}
                         </ul>
                         <div className="content">
-                            {/* exact prevents '/' from matching '/.*' */}
+                            {/* exact prevents '/' from wildcard matching '/.*' */}
                             <Route exact path="/" component={TransitionShell(Start)} />
-                            <Route path="/app" component={TransitionShell(App)} />
                             <Route path="/login" component={TransitionShell(Login)} />
                             <Route path="/locate" component={TransitionShell(LocationSelect)} />
                             <Route path="/report-type" component={TransitionShell(ReportItemType)} />
