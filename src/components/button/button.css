@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --primaryColor: #6482E8;
+    --secondaryColor: #C7C7C7;
+    --tertriaryColor: #FFEEA5;
+    --successColor: #25AC87;
+    --warningColor: #FFEEA5;
+    --dangerColor: #D32438;
+    --white: #ffffff; 
+    --black: #000000;
+}
+
+.btn {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    border-radius: 2px;
+}
+
+.btn-primary__active {
+    background-color: var(--primaryColor) !important;
+    color: var(--white) !important;
+    border-radius: 2px !important;
+    border: 1px var(--primaryColor) solid !important;
+}
+.btn-secondary__active {
+    background-color: var(--white) !important;
+    color: var(--primaryColor) !important;
+    border-radius: 2px !important;
+    border: 1px var(--primaryColor) solid !important;
+}
+.btn-general__inactive {
+    background-color: var(--secondary) !important;
+    color: var(--white) !important;
+    border-radius: 2px !important;
+    border: 1px var(--secondary) solid !important;
+}
+
+.btn-large{
+    font-size: 15px !important;
+    margin-top: 20px !important;
+    height: 51px !important;
+    width: 100% !important;
+}
+.btn-medium{
+    font-size: 14px !important;
+    margin-top: 20px !important;
+    height: 42px !important;
+    width: 100%;
+}
+.btn-small{
+    font-size: 14px !important;
+    margin-top: 20px !important;
+    height: 31px !important;
+    width: 100%;
+}

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap'
-import { withFirebase } from '../firebase/withFirebase'
+import { Button } from './button/Button';
+// import { Button } from 'react-bootstrap'
+import { withFirebase } from '../firebase/withFirebase';
 
 
 /**
  * The landing page for the app
- * @param {*} props 
+ * @param {*} props
  */
 const Start = (props) => {
 
@@ -60,9 +61,9 @@ const Start = (props) => {
             <h2>The neighborhood watch for supplies in your area.</h2>
             <p>Crowdsourcing real-time updates from local shoppers.</p>
             {renderUserEmail()}
-            <Button onClick={handleReportClick}>Report found Supplies</Button>
-            <Button onClick={handleSearchClick}>Search for Supplies</Button>
-            <Button variant="secondary" onClick={handleLogin}>Log in or Out</Button>
+            <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" onClick={handleReportClick}>Report found Supplies</Button>
+            <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleSearchClick}>Search for Supplies</Button>
+            <Button buttonStyle="btn-general__inactive" buttonSize="btn-medium" onClick={handleLogin}>Log in or Out</Button>
         </div>
     );
 }
