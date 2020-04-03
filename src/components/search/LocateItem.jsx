@@ -14,6 +14,11 @@ const LocateItem = props => {
     const [reportIdMap, setReportIdMap] = useState({})
     const [showModal, setShowModal] = useState(false)
     const [modalItems, setModalItems] = useState([])
+    const [resetZoom, setResetZoom] = useState(false)
+
+    const maxZoom = 18
+    const [mapZoom, setMapZoom] = useState(maxZoom)
+
     const history = useHistory();
 
     const { firestore, searchData, reportCollection } = props.firebase
@@ -22,7 +27,7 @@ const LocateItem = props => {
         history.push("/report-type");
     }
 
-    const queryRadius = 50; // in km
+    const queryRadius = 15; // in km, TODO: Make this modifiable dynamically
     const queryLimit = 1000;
 
     const handleModalOpen = () => {
@@ -39,6 +44,10 @@ const LocateItem = props => {
             history.push('/search-item-type')
         }
     }, [])
+
+    const returnZoom = (zoom) => {
+        setMapZoom(zoom)
+    }
 
     const returnLocation = (loc) => {
         const newAddr = {
@@ -94,30 +103,24 @@ const LocateItem = props => {
                 id={report.id}
                 position={[report.coordinates.latitude, report.coordinates.longitude]}
                 onclick={onMarkerClick}>
-                {/* TODO@ALLEN: Intercept this click and pop up the result modal, but only for this one result */}
-                {/* Can use onMarkerClick, docs here: https://www.npmjs.com/package/react-leaflet-markercluster */}
-                {/* Turn off spiderify here: https://github.com/Leaflet/Leaflet.markercluster#all-options */}
-
-                {/* <Popup> {"POP UP HERE"} </Popup> */}
             </Marker>)
         }));
     }
 
     const onClusterClick = (cluster) => {
-        const reportsToSort = []
-        cluster.layer.getAllChildMarkers().map((child) => {
-            const id = child.options.id
-            const report = loadedReports[reportIdMap[id]]
-            reportsToSort.push(report)
-            // console.log(JSON.parse(child.options.children[0].props.children[1]))
-        });
+        if (mapZoom >= maxZoom) { // Prevent this behavior unless they're already zoomed all the way in
+            const reportsToSort = []
+            cluster.layer.getAllChildMarkers().map((child) => {
+                const id = child.options.id
+                const report = loadedReports[reportIdMap[id]]
+                reportsToSort.push(report)
+            });
 
-        // Sorts in place, new to old. There is also a .nanoseconds prop, ignore for now, seconds is enough
-        reportsToSort.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds)
-        setModalItems(reportsToSort.map(reportToMedia))
-        handleModalOpen()
-        // TODO@ALLEN: Create some kind of modal that shows these results - DONE
-        // TODO: Set initial zoom on item finding to be high enough to see item clusters! And remove the middle marker!
+            // Sorts in place, new to old. There is also a .nanoseconds prop, ignore for now, seconds is enough
+            reportsToSort.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds)
+            setModalItems(reportsToSort.map(reportToMedia))
+            handleModalOpen()            
+        }
     }
 
     const reportToMedia = (report) => {
@@ -177,12 +180,16 @@ const LocateItem = props => {
         // console.log(report)
     }
 
+
+    const zoomOut = () => {
+        setResetZoom(!resetZoom)
+    }
+
     return (
         <Container fluid>
             <Row>
                 <LeafMap
                     returnLocation={returnLocation}
-                    // ref={mapRef}
                     delta={.5}
                     limit={3}
                     enableGeoCode={false}
@@ -190,12 +197,15 @@ const LocateItem = props => {
                     clusterMarkerRender={renderMarkers}
                     onClusterClick={onClusterClick}
                     displayCenterMarker={false}
+                    resetZoom={resetZoom}
+                    maxZoom={maxZoom}
+                    returnZoom={returnZoom}
                 >
                 </LeafMap>
                 <ReportListModal show={showModal} items={modalItems} handleClose={handleModalClose} />
             </Row>
             <Row>
-                <Button onClick={handleModalOpen}>Confirm Location</Button>
+                <Button onClick={zoomOut}>See All Results</Button>
             </Row>
         </Container >
     );
