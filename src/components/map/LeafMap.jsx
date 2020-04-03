@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react'
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import React, { useState, useRef, useEffect } from 'react'
+import { Map, TileLayer, Marker, Popup, FeatureGroup } from 'react-leaflet'
 import { mapBoxConfig } from '../../firebase/config'
 import LocateControl from './LocateControl'
 import GeoCode from './GeoCode'
@@ -26,6 +26,10 @@ const TextDiv = ({ name }) => {
  * * onClusterClick: default null, callback function when cluster is clicked
  * * onMarkerClick: default null, callback function when marker is clicked
  * * displayCenterMarker: default true display center marker on map
+ * * resetZoom: default false, when parent sets to true, the map will try to 
+ * reset the bounds to include all markers in the marker cluster component
+ * * maxZoom: default 18, max zoom level on map
+ * * returnZoom: default null, callback function to return zoom level to parent component
  */
 const LeafMap = props => {
     // State Vars
@@ -41,6 +45,19 @@ const LeafMap = props => {
     // Refs to map object and to the map center marker
     const mapContainer = useRef(null)
     const centerMarker = useRef(null)
+    const markerClusterRef = useRef(null)
+    // 
+
+    useEffect(() => {
+        if (markerClusterRef.current != null) {
+            try {
+                const bounds = markerClusterRef.current.leafletElement.getBounds()
+                mapContainer.current.leafletElement.flyToBounds(bounds)
+            } catch (error) {
+                console.error("Error zooming out:", error)
+            }
+        }
+    }, [props.resetZoom])
 
     // Options for mapbox geocoding queries
     const mapBoxOptions = {
@@ -54,6 +71,8 @@ const LeafMap = props => {
         }
     }
 
+
+
     // Map movement handlers
     const handleMove = event => {
         var newCenter = event.target.getCenter()
@@ -62,17 +81,22 @@ const LeafMap = props => {
 
     const handleMoveEnd = event => {
         var newCenter = event.target.getCenter()
+        const zoomLevel = mapContainer.current.leafletElement._zoom
+        setZoom(zoomLevel)
         setCenterPos(newCenter)
         if (props.enableRevGeoCode) {
             reverseGeoCode();
-        } else {
-            if (props.returnLocation != null) {
-                props.returnLocation({
-                    latLng: newCenter,
-                    name: "Geocoding Off"
-                })
-            }
         }
+        if (props.returnLocation != null) {
+            props.returnLocation({
+                latLng: newCenter,
+                name: "Geocoding Off"
+            })
+        }
+        if (props.returnZoom != null) {
+            props.returnZoom(zoomLevel)
+        }
+
 
     }
 
@@ -132,7 +156,7 @@ const LeafMap = props => {
                     url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
                     attribution='© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'
                     tileSize="256"
-                    maxZoom="18"
+                    maxZoom={props.maxZoom}
                     id='mapbox/streets-v11'
                     accessToken={mapBoxConfig.apiKey}
                 />
@@ -153,12 +177,15 @@ const LeafMap = props => {
             <Map ref={mapContainer} center={latLng} zoom={zoom} onmove={handleMove} onmoveend={handleMoveEnd}>
                 {renderTileLayer()}
                 {centerMarkerRender()}
-                <MarkerClusterGroup
-                    onclusterclick={props.onClusterClick}
-                    spiderfyOnMaxZoom={false} // prevent spiderify of a cluster when we're zoomed in
-                >
-                    {clusterMarkerRender()}
-                </MarkerClusterGroup>
+                <FeatureGroup ref={markerClusterRef}>
+                    <MarkerClusterGroup
+                        onclusterclick={props.onClusterClick}
+                        spiderfyOnMaxZoom={false} // prevent spiderify of a cluster when we're zoomed in
+                        zoomToBoundsOnClick={true}
+                    >
+                        {clusterMarkerRender()}
+                    </MarkerClusterGroup>
+                </FeatureGroup>
 
                 <LocateControl options={locateOptions} startDirectly={true} />
                 {renderGeoCode()}
@@ -179,7 +206,10 @@ LeafMap.defaultProps = {
     markerRender: null,
     onClusterClick: null,
     onMarkerClick: null,
-    displayCenterMarker: true
+    displayCenterMarker: true,
+    resetZoom: false,
+    maxZoom: 18,
+    returnZoom: null
 }
 
 export default LeafMap

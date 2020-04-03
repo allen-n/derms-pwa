@@ -21,7 +21,7 @@ const LocationSelect = props => {
     // Make sure user data up to now is collected, if not route back
     useEffect(() => {
         if (userData == null) {
-            alert("You must be logged in to make reports.")
+            // alert("You must be logged in to make reports.")
             history.push('/')
         }
     }, [])

@@ -17,7 +17,7 @@ const ReportItemInfo = props => {
         firestore } = props.firebase
 
     // Image upload handling howto: https://dev.to/tallangroberg/how-to-do-image-upload-with-firebase-in-react-cpj
-    
+
     // State Vars
     const allInputs = { imgUrl: '' }
     const [imageAsFile, setImageAsFile] = useState('')
@@ -148,6 +148,7 @@ const ReportItemInfo = props => {
 
     return (
         <div>
+            <p>Stock Level (Required)</p>
             <ButtonGroup className="mr-2" aria-label="First group" toggle="true">
                 <Button onClick={handleStockLevel} value={3} variant="success">Just Restocked</Button>
                 <Button onClick={handleStockLevel} value={2} variant="secondary">Normal</Button>
@@ -158,8 +159,8 @@ const ReportItemInfo = props => {
 
             < Form onSubmit={handleSubmit}>
                 <Form.Group controlId="storeName">
-                    <Form.Label>What store are you in? (Leave blank if correct)</Form.Label>
-                    <Form.Control ref={storeRef} placeholder="" /> {/* TODO: Add Store name guess as placeholder param */}
+                    <Form.Label>What store are you in? (Required)</Form.Label>
+                    <Form.Control required ref={storeRef} placeholder="" /> {/* TODO: Add Store name guess as placeholder param */}
                 </Form.Group>
                 <Form.Group controlId="aisleNum">
                     <Form.Label>What aisle(s) (Optional)</Form.Label>
@@ -168,12 +169,20 @@ const ReportItemInfo = props => {
 
                 <Form.Group controlId="itemImgGrp">
                     <Form.Label> Take a photo of what you see! (optional) </Form.Label>
-                    <Form.Control
-                        name="itemImg"
-                        type="file"
-                        accept="image/*;capture=camera"
-                        multiple
-                        onChange={handleImageAsFile} />
+                    <div className="custom-file">
+                        <input
+                            type="file"
+                            name="itemImg"
+                            className="custom-file-input"
+                            id="inputGroupFile01"
+                            accept="image/*;capture=camera"
+                            aria-describedby="inputGroupFileAddon01"
+                            onChange={handleImageAsFile}
+                        />
+                        <label className="custom-file-label" htmlFor="inputGroupFile01">
+                            Take Photo
+                    </label>
+                    </div>
                 </Form.Group>
                 <Button variant="primary" type="submit" disabled={submitDisabled}>
                     Submit

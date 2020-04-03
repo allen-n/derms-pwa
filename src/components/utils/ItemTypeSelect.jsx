@@ -34,7 +34,7 @@ const ItemTypeSelect = props => {
     // Routing functions
     const checkLocationSet = (reportData) => {
         if (reportData.coordinates == null) {
-            alert("Location must be selected.")
+            // alert("Location must be selected.")
             history.push(routeBackwardDest)
         }
     }
