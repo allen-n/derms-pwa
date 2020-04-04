@@ -30,24 +30,40 @@ const TextDiv = ({ name }) => {
  * reset the bounds to include all markers in the marker cluster component
  * * maxZoom: default 18, max zoom level on map
  * * returnZoom: default null, callback function to return zoom level to parent component
+ * * initZoom: default 13, set the initial zoom level of the map
  */
 const LeafMap = props => {
     // State Vars
     const latLng = { lat: 34.05, lng: -118.24 } // Initial map lat and lng
-    const [zoom, setZoom] = useState(15) // map zoom level
+    const [zoom, setZoom] = useState(props.initZoom) // map zoom level
     const [centerPos, setCenterPos] = useState({ lat: 34.05, lng: -118.24 }) // Center position, update to update middle marker
     const [address, setAddress] = useState({ name: "Loading..." }) // Address result from geocoding
+    
+    // Options for mapbox geocoding queries
+    const mapBoxOptions = {
+        geocodingQueryParams: {
+        },
+        reverseQueryParams: {
+            // Note: Following params can be modified if we don't like reverse geocoding results
+            types: "poi",
+            reverseMode: "score",
+            limit: props.limit
+        }
+    }
     const [geocoder, setGeoCoder] = useState(new Geocoder.Mapbox(mapBoxConfig.apiKey, mapBoxOptions)) // Geocoder
 
+    // Options for setting location to user location
     const locateZoom = 17;
-    const locateOptions = { initialZoomLevel: locateZoom, enableHighAccuracy: true }
+    const locateOptions = { initialZoomLevel: locateZoom, enableHighAccuracy: true, keepCurrentZoomLevel: true }
 
     // Refs to map object and to the map center marker
     const mapContainer = useRef(null)
     const centerMarker = useRef(null)
     const markerClusterRef = useRef(null)
-    // 
+    
 
+
+    // Reset zoom to include all search query results
     useEffect(() => {
         if (markerClusterRef.current != null) {
             try {
@@ -59,17 +75,6 @@ const LeafMap = props => {
         }
     }, [props.resetZoom])
 
-    // Options for mapbox geocoding queries
-    const mapBoxOptions = {
-        geocodingQueryParams: {
-        },
-        reverseQueryParams: {
-            // Note: Following params can be modified if we don't like reverse geocoding results
-            // reverseMode: "score",
-            // limit: 2,
-            // tpes: "address, poi"
-        }
-    }
 
 
 
@@ -90,6 +95,7 @@ const LeafMap = props => {
         if (props.returnLocation != null) {
             props.returnLocation({
                 latLng: newCenter,
+                zoom: zoom,
                 name: "Geocoding Off"
             })
         }
@@ -122,7 +128,8 @@ const LeafMap = props => {
             if (props.returnLocation != null) {
                 const newAddr = {
                     latLng: centerPos,
-                    name: r.name
+                    name: r.name,
+                    zoom: zoom
                 }
                 props.returnLocation(newAddr)
             }
@@ -209,7 +216,8 @@ LeafMap.defaultProps = {
     displayCenterMarker: true,
     resetZoom: false,
     maxZoom: 18,
-    returnZoom: null
+    returnZoom: null,
+    initZoom: 13
 }
 
 export default LeafMap

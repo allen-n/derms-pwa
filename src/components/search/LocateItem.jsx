@@ -119,14 +119,14 @@ const LocateItem = props => {
             // Sorts in place, new to old. There is also a .nanoseconds prop, ignore for now, seconds is enough
             reportsToSort.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds)
             setModalItems(reportsToSort.map(reportToMedia))
-            handleModalOpen()            
+            handleModalOpen()
         }
     }
 
     const reportToMedia = (report) => {
         var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
         d.setUTCSeconds(report.timestamp.seconds);
-        const storeName = report.store == "" ? "No Name Provided" : report.store
+        const storeName = report.locName
 
         // TODO: Fix orientation problem on images: https://github.com/rricard/react-exif-orientation-img
         // ExifOrientationImg work bc exif data isn't being uploaded, need to fix that
@@ -147,8 +147,9 @@ const LocateItem = props => {
                     <Media.Body>
                         <h5>Store: {storeName}, Stock(0-3): {report.stock}</h5>
                         <p>
+                            Address: {report.locAddress} <br />
                             Report Date: {d.toLocaleDateString()} <br />
-                                Report Time: {d.toLocaleTimeString()}
+                            Report Time: {d.toLocaleTimeString()}
                         </p>
                         <Button onClick={() => goToNavigate(report.id)}> Go </Button>
                     </Media.Body>

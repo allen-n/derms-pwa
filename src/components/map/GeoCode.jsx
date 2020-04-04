@@ -3,6 +3,7 @@ import { withLeaflet } from "react-leaflet";
 import Geocoder from "leaflet-control-geocoder"
 import { mapBoxConfig } from '../../firebase/config'
 
+
 /**
  * Wrapper class for Geocoding functionality, wrapping leaflet-control-geocoder, 
  * default configured for MapBox geocoding API
@@ -19,19 +20,25 @@ const GeoCode = props => {
         const limit = props.limit
         const boundBox = [props.searchLoc.lng - delta, props.searchLoc.lat - delta, props.searchLoc.lng + delta, props.searchLoc.lat + delta] //[minLon,minLat,maxLon,maxLat]
         var bBoxString = "" + boundBox.join(",")
+
+        // https://docs.mapbox.com/api/search/#reverse-geocoding
         const mapBoxOptions = {
             geocodingQueryParams: {
                 proximity: props.searchLoc,
                 limit: limit,
-                bbox: bBoxString
+                bbox: bBoxString,
             },
             reverseQueryParams: {
+                types: "poi",
+                reverseMode: "score",
+                limit: 2
             }
         }
         return mapBoxOptions
     }
 
     const mapBoxOptions = initMapBoxOptions(props);
+
 
     const options = {};
     // Config options from: https://github.com/perliedman/leaflet-control-geocoder
@@ -59,21 +66,12 @@ const GeoCode = props => {
 
     }, [])
 
-    // TODO@ALLEN: This introduces an error, but without it we cannot search anywhere except the 
-    // location when we initialize the page. I guess this will limit bad behavior?
-
-    // useEffect(() => {
-    //     if (gc != null) {
-    //         gc.options.geocoder.options = initMapBoxOptions(props)
-    //     }
-    // }, [props.searchLoc])
-
     return null
 }
 
 GeoCode.defaultProps = {
     delta: .1,
-    limit: 3,
+    limit: 3
 }
 
 export default withLeaflet(GeoCode);

@@ -28,12 +28,9 @@ const LocationSelect = props => {
 
     // onClick / callbacks
     const returnLocation = (loc) => {
-        const newAddr = {
-            latLng: new firestore.GeoPoint(loc.latLng.lat, loc.latLng.lng),
-            name: loc.name
-        }
-        reportData.coordinates = newAddr.latLng;
-        reportData.locName = newAddr.name;
+        reportData.coordinates = loc.latLng;
+        reportData.locZoom = loc.zoom
+        reportData.locName = loc.name;
         setUserLocation(loc);
     }
     const handleClick = () => {
@@ -45,11 +42,11 @@ const LocationSelect = props => {
             <Row>
                 <LeafMap
                     returnLocation={returnLocation}
-                    // ref={mapRef}
+                    initZoom={17}
                     delta={.5}
-                    limit={3}
+                    limit={4}
                     enableGeoCode={false}
-                    enableRevGeoCode={true} />
+                    enableRevGeoCode={false} />
             </Row>
             <Row>
                 <Button onClick={handleClick}>Confirm Location</Button>
