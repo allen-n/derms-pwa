@@ -28,7 +28,6 @@ const Start = (props) => {
     }
 
     const renderUserEmail = () => {
-        // console.log(currentUser.email)
         if (currentUser != null && currentUser.email != '') {
             return (
                 <p>{currentUser.email} is signed in.</p>
@@ -39,6 +38,18 @@ const Start = (props) => {
                 <p style={{color: "red"}}>You must sign in to use the app.</p>
                 <p >(It's easy we promise)</p>
             </div>);
+
+    }
+
+    const renderLoginButtonText = () => {
+        if (currentUser != null && currentUser.email != '') {
+            return (
+                <div>Sign Out</div>
+            );
+        }
+        return (
+            <div>Sign In</div>
+        );
 
     }
 
@@ -63,7 +74,7 @@ const Start = (props) => {
             {renderUserEmail()}
             <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" onClick={handleReportClick}>Report found Supplies</Button>
             <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleSearchClick}>Search for Supplies</Button>
-            <Button buttonStyle="btn-general__inactive" buttonSize="btn-medium" onClick={handleLogin}>Log in or Out</Button>
+            <Button buttonStyle="btn-general__inactive" buttonSize="btn-medium" onClick={handleLogin}>{renderLoginButtonText()}</Button>
         </div>
     );
 }
