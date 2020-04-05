@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import ItemCarousel from './ItemCarousel'
 import ItemList from './ItemList'
 import { withFirebase } from '../../firebase/withFirebase'
+import * as allItems from '../../firebase/items.json'
 import { Button } from 'react-bootstrap'
 
 /**
@@ -40,7 +41,7 @@ const ItemTypeSelect = props => {
     }
 
     const checkLoggedIn = () => {
-        if(userData == null) {
+        if (userData == null) {
             // alert("You must be logged in.")
             history.push(routeBackwardDest)
         }
@@ -121,45 +122,72 @@ const ItemTypeSelect = props => {
             console.error("Error: reportData and searchData are both null, but shouldn't be")
         }
 
-        // Load categories and items
-        const getCategories = itemCategoryCollection
-            .orderBy('name', 'desc')
-            .onSnapshot(({ docs }) => { //fires any time the db changes
-                const categoriesFromDB = []
-                const itemCategoryDict = {}
-
-                docs.forEach(doc => {
-                    const itemsInCategory = []
-                    itemCategoryCollection.doc(doc.id)
-                        .collection('items').get().then((items) => {
-                            items.docs.forEach((item) => {
-                                const detailItem = {
-                                    id: item.id,
-                                    name: item.data().name,
-                                }
-                                itemsInCategory.push(detailItem)
-                            })
-                            itemCategoryDict[doc.id] = itemsInCategory
-                            // update state inside this .then since return is async
-                            setCategoryItemMap(itemCategoryDict)
-                        })
-
-                    const details = {
-                        id: doc.id,
-                        name: doc.data().name,
+        // Read in items and categories from local items.json object as allItems
+        const categoriesFromDB = []
+        const itemCategoryDict = {}
+        for (var catId in allItems) {
+            if (allItems.hasOwnProperty(catId)) {
+                const catDetails = {
+                    id: catId,
+                    name: allItems[catId].name,
+                }
+                categoriesFromDB.push(catDetails)
+                const itemsInCategory = []
+                for (var itemId in allItems[catId].items) {
+                    if (allItems[catId].items.hasOwnProperty(itemId)) {
+                        const itemDetails = {
+                            id: itemId,
+                            name: allItems[catId].items[itemId].name,
+                        }
+                        itemsInCategory.push(itemDetails)
                     }
-
-                    categoriesFromDB.push(details)
-                    setCategoryNames(categoriesFromDB)
-                })
-
-
-            })
-
-        // prevents a memory leak
-        return () => {
-            getCategories()
+                }
+                itemCategoryDict[catId] = itemsInCategory
+            }
+            
+            setCategoryItemMap(itemCategoryDict)
         }
+        setCategoryNames(categoriesFromDB)
+
+        // // Load categories and items from database
+        // const getCategories = itemCategoryCollection
+        //     .orderBy('name', 'desc')
+        //     .onSnapshot(({ docs }) => { //fires any time the db changes
+        //         const categoriesFromDB = []
+        //         const itemCategoryDict = {}
+
+        //         docs.forEach(doc => {
+        //             const itemsInCategory = []
+        //             itemCategoryCollection.doc(doc.id)
+        //                 .collection('items').get().then((items) => {
+        //                     items.docs.forEach((item) => {
+        //                         const detailItem = {
+        //                             id: item.id,
+        //                             name: item.data().name,
+        //                         }
+        //                         itemsInCategory.push(detailItem)
+        //                     })
+        //                     itemCategoryDict[doc.id] = itemsInCategory
+        //                     // update state inside this .then since return is async
+        //                     setCategoryItemMap(itemCategoryDict)
+        //                 })
+
+        //             const details = {
+        //                 id: doc.id,
+        //                 name: doc.data().name,
+        //             }
+
+        //             categoriesFromDB.push(details)
+        //             setCategoryNames(categoriesFromDB)
+        //         })
+
+
+        //     })
+
+        // // prevents a memory leak
+        // return () => {
+        //     getCategories()
+        // }
     }, [])
 
     return (
