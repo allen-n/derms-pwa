@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --primaryColor: #6482E8;
+    --secondaryColor: #707070;
+}
+ 
+/* The container for the checkbox and its accompanying text */
+.checkboxLabel {
+    display: block;
+    position: relative;
+    margin-top: 22px;
+    margin-left:0px;
+    padding-left: 26px;
+    color: #6A6A6A;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    user-select: none;
+}
+
+.checkboxLabel a {
+    color: var(--primaryColor);
+    text-decoration: underline;
+}
+  
+/* Hides the browser's default checkbox */
+.checkboxLabel input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+  
+/* DERMS custom checkbox */
+.checkbox {
+    margin-right: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--secondaryColor);
+}
+  
+  /* When the checkbox is checked a blue background appears */
+  .checkboxLabel input:checked ~ .checkbox {
+    border: none;
+    background-color: var(--primaryColor);
+}
+  
+/* The checkmark is hidden when not checked */
+.checkbox:after {
+    content: "";
+    margin-right: 10px;
+    position: absolute;
+    display: none;
+}
+  
+/* Checked checkmark being displayed */
+.checkboxLabel input:checked ~ .checkbox:after {
+    display: block;
+}
+  
+/* Checkmark Style */
+.checkboxLabel .checkbox:after {
+    left: 6px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+}
