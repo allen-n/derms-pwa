@@ -149,45 +149,6 @@ const ItemTypeSelect = props => {
         }
         setCategoryNames(categoriesFromDB)
 
-        // // Load categories and items from database
-        // const getCategories = itemCategoryCollection
-        //     .orderBy('name', 'desc')
-        //     .onSnapshot(({ docs }) => { //fires any time the db changes
-        //         const categoriesFromDB = []
-        //         const itemCategoryDict = {}
-
-        //         docs.forEach(doc => {
-        //             const itemsInCategory = []
-        //             itemCategoryCollection.doc(doc.id)
-        //                 .collection('items').get().then((items) => {
-        //                     items.docs.forEach((item) => {
-        //                         const detailItem = {
-        //                             id: item.id,
-        //                             name: item.data().name,
-        //                         }
-        //                         itemsInCategory.push(detailItem)
-        //                     })
-        //                     itemCategoryDict[doc.id] = itemsInCategory
-        //                     // update state inside this .then since return is async
-        //                     setCategoryItemMap(itemCategoryDict)
-        //                 })
-
-        //             const details = {
-        //                 id: doc.id,
-        //                 name: doc.data().name,
-        //             }
-
-        //             categoriesFromDB.push(details)
-        //             setCategoryNames(categoriesFromDB)
-        //         })
-
-
-        //     })
-
-        // // prevents a memory leak
-        // return () => {
-        //     getCategories()
-        // }
     }, [])
 
     return (

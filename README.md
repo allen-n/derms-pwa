@@ -10,7 +10,7 @@ Driven by the COVID-19 epidemic, and the inability of many to get the supplies t
 DERMS is simple: crowdsource data on the availability of necessities near you, to reduce unnecessary travel, human to human interaction (in the case of COVID-19), and economic and emotional burden on folks who really just need a roll of toilet paper and don't want to drive to 7 different stores and still not find any.
 
 ## Design
-Current design ideation can be viewed in an Adobe XD mockup [here](https://xd.adobe.com/view/5fc74a76-c837-4345-556d-c09233da8e89-29f6/screen/1233f928-9484-427a-a71a-552731ff70b8/Main-Page).
+Current design ideation can be viewed in an Adobe XD mockup [here](https://xd.adobe.com/view/42bdfd07-4ca1-4ebe-4f06-51c13a64ef12-348c/).
 
 ## Getting up and running (dev)
 
