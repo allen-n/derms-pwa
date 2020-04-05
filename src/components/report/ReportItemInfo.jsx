@@ -3,8 +3,73 @@ import { useHistory } from 'react-router-dom';
 import { Form, Button, ButtonGroup, ProgressBar } from "react-bootstrap";
 import { withFirebase } from '../../firebase/withFirebase'
 import { v4 as uuidv4 } from 'uuid';
+import Geocoder from "leaflet-control-geocoder"
+import { mapBoxConfig } from '../../firebase/config'
+import ReactDOM from 'react-dom'
 
 
+/**
+ * Creates the location input dropdown form
+ * Expects locations in array as prop, with the for [{name: "str"}, ..., {name:"Not Listed"}]
+ * Last element should have a name string corresponding to a not-found entry
+ */
+const DropdownLocation = props => {
+    // const locations = props.locations != null ? JSON.parse(JSON.stringify(props.locations)) : [] // deep copy
+
+    if (props.returnLocation == null) {
+        console.error("Location callback must be defined!")
+    }
+    // locations.push({ name: notFoundStr })
+
+    const [selectedLoc, setSelectedLoc] = useState(null)
+
+    const locSelectRef = useRef(null)
+
+
+    const handleClick = (e) => {
+        const val = ReactDOM.findDOMNode(locSelectRef.current).value
+        const loc = JSON.parse(val)
+        setSelectedLoc(loc)
+    }
+
+    useEffect(() => {
+        ReactDOM.findDOMNode(locSelectRef.current).selectedIndex = -1
+    }, [])
+
+    useEffect(() => {
+        if (props.locations.length) {
+            setSelectedLoc(props.locations[0])
+        }
+
+
+    }, [props.locations])
+
+    useEffect(() => {
+        if (selectedLoc != null) {
+            if (selectedLoc.name != props.notFoundStr) { props.returnLocation(selectedLoc) }
+            else { props.returnLocation(null) }
+        }
+
+    }, [selectedLoc])
+
+
+    if (props.locations != null) {
+        return (<>
+            <Form.Group controlId="storeName">
+                <Form.Label>What store are you in? (Required)</Form.Label>
+                <Form.Control required ref={locSelectRef} as="select" onChange={handleClick}>
+                    {props.locations.map(location => {
+                        const name = location.name.split(",")
+                        const val = JSON.stringify(location)
+                        return (<option key={name} value={val}>{name[0]}</option>);
+                    })}
+                </Form.Control>
+            </Form.Group>
+        </>);
+    }
+    return null
+
+}
 
 const ReportItemInfo = props => {
     // db vars
@@ -19,25 +84,55 @@ const ReportItemInfo = props => {
     // Image upload handling howto: https://dev.to/tallangroberg/how-to-do-image-upload-with-firebase-in-react-cpj
 
     // State Vars
-    const allInputs = { imgUrl: '' }
     const [imageAsFile, setImageAsFile] = useState('')
     const [stockLevel, setStockLevel] = useState(-1)
     const [uploadProg, setUploadProg] = useState(-1)
     const [submitDisabled, setSubmitDisabled] = useState(true)
 
+    // Options for mapbox geocoding queries
+    const mapBoxOptions = {
+        geocodingQueryParams: {
+        },
+        reverseQueryParams: {
+            // Note: Following params can be modified if we don't like reverse geocoding results
+            types: "poi",
+            reverseMode: "score",
+            limit: 4
+        }
+    }
+    const [geocoder, setGeoCoder] = useState(new Geocoder.Mapbox(mapBoxConfig.apiKey, mapBoxOptions)) // Geocoder
+    const [possibleLocs, setPossibleLocs] = useState([])
+    const [selectedLoc, setSelectedLoc] = useState(null)
+
     const aisleRef = useRef(null)
-    const storeRef = useRef(null)
+    const storeNotFoundRef = useRef(null)
     const history = useHistory();
 
     // Make sure report data up to now is collected, if not route back
     useEffect(() => {
-        if (reportData.coordinates == null) {
+        if (typeof reportData.coordinates === 'undefined') {
             history.push('/locate')
         }
         if (reportData.itemId == null) {
             history.push('/report-type')
         }
+        reverseGeoCode()
     }, [])
+
+    // Reverse Geocode result listing
+    const notFoundStr = "Not Listed"
+    const returnLocation = (location) => {
+        setSelectedLoc(location)
+    }
+
+    // Reverse geocoding, dup from LeafMap
+    const reverseGeoCode = () => {
+        geocoder.reverse(reportData.coordinates, reportData.locZoom, results => {
+            var r = results[0];
+            results.push({ name: notFoundStr })
+            setPossibleLocs(results)
+        })
+    }
 
 
     // Callback / onclick handlers
@@ -115,8 +210,16 @@ const ReportItemInfo = props => {
             reportData.imgurl = imgUrl
         }
         reportData.aisle = aisleRef.current.value
-        reportData.store = storeRef.current.value
+        // Split the name and address of the place (if given)
+        const name = selectedLoc == null ? storeNotFoundRef.current.value : selectedLoc.name
+        const nameArr = name.split(",")
+        reportData.locName = nameArr[0]
+        reportData.locAddress = selectedLoc == null ? "N/A" : nameArr.slice(1, -1).join(",")
         reportData.user = userData.uid
+
+        // If the place has a geo point, use that
+        reportData.coordinates = selectedLoc == null ? reportData.coordinates : selectedLoc.center
+        reportData.coordinates = new firestore.GeoPoint(reportData.coordinates.lat, reportData.coordinates.lng)
 
         alert('Submission complete, nice work!')
         history.push("/"); // Go home
@@ -146,6 +249,18 @@ const ReportItemInfo = props => {
         return null
     }
 
+
+
+    const renderStoreInput = () => {
+        if (selectedLoc == null) {
+            return (<Form.Group controlId="storeNameNotFound">
+                <Form.Label>Type name below</Form.Label>
+                <Form.Control ref={storeNotFoundRef} required placeholder="..." />
+            </Form.Group>);
+        }
+        return null
+    }
+
     return (
         <div>
             <p>Stock Level (Required)</p>
@@ -158,10 +273,12 @@ const ReportItemInfo = props => {
 
 
             < Form onSubmit={handleSubmit}>
-                <Form.Group controlId="storeName">
-                    <Form.Label>What store are you in? (Required)</Form.Label>
-                    <Form.Control required ref={storeRef} placeholder="" /> {/* TODO: Add Store name guess as placeholder param */}
-                </Form.Group>
+                <DropdownLocation
+                    returnLocation={returnLocation}
+                    locations={possibleLocs}
+                    notFoundStr={notFoundStr}>
+                </DropdownLocation>
+                {renderStoreInput()}
                 <Form.Group controlId="aisleNum">
                     <Form.Label>What aisle(s) (Optional)</Form.Label>
                     <Form.Control ref={aisleRef} placeholder="Aisle 1" />
