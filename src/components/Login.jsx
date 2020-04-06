@@ -76,7 +76,7 @@ const Login = props => {
 
     const updateUserLoginDate = (user) => {
         const uid = user.uid
-        usersCollection.doc(uid).update({ lastLogin: firestore.FieldValue.serverTimestamp() })
+        usersCollection.doc(uid).update({ lastLogIn: firestore.FieldValue.serverTimestamp() })
             .catch(error => console.error("Error updating last login for user: ", error));
     }
 
