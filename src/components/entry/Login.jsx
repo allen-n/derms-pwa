@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
-import { withFirebase } from '../firebase/withFirebase'
+import { withFirebase } from '../../firebase/withFirebase'
 import { useHistory } from 'react-router-dom';
 
 const Login = props => {

@@ -8,14 +8,14 @@ import {
 import { Container } from 'react-bootstrap';
 
 // TransitionShell may go out of date soon, currently causing warnings 
-import TransitionShell from "./utils/TransitionShell"; 
+import TransitionShell from "../utils/TransitionShell"; 
 import Login from "./Login";
 import Start from "./Start";
-import LocationSelect from "./report/LocationSelect";
-import ReportItemType from "./report/ReportItemType";
-import ReportItemInfo from "./report/ReportItemInfo";
-import SearchItemType from "./search/SearchItemType";
-import LocateItem from "./search/LocateItem";
+import LocationSelect from "../report/LocationSelect";
+import ReportItemType from "../report/ReportItemType";
+import ReportItemInfo from "../report/ReportItemInfo";
+import SearchItemType from "../search/SearchItemType";
+import LocateItem from "../search/LocateItem";
 
 /**
  * Main is the entry point of the app, and houses all the other views

@@ -159,11 +159,9 @@ const LocateItem = props => {
 
     const goToNavigate = (id) => {
         const report = loadedReports[reportIdMap[id]]
-        console.log(report)
         const coords = report.coordinates
         const lat = String(coords.latitude)
         const long = String(coords.longitude)
-        console.log("maps://maps.google.com/maps?daddr=" + lat + "," + long)
         if /* if we're on iOS, open in Apple Maps */
             ((navigator.platform.indexOf("iPhone") != -1) ||
             (navigator.platform.indexOf("iPad") != -1) ||

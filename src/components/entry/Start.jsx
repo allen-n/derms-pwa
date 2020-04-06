@@ -6,7 +6,7 @@ import { Checkbox } from './checkbox/Checkbox';
 import { StockLevelRadio } from './stock-level/StockLevelRadio';
 import { StockLevelLabel } from './stock-level/StockLevelLabel';
 // import { Button } from 'react-bootstrap'
-import { withFirebase } from '../firebase/withFirebase';
+import { withFirebase } from '../../firebase/withFirebase';
 
 
 /**
