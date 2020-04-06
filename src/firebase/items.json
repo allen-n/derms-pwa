@@ -1,0 +1,82 @@
+{
+    "9de2fce0e52c45659098fc0a3d942f5c": {
+        "name": "Canned",
+        "items": {
+            "dc6db5c0751f426e9d05e21ef09dea41": {"name": "Fruit"},
+            "193846e075554e078b286f02280dd0bc": {"name": "Vegetables"},
+            "a1fb84a5f22c474caa7b4a318a411590": {"name": "Beans"},
+            "735a4ca61b75496294fc94b2292d239c": {"name": "Ravioli"},
+            "3323325d5202403a8d476ce942bec3ca": {"name": "Fish/Poultry/Meat"},
+            "7c2fa0eb36904d59b342c4915aaa2a2b": {"name": "Soups & Chiles"}
+        }
+    },
+    "5e7a8ede866341558fa54731cc04e127": {
+        "name": "Cleaning",
+        "items": {
+            "d25514ab4669418d8ebbc46696bc1ab8": {"name": "Toilet Paper"},
+            "1a34832b5eb74c39969f44ad2ddc2d7a": {"name": "Paper Towels"},
+            "037a5bcf48fb45839af5eb3682f1d391": {"name": "Dish Soap"},
+            "a3e862056091492a99042183df31f59f": {"name": "Sanitizing Wipes"},
+            "e0d307f704ca45da9e3d3ec2187a1b8f": {"name": "Hand Sanitizer"},
+            "b9a70bef8c004ce78b5689fa2eccd8cd": {"name": "Laundry Detergent"},
+            "bfd6be02644f41c8b372bd3ef115b3e9": {"name": "Hand Soap"},
+            "7796cec6630845aabd30bed58efce811": {"name": "Disinfectant Spray"}
+        }
+    },
+    "9a373ae920054931b1d3c7b36c927fd7": {
+        "name": "Pantry",
+        "items": {
+            "5bd3f24e007a4ecfa2fe32828dec78f3": {"name": "Bread"},
+            "c8ac0e51589042a3b952ba7dbab108c6": {"name": "Pasta"},
+            "17f460ef0886433dac3c5d763c122a11": {"name": "Rice"},
+            "712201354c1d47fb8a6cad3af512fc0a": {"name": "Nuts/Nut Butter"},
+            "5acd0034d95a4a2a87afb2a12943fe99": {"name": "Dried Fruit"},
+            "11a3e28fd74e41d59d9ac9ce5bfb4888": {"name": "Water"},
+            "85d6062e2bf047209a924375198c1b62": {"name": "Coffee/Tea"},
+            "cc108f3d0d944cfa8a8974e3caad73dc": {"name": "Sauces"}
+        }
+    },
+    "16e5ee9ff52c4bf3a9b69c37d1b0d1e7": {
+        "name": "Perishables",
+        "items": {
+            "1358e1f1e0ae42938982baf0eeebff32": {"name": "Eggs"},
+            "fb1fe540f3914230bc8c7903973615c2": {"name": "Butter"},
+            "171834daa71f4de99b76385f23c31ce4": {"name": "Fish"},
+            "be295c1e8d404d73a81a069bc59d2b7f": {"name": "Poultry"},
+            "876a721defbb48f492fdc087cbd945b4": {"name": "Meat"},
+            "ee3c9502938c414aa22736feebd9933b": {"name": "Milk"},
+            "913d76f372e949bf85467ba9d4119b7f": {"name": "Tofu"}
+        }
+    },
+    "f2d48fa4cab746e29b5a9319843793dc": {
+        "name": "Pharmacy",
+        "items": {
+            "ba9f29e85a284f8688003e3b63a9d9e0": {"name": "Multivitamins"},
+            "f085e7015b5940efb008eb28529075f5": {"name": "Ibuprofen or Tylenol"},
+            "6acf0607d8a24bd4acc202cae077707c": {"name": "Children's Fever Reducer"},
+            "9c80d465e01e4f208faa80be6197ed7c": {"name": "Saline Solution"},
+            "35c6f6cf57834b2c9d993c4cf95fa414": {"name": "Allergy Medicine"},
+            "218b29e5ae0c4ce7955a75d39c2588d7": {"name": "Band-Aids / Bandages"}
+        }
+    },
+    "582a322b33dc48218e690ca8b82ea046": {
+        "name": "Baby",
+        "items": {
+            "f0046d00b03c475589552e95a71d2812": {"name": "Baby Food"},
+            "7bfdaab02b5f485aaa3d247cd67ff098": {"name": "Formula"},
+            "58ca5cb986b24ce1b4e1f262f259fbab": {"name": "Diapers"},
+            "6589932839b840ae980fcc5dc54a7e7c": {"name": "Wipes"}
+        }
+    },
+    "da21bfe29dcc4ab0964e9e3235f113c2": {
+        "name": "Pet",
+        "items": {
+            "27d521190173465a9e99600425747e84": {"name": "Dog Food"},
+            "97fa27ae5d114cb98f2312a4f693deb7": {"name": "Cat Food"},
+            "0a14eb20eb434f20a620d432452b6d0e": {"name": "Litter"},
+            "08c03fee70e946dcb16992178fa4c4f0": {"name": "Poop Bags"},
+            "f52b3cc81bf24b559e7b5fc7ea7cb3c7": {"name": "Leash"},
+            "5dc6edce615546f7b0d594c47e6bfd2e": {"name": "Treats"}
+        }
+    }
+}
