@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --inactiveText: #1A3547;
+    --inactiveBackground: #EBEBF0;
+    --restockText: #086E1F;
+    --restockBackground: #25AC87;
+    --normalText: #1A3547;
+    --normalBackground: #9BD4F2;
+    --warningText: #6E570E;
+    --warningBackground: #FFEEA5;
+    --emptyText: #6A0E0A;
+    --emptyBackground: #FFB7AA;
+    --white: #ffffff; 
+    --black: #000000;
+}
+
+.btn-stock-level {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 2px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    border: none;
+    color: var(--inactiveText);
+    background-color: var(--inactiveBackground);
+}
+
+.btn-stock-level__inactive {
+}
+.btn-stock-level-label > input:checked + .btn-stock-level__restock {
+    color: var(--restockText);
+    background-color: var(--restockBackground);
+    border: none;
+}
+.btn-stock-level-label > input:checked + .btn-stock-level__normal {
+    color: var(--normalText);
+    background-color: var(--normalBackground);
+    border: none;
+}
+.btn-stock-level-label > input:checked + .btn-stock-level__warning {
+    color: var(--warningText);
+    background-color: var(--warningBackground);
+    border: none;
+}
+.btn-stock-level-label > input:checked + .btn-stock-level__empty {
+    color: var(--emptyText);
+    background-color: var(--emptyBackground);
+    border: none;
+}
+
+.btn-stock-level__medium{
+    width: 130px;
+    /* height: 36px; */
+}
+.btn-stock-level__small{
+    width: 112px;
+    height: 36px;
+}
+
+.btn-stock-level-label {
+    margin-bottom: 0px;
+}
+.btn-stock-level-label > input{ /* Hides radio buttons */
+    visibility: hidden; /* Makes input not-clickable */
+    position: absolute; /* Remove input from document flow */
+}
