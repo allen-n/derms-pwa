@@ -18,6 +18,7 @@ Current design ideation can be viewed in an Adobe XD mockup [here](https://xd.ad
 * NodeJS + npm installation
 * Basic familiarity with your command line
 * Set up your repo dependencies (firebase, etc.) according to the steps in Ovie's excellent guide [here](https://blog.logrocket.com/creating-a-lists-pwa-with-react-and-firebase/)
+* The only additional piece not in Ovie's guide is cloud functions, which can be added to the project by following the documentation google provides [here](https://firebase.google.com/docs/functions/get-started). Updated functions can be deployed using the command ```firebase deploy --only functions```
 * Last, but not least, you'll need a config file, called config.js, that sits at ```derms-pwa/src/firebase/config.js```. The contents f the file should look like this:
 
 ```
