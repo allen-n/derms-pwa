@@ -15,9 +15,7 @@ const SIZES = [
 ]
 
 export const StockLevelLabel = ({ 
-    children, 
-    type, 
-    onClick, 
+    children,
     labelStyle, 
     labelSize
 }) => {
@@ -26,9 +24,8 @@ export const StockLevelLabel = ({
     const checkLabelSize = SIZES.includes(labelSize) ? labelSize : SIZES[0];
 
     return (
-        <button className = {`stock-level-label ${checkLabelStyle} ${checkLabelSize}`}
-                onClick={onClick} type={type}>
+        <div className = {`stock-level-label ${checkLabelStyle} ${checkLabelSize}`}>
             {children}
-        </button>
+        </div>
     )
 }
