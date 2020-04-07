@@ -61,7 +61,7 @@ class Firebase {
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         // User is signed in.
-        console.log(user.email + "is signed in")
+        console.log(user.email + " is signed in")
         this.userData = this.authToUser(user)
       } else {
         console.log("User is signed out")

@@ -1,26 +1,25 @@
 import React, { useState, useRef } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Button } from '../button/Button';
+import { Checkbox } from '../checkbox/Checkbox';
 import { withFirebase } from '../../firebase/withFirebase'
 import { useHistory } from 'react-router-dom';
 
 const Signup = props => {
 
     // Named export 'auth' from the prop injected by the withFirebase HOC 
-    const { auth, firestore, usersCollection, authToUser } = props.firebase
+    const { auth, firestore, usersCollection } = props.firebase
 
     const formEmail = useRef(null);
     const formPassword = useRef(null);
     const formFName = useRef(null);
     const formLName = useRef(null);
-    const newUser = useRef(null);
-    const [currentUser, setCurrentUser] = useState('')
+
+    const [isDisabled, setIsDisabled] = useState(true)
 
     // Page navigation
     const history = useHistory();
-    const goHome = (event) => {
-        history.push("/");
-    }
-
+    console.log("signup loading")
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -93,9 +92,20 @@ const Signup = props => {
 
     }
 
+    const handleChange = (event) => {
+        if (formEmail.current.value != '' &&
+            formPassword.current.value != '' &&
+            formFName.current.value != '' &&
+            formLName.current.value != '') {
+            setIsDisabled(false)
+        } else {
+            setIsDisabled(true)
+        }
+    }
+
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formUserFirstLastName">
+        <Form onSubmit={handleSubmit} onChange={handleChange}>
+            <Form.Group>
                 <Form.Label> Name</Form.Label>
                 <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
                 <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
@@ -104,7 +114,7 @@ const Signup = props => {
                     </Form.Text>
 
             </Form.Group>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group>
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="Enter email" id="formEmail" ref={formEmail} />
                 <Form.Text className="text-muted">
@@ -112,11 +122,13 @@ const Signup = props => {
                     </Form.Text>
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group>
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
             </Form.Group>
-            <Button variant="primary" type="submit">Submit</Button>
+            <Checkbox>I have Read and understood <a href="#">the Privacy Policy.</a></Checkbox>
+            <Checkbox>I agree to the <a href="#">Terms and Conditions.</a></Checkbox>
+            <Button variant="primary" type="submit" disabled={isDisabled}>Submit</Button>
         </Form>
     );
 

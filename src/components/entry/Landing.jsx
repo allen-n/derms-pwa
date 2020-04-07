@@ -10,11 +10,11 @@ const Landing = props => {
     
     const history = useHistory();
     const handleLogin = () => {
-        history.push("/login")
+        history.push("/login");
     }
 
     const handleSignup = () => {
-        history.push("/signup")
+        history.push("/signup");
     }
 
     return (
