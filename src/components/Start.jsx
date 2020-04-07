@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { Button } from './button/Button';
 import { Toggle } from './toggle/Toggle';
 import { Checkbox } from './checkbox/Checkbox';
+import { StockLevelRadio } from './stock-level/StockLevelRadio';
+import { StockLevelLabel } from './stock-level/StockLevelLabel';
 // import { Button } from 'react-bootstrap'
 import { withFirebase } from '../firebase/withFirebase';
 
@@ -80,6 +82,11 @@ const Start = (props) => {
             <Checkbox>I have Read and understood <a href="#">the Privacy Policy.</a></Checkbox>
             <Checkbox>I agree to the <a href="#">Terms and Conditions.</a></Checkbox>
             <Toggle/>
+            <StockLevelRadio/>
+            <StockLevelLabel labelStyle="stock-level-label__restock" labelSize="stock-level-label__medium">Just Restocked</StockLevelLabel>
+            <StockLevelLabel labelStyle="stock-level-label__normal" labelSize="stock-level-label__medium">Plenty</StockLevelLabel>
+            <StockLevelLabel labelStyle="stock-level-label__warning" labelSize="stock-level-label__medium">Running Low</StockLevelLabel>
+            <StockLevelLabel labelStyle="stock-level-label__empty" labelSize="stock-level-label__medium">Empty</StockLevelLabel>
         </div>
     );
 }
