@@ -10,7 +10,8 @@ const STYLES = [
 const SIZES = [
     "btn-large",
     "btn-medium",
-    "btn-small"
+    "btn-small",
+    "btn-row" // 50% width side by side
 ]
 
 export const Button = ({ 

@@ -28,17 +28,17 @@ class Main extends Component {
         return (
             <HashRouter>
                 <Container fluid>
+                    {/* Notes:
+                    * 'to' prop is identified to load correct content 
+                    * exact prevents '/' from wildcard matching '/.*' */}
                     <div>
                         <h4>DERMS</h4>
                         <ul className="header">
-                            {/* 'to' prop is identified to load correct content */}
                             <li><NavLink to="/">Home</NavLink></li>
                             <li><NavLink to="/start">Sign In/Out (Dev)</NavLink></li>
                         </ul>
                         <div className="content">
-                            {/* exact prevents '/' from wildcard matching '/.*' */}
                             <Route exact path="/" component={TransitionShell(Landing)} />
-                            {/* <Route exact path="/" component={TransitionShell(Start)} /> */}
                             <Route path="/start" component={TransitionShell(Start)} />
                             <Route path="/login" component={TransitionShell(Login)} />
                             <Route path="/signup" component={TransitionShell(Signup)} />
