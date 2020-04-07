@@ -10,6 +10,8 @@ const Signup = props => {
 
     const formEmail = useRef(null);
     const formPassword = useRef(null);
+    const formFName = useRef(null);
+    const formLName = useRef(null);
     const newUser = useRef(null);
     const [currentUser, setCurrentUser] = useState('')
 
@@ -24,18 +26,21 @@ const Signup = props => {
         event.preventDefault()
         var email = formEmail.current.value
         var pass = formPassword.current.value
-        var isNewUser = newUser.current.checked
-        if (isNewUser) {
-            registerUser(email, pass)
-        } else {
-            signInUser(email, pass)
-        }
-        formEmail.current.value = ''
-        formPassword.current.value = ''
+
+        registerUser(email, pass)
+
     };
 
     const registerUser = (email, password) => {
         auth.createUserWithEmailAndPassword(email, password)
+            .then(function (response) {
+                storeNewUser(response.user)
+                formEmail.current.value = ''
+                formPassword.current.value = ''
+                formFName.current.value = ''
+                formLName.current.value = ''
+
+            })
             .catch(function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;
@@ -49,15 +54,21 @@ const Signup = props => {
                 It's kosher, we promise. But to log in you'll have to turn that blocker off 🙏.`);
                 }
                 else {
-                    alert(errorMessage);
+                    alert("Couldn't create account: ", errorMessage)
                 }
-                console.log(error);
+                console.error(error);
                 // [END_EXCLUDE]
             });
     }
 
     const storeNewUser = (user) => {
-        var newUser = authToUser(user)
+        var newUser = {
+            name: user.displayName,
+            email: user.email,
+            photoUrl: user.photoURL,
+            emailVerified: user.emailVerified,
+            uid: user.uid
+        }
         newUser.dateCreated = firestore.FieldValue.serverTimestamp();
         newUser.lastLogIn = firestore.FieldValue.serverTimestamp();
         newUser.status = 0
@@ -65,21 +76,29 @@ const Signup = props => {
         newUser.referralSignUps = 0
         newUser.isBusiness = false
         newUser.reports = []
+        newUser.firstName = formFName.current.value
+        newUser.lastName = formLName.current.value
+
 
         usersCollection.doc(newUser.uid).set(newUser)
-            .then(docRef => {
-                // NOTE: Can't get docref ID because we specified a doc
-                // console.log("Document written with ID: ", docRef.id, ", userID: ", newUser.uid);
-            })
             .catch(error => console.error("Error adding new user: ", error))
+
+        auth.currentUser.updateProfile({
+            displayName: newUser.firstName
+        }).then(function () {
+            // Update successful.
+        }, function (error) {
+            console.error("Couldn't update auth user name", error)
+        });
+
     }
 
-     return (
+    return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUserFirstLastName">
                 <Form.Label> Name</Form.Label>
-                <Form.Control type="text" id="firstName" placeholder="First Name" />
-                <Form.Control type="text" id="lastName" placeholder="Last Name" />
+                <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
+                <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
                 <Form.Text className="text-muted">
                     We'll never share your last name with anyone else.
                     </Form.Text>
@@ -96,9 +115,6 @@ const Signup = props => {
             <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
-            </Form.Group>
-            <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check to create an account" ref={newUser} defaultChecked={false} />
             </Form.Group>
             <Button variant="primary" type="submit">Submit</Button>
         </Form>
