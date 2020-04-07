@@ -10,6 +10,7 @@ import { Container } from 'react-bootstrap';
 // TransitionShell may go out of date soon, currently causing warnings 
 import TransitionShell from "../utils/TransitionShell";
 import Landing from "./Landing" 
+import Signup from "./Signup"
 import Login from "./Login";
 import Start from "./Start";
 import LocationSelect from "../report/LocationSelect";
@@ -34,7 +35,7 @@ class Main extends Component {
                         </ul>
                         <div className="content">
                             {/* exact prevents '/' from wildcard matching '/.*' */}
-                            <Route exact path="/" component={TransitionShell(Landing)} />
+                            <Route exact path="/" component={TransitionShell(Signup)} />
                             {/* <Route exact path="/" component={TransitionShell(Start)} /> */}
                             <Route path="/login" component={TransitionShell(Login)} />
                             <Route path="/locate" component={TransitionShell(LocationSelect)} />

@@ -3,7 +3,7 @@ import FirebaseApp from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/storage'
-import { GeoCollectionReference, GeoFirestore, GeoQuery, GeoQuerySnapshot } from 'geofirestore';
+import { GeoFirestore } from 'geofirestore';
 
 import { firebaseConfig } from './config'
 
