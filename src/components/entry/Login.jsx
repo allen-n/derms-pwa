@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { Button } from '../button/Button';
 import { withFirebase } from '../../firebase/withFirebase'
 import { useHistory } from 'react-router-dom';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = props => {
 
@@ -16,7 +16,14 @@ const Login = props => {
 
     // Page navigation
     const history = useHistory();
+    const goToMap = () => history.push("/map-home");
 
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            // User is signed in.
+            history.push("/map-home")
+        }
+    });
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -36,7 +43,8 @@ const Login = props => {
             .then(function (result) {
                 formEmail.current.value = ''
                 formPassword.current.value = ''
-                updateUserLoginDate(user);
+                updateUserLoginDate(result.user);
+                goToMap()
             })
             .catch(function (error) {
                 // Handle Errors here.
@@ -70,7 +78,7 @@ const Login = props => {
             <Link to="/">Back</Link>
             <h1>Sign in</h1>
             <p>New to the community? <Link to="/signup">Sign up</Link> </p>
-            
+
             <Form onSubmit={handleSubmit} onChange={handleChange}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>

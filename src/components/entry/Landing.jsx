@@ -9,6 +9,14 @@ const Landing = props => {
     const { auth } = props.firebase
     
     const history = useHistory();
+
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+          // User is signed in.
+          history.push("/map-home")
+        } 
+      });
+    
     const handleLogin = () => {
         history.push("/login");
     }

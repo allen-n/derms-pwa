@@ -19,7 +19,13 @@ const Signup = props => {
 
     // Page navigation
     const history = useHistory();
-    console.log("signup loading")
+
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            // User is signed in.
+            history.push("/map-home")
+        }
+    });
 
     const handleSubmit = (event) => {
         event.preventDefault()
