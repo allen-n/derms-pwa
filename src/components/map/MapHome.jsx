@@ -4,6 +4,8 @@ import { withFirebase } from '../../firebase/withFirebase'
 import LeafMap from '../map/LeafMap'
 import { Container, Row } from 'react-bootstrap'
 import { Button } from '../button/Button';
+import UserMenu from '../utils/UserMenu'
+import './MapHome.css'
 
 const MapHome = props => {
     // db variables
@@ -29,11 +31,17 @@ const MapHome = props => {
         }
     }, [])
 
+    const [moveMenu, setMoveMenu] = useState(false)
+
+    const moveUserMenu = (e) => {
+        setMoveMenu(!moveMenu)
+    }
+
     return (
-        <Container fluid className="map-container">
+        <Container fluid>
             <Row>
                 <LeafMap
-
+                    className="map-container"
                     initZoom={17}
                     delta={.5}
                     limit={4}
@@ -44,7 +52,9 @@ const MapHome = props => {
                 <Button buttonSize="btn-row" onClick={handleSearchClick}>Find Supplies</Button>
                 <Button buttonSize="btn-row" onClick={handleReportClick}>Report Findings</Button>
             </Row>
-            <Button buttonSize="btn-menu">+</Button>
+            {/* TODO: This button jumps around when the page loads, likely due to CSS issues */}
+            <Button buttonSize="btn-menu" onClick={moveUserMenu}>+</Button> 
+            <UserMenu in={moveMenu}/>
 
         </Container >
     );
