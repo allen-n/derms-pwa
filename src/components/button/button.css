@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
 :root {
     --primaryColor: #6482E8;
     --secondaryColor: #C7C7C7;
-    --tertriaryColor: #365EF2;
+    --tertriaryColor: #FFEEA5;
+    --successColor: #25AC87;
+    --warningColor: #FFEEA5;
+    --dangerColor: #D32438;
+    --white: #ffffff;
+    --black: #000000;
 }
 
 .btn {
@@ -21,6 +25,7 @@
 .btn-primary__active:hover {
     background-color: var(--tertriaryColor) !important;
 }
+
 .btn-secondary__active {
     background-color: white !important;
     color: var(--primaryColor) !important;
@@ -31,6 +36,7 @@
     color: var(--tertriaryColor) !important;
     border: 1px var(--tertriaryColor) solid !important;
 }
+
 .btn-general__inactive {
     background-color: var(--secondary) !important;
     color: white !important;
@@ -38,29 +44,41 @@
     border: 1px var(--secondary) solid !important;
 }
 
-.btn-large{
+.btn-large {
     font-size: 15px !important;
     margin-top: 20px !important;
     height: 51px !important;
     width: 100% !important;
 }
 
-.btn-row{
+.btn-row {
     font-size: 15px !important;
     margin-top: 20px !important;
     height: 51px !important;
     width: 50% !important;
 }
 
-.btn-medium{
+.btn-medium {
     font-size: 14px !important;
     margin-top: 20px !important;
     height: 42px !important;
     width: 100%;
 }
-.btn-small{
+
+.btn-small {
     font-size: 14px !important;
     margin-top: 20px !important;
     height: 31px !important;
     width: 100%;
+}
+
+.btn-menu {
+    height: 25px !important;
+    width: 25px !important;
+    position: absolute;
+    top: 35px;
+    right: 65px;
+    /* Should be able to do this without 
+setting z to 1000, I donkt know how */
+    z-index: 1000;
 }

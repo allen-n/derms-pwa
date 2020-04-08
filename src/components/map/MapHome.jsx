@@ -30,9 +30,10 @@ const MapHome = props => {
     }, [])
 
     return (
-        <Container fluid>
+        <Container fluid className="map-container">
             <Row>
                 <LeafMap
+
                     initZoom={17}
                     delta={.5}
                     limit={4}
@@ -43,6 +44,7 @@ const MapHome = props => {
                 <Button buttonSize="btn-row" onClick={handleSearchClick}>Find Supplies</Button>
                 <Button buttonSize="btn-row" onClick={handleReportClick}>Report Findings</Button>
             </Row>
+            <Button buttonSize="btn-menu">+</Button>
 
         </Container >
     );
