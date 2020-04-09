@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --inactiveText: #1A3547;
+    --inactiveBackground: #EBEBF0;
+    --restockText: #086E1F;
+    --restockBackground: #25AC87;
+    --normalText: #1A3547;
+    --normalBackground: #9BD4F2;
+    --warningText: #6E570E;
+    --warningBackground: #FFEEA5;
+    --emptyText: #6A0E0A;
+    --emptyBackground: #FFB7AA;
+    --white: #ffffff; 
+    --black: #000000;
+}
+
+.stock-level-label {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 2px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    border: none;
+}
+
+.stock-level-label__inactive {
+    color: var(--inactiveText);
+    background-color: var(--inactiveBackground);
+}
+.stock-level-label__restock {
+    color: var(--restockText);
+    background-color: var(--restockBackground);
+}
+.stock-level-label__normal {
+    color: var(--normalText);
+    background-color: var(--normalBackground);
+}
+.stock-level-label__warning {
+    color: var(--warningText);
+    background-color: var(--warningBackground);
+}
+.stock-level-label__empty {
+    color: var(--emptyText);
+    background-color: var(--emptyBackground);
+}
+
+.stock-level-label__medium{
+    width: 130px;
+}
+.stock-level-label__small{
+    width: 112px;
+}
