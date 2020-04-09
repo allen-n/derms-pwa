@@ -3,12 +3,7 @@
 :root {
     --primaryColor: #6482E8;
     --secondaryColor: #C7C7C7;
-    --tertriaryColor: #FFEEA5;
-    --successColor: #25AC87;
-    --warningColor: #FFEEA5;
-    --dangerColor: #D32438;
-    --white: #ffffff; 
-    --black: #000000;
+    --tertriaryColor: #365EF2;
 }
 
 .btn {
@@ -19,19 +14,26 @@
 
 .btn-primary__active {
     background-color: var(--primaryColor) !important;
-    color: var(--white) !important;
+    color: white !important;
     border-radius: 2px !important;
-    border: 1px var(--primaryColor) solid !important;
+    border: 1px var(--tertriaryColor) solid !important;
+}
+.btn-primary__active:hover {
+    background-color: var(--tertriaryColor) !important;
 }
 .btn-secondary__active {
-    background-color: var(--white) !important;
+    background-color: white !important;
     color: var(--primaryColor) !important;
     border-radius: 2px !important;
     border: 1px var(--primaryColor) solid !important;
 }
+.btn-secondary__active:hover {
+    color: var(--tertriaryColor) !important;
+    border: 1px var(--tertriaryColor) solid !important;
+}
 .btn-general__inactive {
     background-color: var(--secondary) !important;
-    color: var(--white) !important;
+    color: white !important;
     border-radius: 2px !important;
     border: 1px var(--secondary) solid !important;
 }
