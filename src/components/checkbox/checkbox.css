@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 :root {
-    --primaryColor: #6482E8;
+    --primaryColor: #0C3DF6;
     --secondaryColor: #707070;
 }
  
@@ -20,6 +20,10 @@
 }
 
 .checkboxLabel a {
+    color: var(--primaryColor);
+    text-decoration: none;
+}
+.checkboxLabel a:hover {
     color: var(--primaryColor);
     text-decoration: underline;
 }
