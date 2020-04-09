@@ -10,7 +10,8 @@ const STYLES = [
 const SIZES = [
     "btn-large",
     "btn-medium",
-    "btn-small"
+    "btn-small",
+    "btn-row" // 50% width side by side
 ]
 
 export const Button = ({ 
@@ -18,15 +19,19 @@ export const Button = ({
     type, 
     onClick, 
     buttonStyle, 
-    buttonSize
+    buttonSize,
+    disabled
 }) => {
+    
 
     const checkButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0];
     const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[1];
 
+    const checkButtonStyleActive = disabled ? STYLES[2] : checkButtonStyle; // Disabled the disabled button
+
     return (
-        <button className = {`btn ${checkButtonStyle} ${checkButtonSize}`}
-                onClick={onClick} type={type}>
+        <button className = {`btn ${checkButtonStyleActive} ${checkButtonSize}`}
+                onClick={onClick} type={type} disabled={disabled}>
             {children}
         </button>
     )

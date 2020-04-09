@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
-import { Button } from './button/Button';
-import { Toggle } from './toggle/Toggle';
-import { Checkbox } from './checkbox/Checkbox';
-import { StockLevelRadio } from './stock-level/StockLevelRadio';
-import { StockLevelLabel } from './stock-level/StockLevelLabel';
+import { Button } from '../button/Button';
+import { Toggle } from '../toggle/Toggle';
+import { Checkbox } from '../checkbox/Checkbox';
+import { StockLevelRadio } from '../stock-level/StockLevelRadio';
+import { StockLevelLabel } from '../stock-level/StockLevelLabel';
 // import { Button } from 'react-bootstrap'
-import { withFirebase } from '../firebase/withFirebase';
+import { withFirebase } from '../../firebase/withFirebase';
 
 
 /**

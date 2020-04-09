@@ -44,6 +44,14 @@
     height: 51px !important;
     width: 100% !important;
 }
+
+.btn-row{
+    font-size: 15px !important;
+    margin-top: 20px !important;
+    height: 51px !important;
+    width: 50% !important;
+}
+
 .btn-medium{
     font-size: 14px !important;
     margin-top: 20px !important;

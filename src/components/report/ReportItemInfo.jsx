@@ -220,9 +220,11 @@ const ReportItemInfo = props => {
         // If the place has a geo point, use that
         reportData.coordinates = selectedLoc == null ? reportData.coordinates : selectedLoc.center
         reportData.coordinates = new firestore.GeoPoint(reportData.coordinates.lat, reportData.coordinates.lng)
+        reportData.isOutdated = false; // A cloud function will write this to true after certain amount of time
 
-        alert('Submission complete, nice work!')
         history.push("/"); // Go home
+        alert('Submission complete, nice work!')
+        
 
         // Do work in the background (on home screen) fore responsiveness
         reportCollection.add(reportData).then(docRef => {
