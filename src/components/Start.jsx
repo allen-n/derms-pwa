@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { Button } from './button/Button';
+import { Toggle } from './toggle/Toggle';
 import { Checkbox } from './checkbox/Checkbox';
 // import { Button } from 'react-bootstrap'
 import { withFirebase } from '../firebase/withFirebase';
@@ -78,6 +79,7 @@ const Start = (props) => {
             <Button buttonStyle="btn-general__inactive" buttonSize="btn-medium" onClick={handleLogin}>{renderLoginButtonText()}</Button>
             <Checkbox>I have Read and understood <a href="#">the Privacy Policy.</a></Checkbox>
             <Checkbox>I agree to the <a href="#">Terms and Conditions.</a></Checkbox>
+            <Toggle/>
         </div>
     );
 }
