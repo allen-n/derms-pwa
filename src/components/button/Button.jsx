@@ -11,9 +11,10 @@ const SIZES = [
     "btn-large",
     "btn-medium",
     "btn-small",
-    "btn-row", // 50% width side by side
     "btn-fit-half", // fit half the parent component (width)
-    "btn-menu"
+    "btn-menu",
+    "btn-donations",
+    "btn-row" // 50% width side by side
 ]
 
 export const Button = ({ 

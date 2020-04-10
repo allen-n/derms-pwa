@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
 :root {
     --primary-color: #0C3DF6;
     --secondary-color: #1A3547;
@@ -20,6 +19,7 @@
     border-radius: 2px !important;
     border: 1px var(--primary-color) solid !important;
 }
+
 .btn-primary__active:hover, .btn-primary__active:focus {
     background-color: var(--quaternary-color) !important;
 }
@@ -30,6 +30,7 @@
     border-radius: 2px !important;
     border: 1px var(--primary-color) solid !important;
 }
+
 .btn-secondary__active:hover, .btn-secondary__active:focus {
     color: var(--quaternary-color) !important;
     border: 1px var(--quaternary-color) solid !important;
@@ -78,13 +79,21 @@
     width: 100%;
 }
 
+/* Should be able to do this without 
+setting z to 1000, I don't know how */
 .btn-menu {
     height: 25px !important;
     width: 25px !important;
     position: absolute;
     top: 35px;
     right: 65px;
-    /* Should be able to do this without 
-setting z to 1000, I donkt know how */
     z-index: 1000;
+}
+
+.btn-donations {
+    font-size: 14px !important;
+    margin-top: 15px !important;
+    margin-right: 8vw !important;
+    height: 73px !important;
+    width: 73px !important;
 }
