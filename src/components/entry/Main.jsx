@@ -9,7 +9,7 @@ import { Container } from 'react-bootstrap';
 
 // TransitionShell may go out of date soon, currently causing warnings 
 import TransitionShell from "../utils/TransitionShell";
-import Landing from "./Landing" 
+import Landing from "./Landing"
 import Signup from "./Signup"
 import Login from "./Login";
 import Start from "./Start";
@@ -32,10 +32,11 @@ class Main extends Component {
                     * 'to' prop is identified to load correct content 
                     * exact prevents '/' from wildcard matching '/.*' */}
                     <div>
-                        <h4>DERMS</h4>
+                        <NavLink to="/"><h4>DERMS</h4></NavLink>
+
                         <ul className="header">
-                            <li><NavLink to="/">Home</NavLink></li>
-                            <li><NavLink to="/start">Sign In/Out (Dev)</NavLink></li>
+                            {/* <li><NavLink to="/">Home</NavLink></li> */}
+                            {/* <li><NavLink to="/start">Sign In/Out (Dev)</NavLink></li> */}
                         </ul>
                         <div className="content">
                             <Route exact path="/" component={TransitionShell(Landing)} />

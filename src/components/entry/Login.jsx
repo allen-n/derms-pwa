@@ -103,14 +103,6 @@ export default withFirebase(Login)
 
 // Useful functions for later in refactor:
 
-// // Sign out
-// const signOutUser = () => {
-//     if (auth.currentUser) {
-//         auth.signOut();
-//         // [END signout]
-//     }
-// }
-
 // // TODO@ALLEN: allow email verification, password reset, and anonymous/othe sign-ins
 //     // SRC: https://github.com/firebase/quickstart-js/blob/473045e4ce77bab2a553545a34a583bf7474373a/auth/email-password.html#L95-L107
 //     /**
