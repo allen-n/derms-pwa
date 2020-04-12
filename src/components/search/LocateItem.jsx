@@ -8,6 +8,7 @@ import ReportListModal from './ReportListModal'
 import ExifOrientationImg from 'react-exif-orientation-img'
 
 
+
 const LocateItem = props => {
     const [userLocation, setUserLocation] = useState(null)
     const [loadedReports, setLoadedReports] = useState([])

@@ -9,7 +9,7 @@ const ReportItemType = props => {
     return (
         <ItemTypeSelect
             routeClickDest={"/report-info"}
-            routeBackwardDest={"/locate"}
+            routeBackwardDest={"/map-home"}
             reportData={reportData}>
         </ItemTypeSelect>
     );

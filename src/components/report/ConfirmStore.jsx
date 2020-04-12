@@ -103,7 +103,7 @@ const ConfirmStore = props => {
     // Make sure report data up to now is collected, if not route back
     useEffect(() => {
         if (typeof reportData.coordinates === 'undefined') {
-            history.push('/locate')
+            history.push('/map-home')
         }
 
         reverseGeoCode()
@@ -135,7 +135,7 @@ const ConfirmStore = props => {
         // If the place has a geo point, use that
         reportData.coordinates = selectedLoc == null ? reportData.coordinates : selectedLoc.center
         reportData.coordinates = new firestore.GeoPoint(reportData.coordinates.lat, reportData.coordinates.lng)
-        console.log(reportData)
+        history.push("/report-type")
     }
 
     const renderStoreInput = () => {
@@ -146,6 +146,10 @@ const ConfirmStore = props => {
             </Form.Group>);
         }
         return null
+    }
+
+    const handleCancel = () => {
+        history.push("/map-home")
     }
 
     return (
@@ -162,6 +166,7 @@ const ConfirmStore = props => {
                     Submit
                 </Button>
             </Form >
+            <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleCancel}>Cancel</Button>
         </div>);
 }
 
