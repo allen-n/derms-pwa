@@ -134,7 +134,7 @@ const LocateItem = props => {
         const img = report.imgurl ?
             <ExifOrientationImg // Need to set image size or they blow up the display
                 width={64}
-                height={64}
+                height={"auto"}
                 className="mr-3"
                 src={report.imgurl}
                 alt="No Image Provided"

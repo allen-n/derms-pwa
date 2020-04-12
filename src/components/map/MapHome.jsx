@@ -25,7 +25,10 @@ const MapHome = props => {
 
     const handleSearchClick = (event) => {
         setUserFlow('search')
-        history.push("/search-item-type")
+        setConfirmPin(true);
+        setDisplayCenterMarker(true);
+        setMoveMenu(false);
+        // history.push("/search-item-type")
     }
 
 
@@ -68,7 +71,7 @@ const MapHome = props => {
                 searchData.coordinates = userLocation.latLng;
                 searchData.locZoom = userLocation.zoom
                 searchData.locName = userLocation.name;
-                // reroute
+                history.push("/search-item-type")
                 break;
             default:
                 console.error("Tried to confirm user location, but search flow wasn't set, was: ", userFlow)
