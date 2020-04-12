@@ -5,6 +5,7 @@ import LeafMap from '../map/LeafMap'
 import { Container, Row } from 'react-bootstrap'
 import { Button } from '../button/Button';
 import UserMenu from '../utils/UserMenu'
+import ConfirmLocationSlider from '../map/ConfirmLocationSlider'
 import './MapHome.css'
 
 const MapHome = props => {
@@ -15,7 +16,10 @@ const MapHome = props => {
     const history = useHistory();
 
     const handleReportClick = (event) => {
-        history.push("/locate");
+        // history.push("/locate");
+        setConfirmPin(true);
+        setDisplayCenterMarker(true);
+        setMoveMenu(false);
     }
 
     const handleSearchClick = (event) => {
@@ -32,9 +36,16 @@ const MapHome = props => {
     }, [])
 
     const [moveMenu, setMoveMenu] = useState(false)
+    const [confirmPin, setConfirmPin] = useState(false)
+    const [displayCenterMarker, setDisplayCenterMarker] = useState(false)
 
     const moveUserMenu = (e) => {
         setMoveMenu(!moveMenu)
+    }
+
+    const cancelConfirmPin = () => {
+        setConfirmPin(false);
+        setDisplayCenterMarker(false);
     }
 
     return (
@@ -46,15 +57,17 @@ const MapHome = props => {
                     delta={.5}
                     limit={4}
                     enableGeoCode={false}
-                    enableRevGeoCode={false} />
+                    enableRevGeoCode={false}
+                    displayCenterMarker={displayCenterMarker} />
             </Row>
             <Row>
                 <Button buttonSize="btn-row" onClick={handleSearchClick}>Find Supplies</Button>
                 <Button buttonSize="btn-row" onClick={handleReportClick}>Report Findings</Button>
             </Row>
             {/* TODO: This button jumps around when the page loads, likely due to CSS issues */}
-            <Button buttonSize="btn-menu" onClick={moveUserMenu}>+</Button> 
-            <UserMenu in={moveMenu}/>
+            <Button buttonSize="btn-menu" onClick={moveUserMenu}>+</Button>
+            <UserMenu in={moveMenu} />
+            <ConfirmLocationSlider in={confirmPin} cancelCallback={cancelConfirmPin}/>
 
         </Container >
     );

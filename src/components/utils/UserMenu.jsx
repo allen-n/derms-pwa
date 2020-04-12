@@ -16,6 +16,7 @@ const UserMenu = ({ in: inProp,
     const { userData, auth } = firebase
     const history = useHistory();
     const [userName, setUserName] = useState("Loading")
+    const timeoutVal = 500; // Must match UsermMenu.css
 
     const handleSignout = (event) => {
         if (auth.currentUser) {
@@ -33,7 +34,7 @@ const UserMenu = ({ in: inProp,
         <CSSTransition
             classNames="slide"
             in={inProp}
-            timeout={1000}
+            timeout={timeoutVal}
             unmountOnExit
             onEnter={null || enter} // enter callback
             onExited={null || exit} // exit callback
