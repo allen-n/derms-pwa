@@ -12,15 +12,32 @@ const ConfirmLocationSlider = ({ in: inProp,
     onEnter: enter,
     onExit: exit,
     cancelCallback: cancel,
-    firebase: firebase }) => {
+    confirmCallback: confirm
+    // firebase: firebase 
+}) => {
 
-    const { userData, auth } = firebase
-    const history = useHistory();
+    // const { userData, auth } = firebase
+    // const history = useHistory();
     const timeoutVal = 500; // Must match ConfirmLocationSlider.css
 
     const handleCancel = (event) => {
-        console.log("cancel Clicked")
         cancel()
+    }
+
+    const handleConfirm = (event) => {
+        confirm();
+    }
+
+    const renderSetPin = () => {
+        return (
+            <>
+                <h4>Set your search area</h4>
+                <p>Move the map to set search area</p>
+
+                <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" onClick={handleConfirm}>Confirm</Button>
+                <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleCancel}>Cancel</Button>
+            </>
+        );
     }
 
     return (
@@ -33,12 +50,7 @@ const ConfirmLocationSlider = ({ in: inProp,
             onExited={null || exit} // exit callback
         >
             <div className="location-slide-style">
-                <h4>Set your search area</h4>
-                <p>Move the map to set search area</p>
-
-                <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" onClick={
-                    () => { alert("Appreciate the thought! This isn't working yet :(.") }}>Confirm</Button>
-                <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleCancel}>Cancel</Button>
+                {renderSetPin()}
             </div>
         </CSSTransition >
     );

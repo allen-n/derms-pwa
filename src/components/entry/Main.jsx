@@ -19,6 +19,7 @@ import ReportItemInfo from "../report/ReportItemInfo";
 import SearchItemType from "../search/SearchItemType";
 import LocateItem from "../search/LocateItem";
 import MapHome from "../map/MapHome"
+import ConfirmStore from "../report/ConfirmStore"
 
 /**
  * Main is the entry point of the app, and houses all the other views
@@ -44,6 +45,7 @@ class Main extends Component {
                             <Route path="/login" component={TransitionShell(Login)} />
                             <Route path="/signup" component={TransitionShell(Signup)} />
                             <Route path="/map-home" component={TransitionShell(MapHome)} />
+                            <Route path="/confirm-store" component={TransitionShell(ConfirmStore)} />
                             <Route path="/locate" component={TransitionShell(LocationSelect)} />
                             <Route path="/report-type" component={TransitionShell(ReportItemType)} />
                             <Route path="/report-info" component={TransitionShell(ReportItemInfo)} />

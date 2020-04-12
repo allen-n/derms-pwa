@@ -1,40 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 :root {
-  --primaryColor: #6482E8;
-  --secondaryColor: #C7C7C7;
-  --tertriaryColor: #FFEEA5;
-  --successColor: #25AC87;
-  --warningColor: #FFEEA5;
-  --dangerColor: #D32438;
-  --white: #ffffff;
-  --black: #000000;
+    --primaryColor: #6482E8;
+    --secondaryColor: #C7C7C7;
+    --tertriaryColor: #FFEEA5;
+    --successColor: #25AC87;
+    --warningColor: #FFEEA5;
+    --dangerColor: #D32438;
+    --white: #ffffff;
+    --black: #000000;
 }
 
 .location-slide-style {
-  background-color: var(--secondaryColor) !important;
-  position: absolute;
-  bottom: 0vh;
-  right: auto;
-  width: 100vw;
-  z-index: 2000;
+    background-color: var(--secondaryColor) !important;
+    position: absolute;
+    bottom: 0vh;
+    right: auto;
+    width: 100vw;
+    height: fit-content;
+    z-index: 2000;
 }
 
 /* ANIMATIONS */
 
+/* Initial location select slider */
+
 .location-slide-enter {
-  transform: translateY(100%);
+    transform: translateY(100%);
 }
 
 .location-slide-enter-active {
-  transform: translateY(0%);
-  transition: transform 500ms ease-in-out;
+    transform: translateY(0%);
+    transition: transform 500ms ease-in-out;
 }
 
 .location-slide-exit {
-  transform: translateY(0%);
+    transform: translateY(0%);
 }
 
 .location-slide-exit-active {
-  transform: translateY(100%);
-  transition: transform 500ms ease-in-out;
+    transform: translateY(100%);
+    transition: transform 500ms ease-in-out;
+}
+
+/* Store select slider */
+
+.store-slide-enter {
+    transform: translateY(100%);
+}
+
+.store-slide-enter-active {
+    transform: translateY(0%);
+    transition: transform 500ms ease-in-out;
+}
+
+.store-slide-exit {
+    transform: translateY(0%);
+}
+
+.store-slide-exit-active {
+    transform: translateY(100%);
+    transition: transform 500ms ease-in-out;
 }
