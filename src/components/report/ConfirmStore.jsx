@@ -93,9 +93,21 @@ const ConfirmStore = props => {
             limit: 4
         }
     }
+    const addrOptions = {
+        geocodingQueryParams: {
+        },
+        reverseQueryParams: {
+            types: "address",
+            reverseMode: "distance",
+            limit: 1
+        }
+    }
+
+    const [addrCoder, setAddrCoder] = useState(new Geocoder.Mapbox(mapBoxConfig.apiKey, addrOptions)) // address Geocoder
     const [geocoder, setGeoCoder] = useState(new Geocoder.Mapbox(mapBoxConfig.apiKey, mapBoxOptions)) // Geocoder
     const [possibleLocs, setPossibleLocs] = useState([])
     const [selectedLoc, setSelectedLoc] = useState(null)
+    const [addrStr, setAddrStr] = useState('')
     const storeNotFoundRef = useRef(null)
 
     const history = useHistory();
@@ -121,6 +133,11 @@ const ConfirmStore = props => {
             results.push({ name: notFoundStr })
             setPossibleLocs(results)
         })
+        addrCoder.reverse(reportData.coordinates, reportData.locZoom, results => {
+            if (results.length > 0) {
+                setAddrStr(results[0].name)
+            }
+        })
     }
 
     const handleSubmit = (event) => {
@@ -129,7 +146,7 @@ const ConfirmStore = props => {
         const name = selectedLoc == null ? storeNotFoundRef.current.value : selectedLoc.name
         const nameArr = name.split(",")
         reportData.locName = nameArr[0]
-        reportData.locAddress = selectedLoc == null ? "N/A" : nameArr.slice(1, -1).join(",")
+        reportData.locAddress = selectedLoc == null ? addrStr : nameArr.slice(1, -1).join(",")
         reportData.user = userData.uid
 
         // If the place has a geo point, use that
@@ -161,7 +178,7 @@ const ConfirmStore = props => {
                     notFoundStr={notFoundStr}>
                 </DropdownLocation>
                 {renderStoreInput()}
-               
+
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
