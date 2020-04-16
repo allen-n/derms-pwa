@@ -6,6 +6,7 @@ import { Container, Row, Col, Button, Media } from 'react-bootstrap'
 import { Marker, Popup } from 'react-leaflet'
 import ReportListModal from './ReportListModal'
 import ExifOrientationImg from 'react-exif-orientation-img'
+import * as allItems from '../../firebase/items.json'
 
 
 
@@ -19,6 +20,7 @@ const LocateItem = props => {
 
     const maxZoom = 18
     const [mapZoom, setMapZoom] = useState(maxZoom)
+    const [searchItemName, setSearchItemName] = useState('')
 
     const history = useHistory();
 
@@ -45,6 +47,13 @@ const LocateItem = props => {
             history.push('/search-item-type')
         }
     }, [])
+
+    useEffect(() => {
+        if (searchData.categoryId) {
+            const itemName = allItems[searchData.categoryId].items[searchData.itemId].name
+            setSearchItemName(itemName)
+        }
+    }, [searchData])
 
     const returnZoom = (zoom) => {
         setMapZoom(zoom)
@@ -185,8 +194,15 @@ const LocateItem = props => {
         setResetZoom(!resetZoom)
     }
 
+    const goHome = () => {
+        history.push("/map-home")
+    }
+
     return (
         <Container fluid>
+            <Row>
+                <p>Currently searching for {searchItemName}</p>
+            </Row>
             <Row>
                 <LeafMap
                     returnLocation={returnLocation}
@@ -206,6 +222,7 @@ const LocateItem = props => {
             </Row>
             <Row>
                 <Button onClick={zoomOut}>See All Results</Button>
+                <Button onClick={goHome}>Return Home</Button>
             </Row>
         </Container >
     );
