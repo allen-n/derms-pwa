@@ -5,21 +5,28 @@ import LeafMap from '../map/LeafMap'
 import { Container, Row } from 'react-bootstrap'
 import { Button } from '../button/Button';
 import UserMenu from '../utils/UserMenu'
+import ConfirmLocationSlider from '../map/ConfirmLocationSlider'
 import './MapHome.css'
 
 const MapHome = props => {
     // db variables
-    const { userData } = props.firebase
+    const { userData, reportData, searchData } = props.firebase
 
     // Routing functions
     const history = useHistory();
 
     const handleReportClick = (event) => {
-        history.push("/locate");
+        setUserFlow('report')
+        setConfirmPin(true);
+        setDisplayCenterMarker(true);
+        setMoveMenu(false);
     }
 
     const handleSearchClick = (event) => {
-        history.push("/search-item-type")
+        setUserFlow('search')
+        setConfirmPin(true);
+        setDisplayCenterMarker(true);
+        setMoveMenu(false);
     }
 
 
@@ -32,9 +39,43 @@ const MapHome = props => {
     }, [])
 
     const [moveMenu, setMoveMenu] = useState(false)
+    const [confirmPin, setConfirmPin] = useState(false)
+    const [displayCenterMarker, setDisplayCenterMarker] = useState(false)
+    const [userFlow, setUserFlow] = useState('') // either 'report' or 'search'
+    const [userLocation, setUserLocation] = useState(null)
 
     const moveUserMenu = (e) => {
         setMoveMenu(!moveMenu)
+    }
+
+    const cancelConfirmPin = () => {
+        setConfirmPin(false);
+        setDisplayCenterMarker(false);
+    }
+
+    const returnLocation = (loc) => {
+        setUserLocation(loc);
+    }
+
+    const confirmLoc = () => {
+        switch (userFlow) {
+            case 'report':
+                reportData.coordinates = userLocation.latLng;
+                reportData.locZoom = userLocation.zoom
+                reportData.locName = userLocation.name;
+                history.push("/confirm-store")
+                break;
+            case 'search':
+                searchData.coordinates = userLocation.latLng;
+                searchData.locZoom = userLocation.zoom
+                searchData.locName = userLocation.name;
+                history.push("/search-item-type")
+                break;
+            default:
+                console.error("Tried to confirm user location, but search flow wasn't set, was: ", userFlow)
+        }
+
+
     }
 
     return (
@@ -42,19 +83,22 @@ const MapHome = props => {
             <Row>
                 <LeafMap
                     className="map-container"
+                    returnLocation={returnLocation}
                     initZoom={17}
                     delta={.5}
                     limit={4}
                     enableGeoCode={false}
-                    enableRevGeoCode={false} />
+                    enableRevGeoCode={false}
+                    displayCenterMarker={displayCenterMarker} />
             </Row>
             <Row>
                 <Button buttonSize="btn-row" onClick={handleSearchClick}>Find Supplies</Button>
                 <Button buttonSize="btn-row" onClick={handleReportClick}>Report Findings</Button>
             </Row>
             {/* TODO: This button jumps around when the page loads, likely due to CSS issues */}
-            <Button buttonSize="btn-menu" onClick={moveUserMenu}>+</Button> 
-            <UserMenu in={moveMenu}/>
+            <Button buttonSize="btn-menu" onClick={moveUserMenu}>+</Button>
+            <UserMenu in={moveMenu} />
+            <ConfirmLocationSlider in={confirmPin} cancelCallback={cancelConfirmPin} confirmCallback={confirmLoc} />
 
         </Container >
     );
