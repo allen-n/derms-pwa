@@ -12,7 +12,6 @@ import TransitionShell from "../utils/TransitionShell";
 import Landing from "./Landing"
 import Signup from "./Signup"
 import Login from "./Login";
-import Start from "./Start";
 import LocationSelect from "../report/LocationSelect";
 import ReportItemType from "../report/ReportItemType";
 import ReportItemInfo from "../report/ReportItemInfo";
@@ -40,8 +39,7 @@ class Main extends Component {
                             {/* <li><NavLink to="/start">Sign In/Out (Dev)</NavLink></li> */}
                         </ul>
                         <div className="content">
-                            <Route exact path="/" component={TransitionShell(Landing)} />
-                            <Route path="/start" component={TransitionShell(Start)} />
+                            <Route exact path="/" component={TransitionShell(Landing)} />                            
                             <Route path="/login" component={TransitionShell(Login)} />
                             <Route path="/signup" component={TransitionShell(Signup)} />
                             <Route path="/map-home" component={TransitionShell(MapHome)} />
