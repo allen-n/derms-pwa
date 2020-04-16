@@ -12,7 +12,6 @@ import TransitionShell from "../utils/TransitionShell";
 import Landing from "./Landing"
 import Signup from "./Signup"
 import Login from "./Login";
-import LocationSelect from "../report/LocationSelect";
 import ReportItemType from "../report/ReportItemType";
 import ReportItemInfo from "../report/ReportItemInfo";
 import SearchItemType from "../search/SearchItemType";
@@ -44,7 +43,6 @@ class Main extends Component {
                             <Route path="/signup" component={TransitionShell(Signup)} />
                             <Route path="/map-home" component={TransitionShell(MapHome)} />
                             <Route path="/confirm-store" component={TransitionShell(ConfirmStore)} />
-                            <Route path="/locate" component={TransitionShell(LocationSelect)} />
                             <Route path="/report-type" component={TransitionShell(ReportItemType)} />
                             <Route path="/report-info" component={TransitionShell(ReportItemInfo)} />
                             <Route path="/search-item-type" component={TransitionShell(SearchItemType)} />

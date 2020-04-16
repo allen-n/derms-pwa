@@ -16,7 +16,6 @@ const MapHome = props => {
     const history = useHistory();
 
     const handleReportClick = (event) => {
-        // history.push("/locate");
         setUserFlow('report')
         setConfirmPin(true);
         setDisplayCenterMarker(true);
@@ -28,7 +27,6 @@ const MapHome = props => {
         setConfirmPin(true);
         setDisplayCenterMarker(true);
         setMoveMenu(false);
-        // history.push("/search-item-type")
     }
 
 
