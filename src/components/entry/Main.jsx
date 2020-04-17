@@ -29,24 +29,16 @@ class Main extends Component {
                 {/* Notes:
                     * 'to' prop is identified to load correct content 
                     * exact prevents '/' from wildcard matching '/.*' */}
-                <div>
-                    <NavLink to="/"><h4>DERMS</h4></NavLink>
-
-                    <ul className="header">
-                        {/* <li><NavLink to="/">Home</NavLink></li> */}
-                        {/* <li><NavLink to="/start">Sign In/Out (Dev)</NavLink></li> */}
-                    </ul>
-                    <div className="content">
-                        <Route exact path="/" component={TransitionShell(Landing)} />
-                        <Route path="/login" component={TransitionShell(Login)} />
-                        <Route path="/signup" component={TransitionShell(Signup)} />
-                        <Route path="/map-home" component={TransitionShell(MapHome)} />
-                        <Route path="/confirm-store" component={TransitionShell(ConfirmStore)} />
-                        <Route path="/report-type" component={TransitionShell(ReportItemType)} />
-                        <Route path="/report-info" component={TransitionShell(ReportItemInfo)} />
-                        <Route path="/search-item-type" component={TransitionShell(SearchItemType)} />
-                        <Route path="/locate-item" component={TransitionShell(LocateItem)} />
-                    </div>
+                <div className="content">
+                    <Route exact path="/" component={TransitionShell(Landing)} />
+                    <Route path="/login" component={TransitionShell(Login)} />
+                    <Route path="/signup" component={TransitionShell(Signup)} />
+                    <Route path="/map-home" component={TransitionShell(MapHome)} />
+                    <Route path="/confirm-store" component={TransitionShell(ConfirmStore)} />
+                    <Route path="/report-type" component={TransitionShell(ReportItemType)} />
+                    <Route path="/report-info" component={TransitionShell(ReportItemInfo)} />
+                    <Route path="/search-item-type" component={TransitionShell(SearchItemType)} />
+                    <Route path="/locate-item" component={TransitionShell(LocateItem)} />
                 </div>
             </HashRouter>
         );
