@@ -79,7 +79,7 @@ const MapHome = props => {
     }
 
     return (
-        <Container fluid>
+        <Container fluid className="fill-height">
             <Row>
                 <LeafMap
                     className="map-container"
@@ -91,7 +91,8 @@ const MapHome = props => {
                     enableRevGeoCode={false}
                     displayCenterMarker={displayCenterMarker} />
             </Row>
-            <Row>
+            {/* Workaround, this must complement the leaf map's height in LeafMap.css */}
+            <Row style={{ height: "10vh" }}>
                 <Button buttonSize="btn-fit-half" onClick={handleSearchClick}>Find Supplies</Button>
                 <Button buttonSize="btn-fit-half" onClick={handleReportClick}>Report Findings</Button>
             </Row>

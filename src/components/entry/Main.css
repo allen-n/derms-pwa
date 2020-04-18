@@ -4,6 +4,7 @@ h1, h2, p, ul, li {
 
 .content {
     background-color: #FFF;
+    height:100vh;
 }
 
 /* ItemList CSS */

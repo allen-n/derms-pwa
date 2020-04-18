@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { CSSTransition } from 'react-transition-group';
 import './TransitionShell.css'
 
