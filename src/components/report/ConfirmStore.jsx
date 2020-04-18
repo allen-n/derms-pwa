@@ -19,7 +19,6 @@ const DropdownLocation = props => {
     if (props.returnLocation == null) {
         console.error("Location callback must be defined!")
     }
-    // locations.push({ name: notFoundStr })
 
     const [selectedLoc, setSelectedLoc] = useState(null)
 
