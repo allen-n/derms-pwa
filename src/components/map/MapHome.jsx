@@ -92,8 +92,8 @@ const MapHome = props => {
                     displayCenterMarker={displayCenterMarker} />
             </Row>
             <Row>
-                <Button buttonSize="btn-row" onClick={handleSearchClick}>Find Supplies</Button>
-                <Button buttonSize="btn-row" onClick={handleReportClick}>Report Findings</Button>
+                <Button buttonSize="btn-fit-half" onClick={handleSearchClick}>Find Supplies</Button>
+                <Button buttonSize="btn-fit-half" onClick={handleReportClick}>Report Findings</Button>
             </Row>
             {/* TODO: This button jumps around when the page loads, likely due to CSS issues */}
             <Button buttonSize="btn-menu" onClick={moveUserMenu}>+</Button>
