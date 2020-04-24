@@ -27,9 +27,9 @@ const Landing = props => {
 
     return (
         <div>
+            <img src={require('../../../public/imgs/Lighthouse_Landing_Page-2@3x.png')} class="header-img"/>
             <h2>The neighborhood watch for supplies in your area.</h2>
-            <p>Crowdsourcing real-time updates from local shoppers.</p>
-
+            <h3>Crowdsourcing real-time updates from local shoppers.</h3>
             <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" onClick={handleLogin}>Log In</Button>
             <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleSignup}>Sign Up</Button>
         </div>
