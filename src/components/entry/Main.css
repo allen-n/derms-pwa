@@ -1,10 +1,46 @@
-h1, h2, p, ul, li {
-    font-family: sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://use.typekit.net/xqi3emh.css');
+:root {
+    --primary-color: #0C3DF6;
+    --secondary-color: #1A3547;
+    --tertriary-color: #525252;
+}
+h1, h2, h3, p, ul, li {
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: center;
+}
+
+h2 {
+    font-family: "bookmania",serif !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    color: var(--secondary-color) !important;
+}
+
+h3 {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    color: var(--tertriary-color) !important;
+}
+
+.header-img {
+    width:100vw;
+    margin-bottom: 30px;
 }
 
 .content {
     background-color: #FFF;
     height:100vh;
+}
+
+.content h2 {
+    padding: 0;
+}
+
+.content li {
+    margin-bottom: 10px;
 }
 
 /* ItemList CSS */
