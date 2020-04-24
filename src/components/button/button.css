@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 :root {
-    --primaryColor: #6482E8;
-    --secondaryColor: #C7C7C7;
-    --tertriaryColor: #FFEEA5;
-    --successColor: #25AC87;
-    --warningColor: #FFEEA5;
-    --dangerColor: #D32438;
-    --white: #ffffff;
-    --black: #000000;
+    --primary-color: #0C3DF6;
+    --secondary-color: #1A3547;
+    --tertriary-color: #525252;
+    --quaternary-color: #6482E8;
+    --quinary-color: #C7C7C7;
 }
 
 .btn {
@@ -17,31 +15,31 @@
 }
 
 .btn-primary__active {
-    background-color: var(--primaryColor) !important;
+    background-color: var(--primary-color) !important;
     color: white !important;
     border-radius: 2px !important;
-    border: 1px var(--tertriaryColor) solid !important;
+    border: 1px var(--primary-color) solid !important;
 }
-.btn-primary__active:hover {
-    background-color: var(--tertriaryColor) !important;
+.btn-primary__active:hover, .btn-primary__active:focus {
+    background-color: var(--quaternary-color) !important;
 }
 
 .btn-secondary__active {
     background-color: white !important;
-    color: var(--primaryColor) !important;
+    color: var(--primary-color) !important;
     border-radius: 2px !important;
-    border: 1px var(--primaryColor) solid !important;
+    border: 1px var(--primary-color) solid !important;
 }
-.btn-secondary__active:hover {
-    color: var(--tertriaryColor) !important;
-    border: 1px var(--tertriaryColor) solid !important;
+.btn-secondary__active:hover, .btn-secondary__active:focus {
+    color: var(--quaternary-color) !important;
+    border: 1px var(--quaternary-color) solid !important;
 }
 
 .btn-general__inactive {
-    background-color: var(--secondary) !important;
+    background-color: var(--quinary-color) !important;
     color: white !important;
     border-radius: 2px !important;
-    border: 1px var(--secondary) solid !important;
+    border: 1px var(--quinary-color) solid !important;
 }
 
 .btn-large {
@@ -67,8 +65,10 @@
 .btn-medium {
     font-size: 14px !important;
     margin-top: 20px !important;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
     height: 42px !important;
-    width: 100%;
+    width: 90vw;
 }
 
 .btn-small {
