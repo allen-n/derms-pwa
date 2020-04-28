@@ -111,6 +111,7 @@ const Signup = props => {
 
     return (
         <Form onSubmit={handleSubmit} onChange={handleChange}>
+            <h2>The neighborhood watch for supplies in your area.</h2>
             <Form.Group>
                 <Form.Label> Name</Form.Label>
                 <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
