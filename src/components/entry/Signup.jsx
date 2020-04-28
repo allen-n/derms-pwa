@@ -135,7 +135,7 @@ const Signup = props => {
             </Form.Group>
             <Checkbox>I have Read and understood <a href="#">the Privacy Policy.</a></Checkbox>
             <Checkbox>I agree to the <a href="#">Terms and Conditions.</a></Checkbox>
-            <Button variant="primary" type="submit" disabled={isDisabled}>Submit</Button>
+            <Button variant="primary" type="submit" disabled={isDisabled}><strong>Create Account</strong></Button>
         </Form>
     );
 
