@@ -1,4 +1,3 @@
-
 .map-container {
     z-index: 0;
     /* position: absolute; */
@@ -6,4 +5,17 @@
 
 .fill-height {
     height: 100vh;
+}
+
+/* Should be able to do this without 
+setting z to 1000, I don't know how */
+
+.btn-menu {
+    height: 40px !important;
+    width: 40px !important;
+    position: absolute;
+    top: 35px;
+    right: 65px;
+    z-index: 1000;
+    background-image: url('../../../public/imgs/hamburger-icon.png')
 }
