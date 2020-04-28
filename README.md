@@ -65,6 +65,7 @@ npm run deploy # deploy app to firebase host
 
 * [Allen Nikka](https://github.com/allen-n)
 * [Jordan Sturner](https://www.behance.net/jordansturner)
+* [Bruno)(https://github.com/Brun012)
 
 ## Ackowledgements
 * [Ovie Okeh](https://blog.logrocket.com/creating-a-lists-pwa-with-react-and-firebase/) - Great tutorial that got me going on the project.
