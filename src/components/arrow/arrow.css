@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --primaryColor: #0C3DF6;
+    --secondaryColor: #C3C3C3;
+}
+
+.arrow {
+    position: relative;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 2em;
+    padding-top: 7px;
+    padding-right: 15px;
+}
+
+.arrow-active:after, .arrow-active:before {
+    background: var(--primaryColor);
+}
+.arrow-inactive:after, .arrow-inactive:before {
+    background: var(--secondaryColor);
+}
+  
+.arrow:before, .arrow:after {
+    content:"";
+    border-radius: 3em;
+    display: block;
+    height: 0.08em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 0.35em;
+    transform: rotate(-45deg);
+}
+  
+.arrow:before {
+    top: 1em;
+}
+  
+.arrow:after {
+    top: 0.8em;
+    bottom: 0.8em;
+    transform: rotate(45deg);
+}
