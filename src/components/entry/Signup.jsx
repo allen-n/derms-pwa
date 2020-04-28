@@ -113,7 +113,6 @@ const Signup = props => {
         <Form onSubmit={handleSubmit} onChange={handleChange}>
             <h2>The neighborhood watch for supplies in your area.</h2>
             <Form.Group>
-                <Form.Label> Name</Form.Label>
                 <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
                 <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
                 <Form.Text className="text-muted">
@@ -122,15 +121,13 @@ const Signup = props => {
 
             </Form.Group>
             <Form.Group>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" id="formEmail" ref={formEmail} />
+                <Form.Control type="email" placeholder="Email" id="formEmail" ref={formEmail} />
                 <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                     </Form.Text>
             </Form.Group>
 
             <Form.Group>
-                <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
             </Form.Group>
             <Checkbox>I have Read and understood <a href="#">the Privacy Policy.</a></Checkbox>
