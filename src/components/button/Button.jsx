@@ -12,6 +12,7 @@ const SIZES = [
     "btn-medium",
     "btn-small",
     "btn-row", // 50% width side by side
+    "btn-fit-half", // fit half the parent component (width)
     "btn-menu"
 ]
 

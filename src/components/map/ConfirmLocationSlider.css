@@ -14,7 +14,7 @@
     background-color: var(--secondaryColor) !important;
     position: absolute;
     bottom: 0vh;
-    right: auto;
+    right: 0vw;
     width: 100vw;
     height: fit-content;
     z-index: 2000;

@@ -58,6 +58,12 @@
     width: 50% !important;
 }
 
+.btn-fit-half {
+    font-size: 15px !important;
+    height: 100% !important;
+    width: 50% !important;
+}
+
 .btn-medium {
     font-size: 14px !important;
     margin-top: 20px !important;
