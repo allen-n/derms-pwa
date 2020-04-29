@@ -10,6 +10,7 @@ const STYLES = [
 const SIZES = [
     "btn-large",
     "btn-medium",
+    "btn-medium-responsive",
     "btn-small",
     "btn-fit-half", // fit half the parent component (width)
     "btn-menu",

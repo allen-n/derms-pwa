@@ -72,6 +72,15 @@
     width: 90vw;
 }
 
+.btn-medium-responsive {
+    font-size: 14px !important;
+    margin-top: 4vh !important;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    height: 42px !important;
+    width: 90%;
+}
+
 .btn-small {
     font-size: 14px !important;
     margin-top: 20px !important;
@@ -81,6 +90,7 @@
 
 /* Should be able to do this without 
 setting z to 1000, I don't know how */
+
 .btn-menu {
     height: 25px !important;
     width: 25px !important;

@@ -54,9 +54,9 @@ const UserMenu = ({ in: inProp,
                     </tbody>
                 </table>
 
-                <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" onClick={
+                <Button buttonStyle="btn-primary__active" buttonSize="btn-medium-responsive" onClick={
                     () => { alert("Appreciate the thought! This isn't working yet :(.") }}>Donate</Button>
-                <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleSignout}>Log Out</Button>
+                <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium-responsive" onClick={handleSignout}>Log Out</Button>
             </div>
         </CSSTransition >
     );

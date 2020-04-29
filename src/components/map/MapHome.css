@@ -16,7 +16,7 @@ setting z to 1000, I don't know how */
     position: absolute;
     top: 2vh;
     right: 2vh;
-    z-index: 1000;
+    z-index: 2000;
     background-image: url('../../../public/imgs/hamburger-icon.png');
     background-size: 40px 40px;
     background-position: center;
