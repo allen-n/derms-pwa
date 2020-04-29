@@ -4,7 +4,7 @@ import ItemCarousel from './ItemCarousel'
 import ItemList from './ItemList'
 import { withFirebase } from '../../firebase/withFirebase'
 import * as allItems from '../../firebase/items.json'
-import { Button } from 'react-bootstrap'
+import { Button } from '../button/Button'
 
 /**
  * 
@@ -48,6 +48,9 @@ const ItemTypeSelect = props => {
     }
     const routeClick = () => {
         history.push(routeClickDest);
+    }
+    const handleCancel = () => {
+        history.push(routeBackwardDest)
     }
 
     // Callbacks for child components
@@ -152,10 +155,12 @@ const ItemTypeSelect = props => {
     }, [])
 
     return (
-        <div>
+        <div style={{marginTop: "10vh"}}>
             <ItemCarousel categories={categoryNames} returnActiveCategory={returnActiveCategory} />
             <ItemList items={itemNames} returnActiveItem={returnActiveItem}></ItemList>
-            <Button onClick={routeClick} disabled={submitDisabled}> Confirm </Button>
+            {/* <Button onClick={routeClick} disabled={submitDisabled}> Confirm </Button> */}
+            <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" onClick={routeClick} disabled={submitDisabled}>Confirm</Button>
+            <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleCancel}>Cancel</Button>
         </div>
 
     );

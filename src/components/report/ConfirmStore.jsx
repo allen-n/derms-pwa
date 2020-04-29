@@ -113,6 +113,7 @@ const ConfirmStore = props => {
 
     // Make sure report data up to now is collected, if not route back
     useEffect(() => {
+        // console.log(reportData.coordinates)
         if (typeof reportData.coordinates === 'undefined') {
             history.push('/map-home')
         }
@@ -169,7 +170,7 @@ const ConfirmStore = props => {
     }
 
     return (
-        <div>
+        <div style={{marginTop: "30vh"}}>
             < Form onSubmit={handleSubmit}>
                 <DropdownLocation
                     returnLocation={returnLocation}
