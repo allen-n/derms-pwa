@@ -114,19 +114,13 @@ const Signup = props => {
             <h2>The neighborhood watch for supplies in your area.</h2>
             <Form.Group>
                 <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
+            </Form.Group>
+            <Form.Group>
                 <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
-                <Form.Text className="text-muted">
-                    We'll never share your last name with anyone else.
-                    </Form.Text>
-
             </Form.Group>
             <Form.Group>
                 <Form.Control type="email" placeholder="Email" id="formEmail" ref={formEmail} />
-                <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                    </Form.Text>
             </Form.Group>
-
             <Form.Group>
                 <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
             </Form.Group>
