@@ -28,6 +28,7 @@ h3 {
 .header-img {
     width:100vw;
     margin-bottom: 30px;
+    max-width: 80vh;
 }
 
 .content {
