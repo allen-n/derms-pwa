@@ -155,7 +155,7 @@ const ItemTypeSelect = props => {
     }, [])
 
     return (
-        <div>
+        <div style={{marginTop: "10vh"}}>
             <ItemCarousel categories={categoryNames} returnActiveCategory={returnActiveCategory} />
             <ItemList items={itemNames} returnActiveItem={returnActiveItem}></ItemList>
             {/* <Button onClick={routeClick} disabled={submitDisabled}> Confirm </Button> */}

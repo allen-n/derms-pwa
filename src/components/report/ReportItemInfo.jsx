@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from 'react-router-dom';
-import { Form, Button, ButtonGroup, ProgressBar } from "react-bootstrap";
+import { Form, ProgressBar, Row } from "react-bootstrap";
+import { Button } from '../button/Button';
+import { StockLevelRadio } from '../stock-level/StockLevelRadio'
 import { withFirebase } from '../../firebase/withFirebase'
 import { v4 as uuidv4 } from 'uuid';
 import ExifOrientationImg from 'react-exif-orientation-img'
@@ -26,6 +28,7 @@ const ReportItemInfo = props => {
     const [uploadProg, setUploadProg] = useState(-1)
     const [submitDisabled, setSubmitDisabled] = useState(true)
     const [fileUploadText, setFileUploadText] = useState("Take Photo")
+    const [submitText, setSubmitText] = useState("Submit")
 
     const aisleRef = useRef(null)
     const history = useHistory();
@@ -42,8 +45,13 @@ const ReportItemInfo = props => {
 
     // Callback / onclick handlers
     const handleStockLevel = (event) => {
+        console.log(event.target.value)
         setStockLevel(event.target.value)
         setSubmitDisabled(false)
+    }
+
+    const handleCancel = () => {
+        history.goBack()
     }
 
     const handleImageAsFile = (e) => {
@@ -64,7 +72,8 @@ const ReportItemInfo = props => {
             console.warn(`Couldn't upload your image, it was a ${typeof (imageAsFile)}!`)
             return handleDataUpload();
         }
-
+        setSubmitDisabled(true);
+        setSubmitText("Uploading")
         // Upload files source here: https://firebase.google.com/docs/storage/web/upload-files
         const uploadTask = storage.ref(`/images/${uuidv4() + imageAsFile.name}`).put(imageAsFile)
 
@@ -99,11 +108,15 @@ const ReportItemInfo = props => {
                         // Unknown error occurred, inspect error.serverResponse
                         break;
                 }
+                setSubmitDisabled(false);
+                setSubmitText("Submit");
             }, function () {
                 // Upload completed successfully, now we can get the download URL
                 uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
                     // console.log('File available at', downloadURL);
                     setUploadProg(-1)
+                    setSubmitDisabled(false);
+                    setSubmitText("Submit");
                     return handleDataUpload(downloadURL);
                 });
             });
@@ -120,7 +133,7 @@ const ReportItemInfo = props => {
         reportData.isOutdated = false; // A cloud function will write this to true after certain amount of time
 
         history.push("/"); // Go home
-        alert('Submission complete, nice work!')
+        // alert('Submission complete, nice work!')
 
 
         // Do work in the background (on home screen) fore responsiveness
@@ -164,17 +177,13 @@ const ReportItemInfo = props => {
     }
 
     return (
-        <div>
-            <p>Stock Level (Required)</p>
-            <ButtonGroup className="mr-2" aria-label="First group" toggle="true">
-                <Button onClick={handleStockLevel} value={3} variant="success">Just Restocked</Button>
-                <Button onClick={handleStockLevel} value={2} variant="secondary">Normal</Button>
-                <Button onClick={handleStockLevel} value={1} variant="warning">Running Low</Button>
-                <Button onClick={handleStockLevel} value={0} variant="danger">Empty</Button>
-            </ButtonGroup>
-
-
+        <div style={{ marginTop: "15vh" }}>
             < Form onSubmit={handleSubmit}>
+                <Form.Group controlId="stockLevel">
+                    <Form.Label>Stock Level (Required)</Form.Label><br></br>
+                    <StockLevelRadio onClick={handleStockLevel} />
+                </Form.Group>
+
                 <Form.Group controlId="aisleNum">
                     <Form.Label>What aisle(s) (Optional)</Form.Label>
                     <Form.Control ref={aisleRef} placeholder="Aisle 1" />
@@ -198,10 +207,16 @@ const ReportItemInfo = props => {
                     </div>
                     {renderImage()}
                 </Form.Group>
-                <Button variant="primary" type="submit" disabled={submitDisabled}>
-                    Submit
+                <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" type="submit" disabled={submitDisabled}>
+                    {submitText}
                 </Button>
+                {/* <Button variant="primary" type="submit" >
+                    Submit
+                </Button> */}
             </Form >
+            <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleCancel}>Cancel</Button>
+
+
             {renderUploadProg()}
         </div>);
 }
