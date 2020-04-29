@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { withFirebase } from '../../firebase/withFirebase'
 import LeafMap from '../map/LeafMap'
-import { Container, Row, Col, Button, Media } from 'react-bootstrap'
-import { Marker, Popup } from 'react-leaflet'
+import { Container, Row, Media } from 'react-bootstrap'
+import { Button } from '../button/Button'
+import { Marker } from 'react-leaflet'
 import ReportListModal from './ReportListModal'
 import ExifOrientationImg from 'react-exif-orientation-img'
 import * as allItems from '../../firebase/items.json'
+import './LocateItem.css'
 
 
 
@@ -201,9 +203,7 @@ const LocateItem = props => {
     return (
         <Container fluid>
             <Row>
-                <p>Currently searching for {searchItemName}</p>
-            </Row>
-            <Row>
+                <p className="item-tooltip">{searchItemName}</p>
                 <LeafMap
                     returnLocation={returnLocation}
                     delta={.5}
@@ -220,13 +220,13 @@ const LocateItem = props => {
                 </LeafMap>
                 <ReportListModal show={showModal} items={modalItems} handleClose={handleModalClose} />
             </Row>
-            <Row>
-                <Button onClick={zoomOut}>See All Results</Button>
-                <Button onClick={goHome}>Return Home</Button>
+            {/* Workaround, this must complement the leaf map's height in LeafMap.css */}
+            <Row style={{ height: "10vh" }}>
+                <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={zoomOut}>See All Results </Button>
+                <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={goHome}>Return Home</Button>
             </Row>
         </Container >
     );
-
 
 }
 
