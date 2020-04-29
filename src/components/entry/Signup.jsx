@@ -111,19 +111,21 @@ const Signup = props => {
 
     return (
         <Form onSubmit={handleSubmit} onChange={handleChange}>
-            <h2>The neighborhood watch for supplies in your area.</h2>
-            <Form.Group>
-                <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
-            </Form.Group>
-            <Form.Group>
-                <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
-            </Form.Group>
-            <Form.Group>
-                <Form.Control type="email" placeholder="Email" id="formEmail" ref={formEmail} />
-            </Form.Group>
-            <Form.Group>
-                <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
-            </Form.Group>
+            <h2 class="margin-bottom-thirty">Let’s get started by creating an account</h2>
+            <div class="margin-sides">
+                <Form.Group>
+                    <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Control type="email" placeholder="Email" id="formEmail" ref={formEmail} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
+                </Form.Group>
+            </div>
             <Checkbox>I have Read and understood <a href="#">the Privacy Policy.</a></Checkbox>
             <Checkbox>I agree to the <a href="#">Terms and Conditions.</a></Checkbox>
             <Button variant="primary" type="submit" disabled={isDisabled}><strong>Create Account</strong></Button>
