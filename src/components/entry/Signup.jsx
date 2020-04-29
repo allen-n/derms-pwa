@@ -12,6 +12,7 @@ const Signup = props => {
 
     const formEmail = useRef(null);
     const formPassword = useRef(null);
+    const formConfirmPassword = useRef(null);
     const formFName = useRef(null);
     const formLName = useRef(null);
 
@@ -101,6 +102,7 @@ const Signup = props => {
     const handleChange = (event) => {
         if (formEmail.current.value != '' &&
             formPassword.current.value != '' &&
+            formPassword.current.value === formConfirmPassword.current.value &&
             formFName.current.value != '' &&
             formLName.current.value != '') {
             setIsDisabled(false)
@@ -115,6 +117,9 @@ const Signup = props => {
             <div class="margin-sides">
                 <Form.Group>
                     <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
+                    {/* <Form.Text className="text-muted">
+                        We'll never share your last name with anyone else.
+                    </Form.Text> */}
                 </Form.Group>
                 <Form.Group>
                     <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
@@ -124,6 +129,9 @@ const Signup = props => {
                 </Form.Group>
                 <Form.Group>
                     <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Control type="password" placeholder="Confirm Password" id="formConfirmPassword" ref={formConfirmPassword} />
                 </Form.Group>
             </div>
             <Checkbox>I have Read and understood <a href="#">the Privacy Policy.</a></Checkbox>
