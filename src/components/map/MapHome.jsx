@@ -53,7 +53,7 @@ const MapHome = props => {
             // alert("You must be logged in to make reports.")
             history.push('/')
         }
-
+        window.scrollTo(0, 0)
         // initiate the event handler
         window.addEventListener('resize', handleBrowserResize);
 
