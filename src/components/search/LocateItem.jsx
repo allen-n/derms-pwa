@@ -48,6 +48,7 @@ const LocateItem = props => {
         if (searchData.itemId == null) {
             history.push('/search-item-type')
         }
+        window.scrollTo(0,0)
         // initiate the event handler
         window.addEventListener('resize', handleBrowserResize);
 
