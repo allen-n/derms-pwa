@@ -1,0 +1,63 @@
+/* Common CSS file for all components with a map view */
+
+/* LocateItem CSS */
+
+.item-tooltip {
+    position: absolute;
+    top: 0vh;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    z-index: 2000;
+    background-color: #365EF2;
+    opacity: .8;
+    color: white;
+    border: none;
+}
+
+/* End LocateItem CSS */
+
+/* LeafMap CSS */
+
+/* .leaflet-container {
+    height: 90vh;
+    height: calc(var(--vh, 1vh) * 90);
+    width: 100vw;
+} */
+
+/* End LeafMap CSS */
+
+/* MapHome CSS */
+
+.map-buttons {
+    /* This height should complement leaflet-container! */
+    /* height: 10vh;
+    height: calc(var(--vh, 1vh) * 10); */
+}
+
+.map-container {
+    z-index: 0;
+}
+
+.fill-height {
+    height: 100vh;
+}
+
+/* Should be able to do this without 
+setting z to 1000, I don't know how */
+
+.btn-menu {
+    height: 40px !important;
+    width: 40px !important;
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+    z-index: 2000;
+    background-image: url('../../../public/imgs/hamburger-icon.png');
+    background-size: 40px 40px;
+    background-position: center;
+    background-color: white;
+    border: none;
+}
+
+/* End MapHome CSS */

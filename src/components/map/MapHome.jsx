@@ -6,7 +6,7 @@ import { Container, Row } from 'react-bootstrap'
 import { Button } from '../button/Button';
 import UserMenu from '../utils/UserMenu'
 import ConfirmLocationSlider from '../map/ConfirmLocationSlider'
-import './MapHome.css'
+import '../utils/MapComponents.css'
 
 const MapHome = props => {
     // db variables
@@ -30,12 +30,38 @@ const MapHome = props => {
     }
 
 
+    // Handle map and button height resizing
+    const mapHeightRatio = .9;
+    const buttonHeightRatio = 1 - mapHeightRatio;
+    const [mapHeight, setMapHeight] = useState(mapHeightRatio * window.innerHeight)
+    const [buttonHeight, setButtonHeight] = useState(buttonHeightRatio * window.innerHeight)
+    /**
+     * This function deals with the case that a mobile browser bar reduces the 
+     visible component of the web app without changing the viewport size, 
+     effectively clipping the bottom of the viewport
+     */
+    const handleBrowserResize = () => {
+        let vh = window.innerHeight;
+        setMapHeight(vh * mapHeightRatio)
+        setButtonHeight(vh * buttonHeightRatio)
+    }
+
+
     // Make sure user data up to now is collected, if not route back
     useEffect(() => {
         if (userData == null) {
             // alert("You must be logged in to make reports.")
             history.push('/')
         }
+
+        // initiate the event handler
+        window.addEventListener('resize', handleBrowserResize);
+
+
+        // this will clean up the event every time the component is re-rendered
+        return function cleanup() {
+            window.removeEventListener('resize', handleBrowserResize);
+        };
     }, [])
 
     const [moveMenu, setMoveMenu] = useState(false)
@@ -82,6 +108,7 @@ const MapHome = props => {
         <Container fluid className="fill-height">
             <Row>
                 <LeafMap
+                    style={{ height: mapHeight, width: "100vw" }}
                     className="map-container"
                     returnLocation={returnLocation}
                     initZoom={17}
@@ -92,7 +119,7 @@ const MapHome = props => {
                     displayCenterMarker={displayCenterMarker} />
             </Row>
             {/* Workaround, this must complement the leaf map's height in LeafMap.css */}
-            <Row style={{ height: "10vh" }}>
+            <Row className="map-buttons" style={{ height: buttonHeight }}>
                 <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={handleSearchClick}>Find Supplies</Button>
                 <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={handleReportClick}>Report Findings</Button>
             </Row>

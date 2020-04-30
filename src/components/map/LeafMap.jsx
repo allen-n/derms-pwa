@@ -4,8 +4,8 @@ import { mapBoxConfig } from '../../firebase/config'
 import LocateControl from './LocateControl'
 import GeoCode from './GeoCode'
 import Geocoder from "leaflet-control-geocoder"
-import './LeafMap.css'
 import MarkerClusterGroup from 'react-leaflet-markercluster';
+import '../utils/MapComponents.css'
 
 
 const TextDiv = ({ name }) => {
@@ -181,7 +181,7 @@ const LeafMap = props => {
     return (
         <div>
             {renderRevGeoCode()}
-            <Map ref={mapContainer} center={latLng} zoom={zoom} onmove={handleMove} onmoveend={handleMoveEnd}>
+            <Map style={props.style} ref={mapContainer} center={latLng} zoom={zoom} onmove={handleMove} onmoveend={handleMoveEnd}>
                 {renderTileLayer()}
                 {centerMarkerRender()}
                 <FeatureGroup ref={markerClusterRef}>
@@ -217,7 +217,8 @@ LeafMap.defaultProps = {
     resetZoom: false,
     maxZoom: 18,
     returnZoom: null,
-    initZoom: 13
+    initZoom: 13,
+    style: {height: "90vh", width: "100vw"}
 }
 
 export default LeafMap
