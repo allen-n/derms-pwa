@@ -19,14 +19,21 @@
 
 /* LeafMap CSS */
 
-.leaflet-container {
+/* .leaflet-container {
     height: 90vh;
+    height: calc(var(--vh, 1vh) * 90);
     width: 100vw;
-}
+} */
 
 /* End LeafMap CSS */
 
 /* MapHome CSS */
+
+.map-buttons {
+    /* This height should complement leaflet-container! */
+    /* height: 10vh;
+    height: calc(var(--vh, 1vh) * 10); */
+}
 
 .map-container {
     z-index: 0;

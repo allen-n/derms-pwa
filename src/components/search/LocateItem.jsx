@@ -48,6 +48,14 @@ const LocateItem = props => {
         if (searchData.itemId == null) {
             history.push('/search-item-type')
         }
+        // initiate the event handler
+        window.addEventListener('resize', handleBrowserResize);
+
+
+        // this will clean up the event every time the component is re-rendered
+        return function cleanup() {
+            window.removeEventListener('resize', handleBrowserResize);
+        };
     }, [])
 
     useEffect(() => {
@@ -200,11 +208,28 @@ const LocateItem = props => {
         history.push("/map-home")
     }
 
+    // Handle map and button height resizing
+    const mapHeightRatio = .9;
+    const buttonHeightRatio = 1 - mapHeightRatio;
+    const [mapHeight, setMapHeight] = useState(mapHeightRatio * window.innerHeight)
+    const [buttonHeight, setButtonHeight] = useState(buttonHeightRatio * window.innerHeight)
+    /**
+     * This function deals with the case that a mobile browser bar reduces the 
+     visible component of the web app without changing the viewport size, 
+     effectively clipping the bottom of the viewport
+     */
+    const handleBrowserResize = () => {
+        let vh = window.innerHeight;
+        setMapHeight(vh * mapHeightRatio)
+        setButtonHeight(vh * buttonHeightRatio)
+    }
+
     return (
         <Container fluid>
             <Row>
                 <p className="item-tooltip">{searchItemName}</p>
                 <LeafMap
+                    style={{ height: mapHeight, width: "100vh" }}
                     returnLocation={returnLocation}
                     delta={.5}
                     limit={3}
@@ -221,7 +246,7 @@ const LocateItem = props => {
                 <ReportListModal show={showModal} items={modalItems} handleClose={handleModalClose} />
             </Row>
             {/* Workaround, this must complement the leaf map's height in LeafMap.css */}
-            <Row style={{ height: "10vh" }}>
+            <Row className="map-buttons" style={{ height: buttonHeight }}>
                 <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={zoomOut}>See All Results </Button>
                 <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={goHome}>Return Home</Button>
             </Row>
