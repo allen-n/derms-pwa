@@ -6,7 +6,7 @@ import { Container, Row } from 'react-bootstrap'
 import { Button } from '../button/Button';
 import UserMenu from '../utils/UserMenu'
 import ConfirmLocationSlider from '../map/ConfirmLocationSlider'
-import './MapHome.css'
+import '../utils/MapComponents.css'
 
 const MapHome = props => {
     // db variables

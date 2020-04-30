@@ -4,8 +4,8 @@ import { mapBoxConfig } from '../../firebase/config'
 import LocateControl from './LocateControl'
 import GeoCode from './GeoCode'
 import Geocoder from "leaflet-control-geocoder"
-import './LeafMap.css'
 import MarkerClusterGroup from 'react-leaflet-markercluster';
+import '../utils/MapComponents.css'
 
 
 const TextDiv = ({ name }) => {

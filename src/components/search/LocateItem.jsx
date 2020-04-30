@@ -8,7 +8,7 @@ import { Marker } from 'react-leaflet'
 import ReportListModal from './ReportListModal'
 import ExifOrientationImg from 'react-exif-orientation-img'
 import * as allItems from '../../firebase/items.json'
-import './LocateItem.css'
+import '../utils/MapComponents.css'
 
 
 
