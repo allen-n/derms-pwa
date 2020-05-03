@@ -4,15 +4,18 @@
 
 .item-tooltip {
     position: absolute;
-    top: 0vh;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    z-index: 2000;
+    bottom: 12vh;
+    width: fit-content;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    z-index: 1000;
     background-color: #365EF2;
-    opacity: .8;
+    border-radius: 10%/50%;
+    opacity: .95;
     color: white;
-    border: none;
 }
 
 /* End LocateItem CSS */

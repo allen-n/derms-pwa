@@ -34,15 +34,16 @@ const MapHome = props => {
     // Handle map and button height resizing
     const mapHeightRatio = .9;
     const buttonHeightRatio = 1 - mapHeightRatio;
-    const [mapHeight, setMapHeight] = useState(mapHeightRatio * window.innerHeight)
-    const [buttonHeight, setButtonHeight] = useState(buttonHeightRatio * window.innerHeight)
+    const [mapHeight, setMapHeight] = useState(mapHeightRatio * window.outerHeight)
+    const [buttonHeight, setButtonHeight] = useState(buttonHeightRatio * window.outerHeight)
     /**
      * This function deals with the case that a mobile browser bar reduces the 
      visible component of the web app without changing the viewport size, 
      effectively clipping the bottom of the viewport
      */
     const handleBrowserResize = () => {
-        let vh = window.innerHeight;
+        window.scrollTo(0, 0)
+        let vh = window.outerHeight;
         setMapHeight(vh * mapHeightRatio)
         setButtonHeight(vh * buttonHeightRatio)
     }
@@ -54,7 +55,7 @@ const MapHome = props => {
             // alert("You must be logged in to make reports.")
             history.push('/')
         }
-        window.scrollTo(0, 0)
+        handleBrowserResize();
         // initiate the event handler
         window.addEventListener('resize', handleBrowserResize);
 
