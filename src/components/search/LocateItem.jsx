@@ -8,6 +8,7 @@ import { Marker } from 'react-leaflet'
 import ReportListModal from './ReportListModal'
 import ExifOrientationImg from 'react-exif-orientation-img'
 import * as allItems from '../../firebase/items.json'
+import * as stockLevel from '../../firebase/stock.json'
 import '../utils/MapComponents.css'
 
 
@@ -145,6 +146,9 @@ const LocateItem = props => {
         }
     }
 
+    const stockToNum = stockLevel.stockToNum
+    const numToStock = stockLevel.numToStock
+
     const reportToMedia = (report) => {
         var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
         d.setUTCSeconds(report.timestamp.seconds);
@@ -167,13 +171,14 @@ const LocateItem = props => {
                 <Media>
                     {img} {/* Dont load the image if there isn't one */}
                     <Media.Body>
-                        <h5>Store: {storeName}, Stock(0-3): {report.stock}</h5>
+                        <h6>{storeName} </h6>
+                        <h6>Stock Level: {numToStock['' + report.stock]}</h6>
                         <p>
                             Address: {report.locAddress} <br />
-                            Report Date: {d.toLocaleDateString()} <br />
-                            Report Time: {d.toLocaleTimeString()}
+                            Date: {d.toLocaleDateString()} <br />
+                            Time: {d.toLocaleTimeString()}
                         </p>
-                        <Button onClick={() => goToNavigate(report.id)}> Go </Button>
+                        <Button buttonSize="btn-fit-whole" onClick={() => goToNavigate(report.id)}> Go </Button>
                     </Media.Body>
                 </Media>
         });

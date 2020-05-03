@@ -207,6 +207,7 @@ const ReportItemInfo = props => {
                     </div>
                     {renderImage()}
                 </Form.Group>
+                {renderUploadProg()}
                 <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" type="submit" disabled={submitDisabled}>
                     {submitText}
                 </Button>
@@ -215,9 +216,6 @@ const ReportItemInfo = props => {
                 </Button> */}
             </Form >
             <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleCancel}>Cancel</Button>
-
-
-            {renderUploadProg()}
         </div>);
 }
 

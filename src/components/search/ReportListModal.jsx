@@ -17,16 +17,12 @@ const ReportListModal = (props) => {
 
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-        </Button> */}
-
-            <Modal show={props.show} onHide={handleClose}>
+            <Modal show={props.show} onHide={handleClose} style={{ width: "100vw" }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Recent Reports</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Here are some recent reports from your area:
+                    Here are the most recent reports from your area:
                     <ItemList
                         items={props.items}
                         returnActiveItem={returnActiveItem}
@@ -38,9 +34,6 @@ const ReportListModal = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    {/* <Button variant="primary" onClick={handleClose}>
-                        Take me there
-                    </Button> */}
                 </Modal.Footer>
             </Modal>
         </>
