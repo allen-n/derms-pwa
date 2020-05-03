@@ -27,6 +27,7 @@
     "react-leaflet": "^2.6.3",
     "react-leaflet-markercluster": "^2.0.0-rc3",
     "react-router-dom": "^5.1.2",
+    "react-swipeable": "^5.5.1",
     "react-transition-group": "^4.3.0",
     "uuid": "^7.0.2"
   },

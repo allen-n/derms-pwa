@@ -44,13 +44,13 @@ const UserMenu = ({ in: inProp,
                 <h3 className="userMenu-text">What would you like to do?</h3>
                 <table>
                     <tbody>
-                        <tr><td className="option">Your History</td></tr>
-                        <tr><td className="option">Edit Profile</td></tr>
-                        <tr><td className="option">Rewards</td></tr>
-                        <tr><td className="option">Help</td></tr>
-                        <tr><td className="option">Forums</td></tr>
-                        <tr><td className="option">Settings</td></tr>
-                        <tr><td className="option">Our Story</td></tr>
+                        <tr><td className="option">Your History (Coming Soon!)</td></tr>
+                        <tr><td className="option">Edit Profile (Coming Soon!)</td></tr>
+                        <tr><td className="option">Rewards (Coming Soon!)</td></tr>
+                        <tr><td className="option">Help (Coming Soon!)</td></tr>
+                        <tr><td className="option">Forums (Coming Soon!)</td></tr>
+                        <tr><td className="option">Settings (Coming Soon!)</td></tr>
+                        <tr><td className="option">Our Story (Coming Soon!)</td></tr>
                     </tbody>
                 </table>
 

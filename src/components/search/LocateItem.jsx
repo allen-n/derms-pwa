@@ -21,7 +21,8 @@ const LocateItem = props => {
     const [modalItems, setModalItems] = useState([])
     const [resetZoom, setResetZoom] = useState(false)
 
-    const maxZoom = 18
+    const maxZoom = 18 // The zoom level at which results are grouped and shown
+    const initZoom = 11; // Initial zoom level of the map, default is 13
     const [mapZoom, setMapZoom] = useState(maxZoom)
     const [searchItemName, setSearchItemName] = useState('')
 
@@ -235,10 +236,10 @@ const LocateItem = props => {
     return (
         <Container fluid>
             <Row>
-                <p className="item-tooltip" onClick={goHome}> &nbsp; &nbsp; {searchItemName} &nbsp; &nbsp; &nbsp; &nbsp; x  &nbsp;  &nbsp;</p>
+                <p className="item-tooltip" onClick={goHome}> &nbsp; &nbsp; {searchItemName} &nbsp; &nbsp; &nbsp; x  &nbsp;  &nbsp;</p>
 
                 <LeafMap
-                    style={{ height: mapHeight, width: "100vh" }}
+                    style={{ height: mapHeight, width: "100vw" }}
                     returnLocation={returnLocation}
                     delta={.5}
                     limit={3}
@@ -249,6 +250,7 @@ const LocateItem = props => {
                     displayCenterMarker={false}
                     resetZoom={resetZoom}
                     maxZoom={maxZoom}
+                    initZoom={initZoom}
                     returnZoom={returnZoom}
                 >
                 </LeafMap>
@@ -256,7 +258,7 @@ const LocateItem = props => {
             </Row>
             {/* Workaround, this must complement the leaf map's height in LeafMap.css */}
             <Row className="map-buttons" style={{ height: buttonHeight }}>
-                <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-whole" onClick={zoomOut}>Search This Area </Button>
+                <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-whole" onClick={zoomOut}>Zoom to Results</Button>
             </Row>
         </Container >
     );

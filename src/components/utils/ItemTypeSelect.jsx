@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom';
 import ItemCarousel from './ItemCarousel'
 import ItemList from './ItemList'
 import { withFirebase } from '../../firebase/withFirebase'
 import * as allItems from '../../firebase/items.json'
 import { Button } from '../button/Button'
+import { useSwipeable, Swipeable } from 'react-swipeable'
 
 /**
  * 
@@ -14,7 +15,7 @@ import { Button } from '../button/Button'
  * * searchData: default null, not null if on the search flow, contains search data
  * * routeBackwardDest: default  null, react router string to route back to if data is missing 
  */
-const ItemTypeSelect = props => {
+const ItemTypeSelect = (props, ref) => {
 
     // State Vars
     const [itemNames, setItemNames] = useState([])
@@ -63,7 +64,6 @@ const ItemTypeSelect = props => {
      */
     const returnActiveCategory = (newActiveCategory) => {
         setActiveCategory(newActiveCategory)
-
     }
 
     /**
@@ -147,17 +147,38 @@ const ItemTypeSelect = props => {
                 }
                 itemCategoryDict[catId] = itemsInCategory
             }
-            
+
             setCategoryItemMap(itemCategoryDict)
         }
         setCategoryNames(categoriesFromDB)
 
     }, [])
 
+    const handleSwipeRight = () => {
+        setHandleSwipeVal(-1)
+        setHandleSwipeVal(0)
+    }
+    const handleSwipeLeft = () => {
+        setHandleSwipeVal(1)
+        setHandleSwipeVal(0)
+    }
+
+    // For swipeable components 
+    const handlers = useSwipeable({
+        onSwipedLeft: handleSwipeLeft,
+        onSwipedRight: handleSwipeRight,
+        preventDefaultTouchmoveEvent: true,
+        trackMouse: true
+    });
+
+    const [handleSwipeVal, setHandleSwipeVal] = useState(0)
+
     return (
-        <div style={{marginTop: "10vh"}}>
-            <ItemCarousel categories={categoryNames} returnActiveCategory={returnActiveCategory} />
-            <ItemList items={itemNames} returnActiveItem={returnActiveItem}></ItemList>
+        <div style={{ paddingTop: "10vh" }}>
+            <ItemCarousel handleSwipeVal={handleSwipeVal} categories={categoryNames} returnActiveCategory={returnActiveCategory} />
+            <div {...handlers}>
+                <ItemList items={itemNames} returnActiveItem={returnActiveItem}></ItemList>
+            </div>
             {/* <Button onClick={routeClick} disabled={submitDisabled}> Confirm </Button> */}
             <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" onClick={routeClick} disabled={submitDisabled}>Confirm</Button>
             <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleCancel}>Cancel</Button>

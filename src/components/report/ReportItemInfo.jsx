@@ -177,7 +177,7 @@ const ReportItemInfo = props => {
     }
 
     return (
-        <div style={{ marginTop: "15vh" }}>
+        <div style={{ paddingTop: "15vh" }}>
             < Form onSubmit={handleSubmit}>
                 <Form.Group controlId="stockLevel">
                     <Form.Label>Stock Level (Required)</Form.Label><br></br>
