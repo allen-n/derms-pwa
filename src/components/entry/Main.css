@@ -47,7 +47,9 @@ h4 {
 
 .content {
     background-color: #FFF;
-    height: 100vh;
+    /* TODO: Add code from here: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+    Remove code from MapHome and ItemLocate */
+    /* height: 100vh; */
 }
 
 .content h2 {

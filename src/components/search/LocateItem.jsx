@@ -51,7 +51,7 @@ const LocateItem = props => {
             history.push('/search-item-type')
         }
 
-        handleBrowserResize()
+        // handleBrowserResize()
         // initiate the event handler
         window.addEventListener('resize', handleBrowserResize);
 
@@ -227,8 +227,9 @@ const LocateItem = props => {
      effectively clipping the bottom of the viewport
      */
     const handleBrowserResize = () => {
-        window.scrollTo(0, 0)
-        let vh = window.outerHeight;
+        // window.scrollTo(0, 0)
+        // const vh = document.documentElement.clientHeight
+        const vh = window.innerHeight
         setMapHeight(vh * mapHeightRatio)
         setButtonHeight(vh * buttonHeightRatio)
     }
