@@ -129,6 +129,10 @@ const Signup = props => {
                 </Form.Group>
                 <Form.Group>
                     <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
+                    
+                    <Form.Text className="">
+                        Password Strength: Strong
+                    </Form.Text>
                 </Form.Group>
                 <Form.Group>
                     <Form.Control type="password" placeholder="Confirm Password" id="formConfirmPassword" ref={formConfirmPassword} />
