@@ -2,8 +2,10 @@ import React, { useState, useRef } from "react";
 import { Form } from "react-bootstrap";
 import { Button } from '../button/Button';
 import { Checkbox } from '../checkbox/Checkbox';
+import { PasswordStrength } from '../password-strength/Password-Strength';
 import { withFirebase } from '../../firebase/withFirebase'
 import { useHistory } from 'react-router-dom';
+import { string } from "prop-types";
 
 const Signup = props => {
 
@@ -15,6 +17,15 @@ const Signup = props => {
     const formConfirmPassword = useRef(null);
     const formFName = useRef(null);
     const formLName = useRef(null);
+
+    const passwordDescription = string;
+    
+    // [
+    //     "Very Strong",
+    //     "Strong",
+    //     "Medium",
+    //     "Weak"
+    // ]
 
     const [isDisabled, setIsDisabled] = useState(true)
 
@@ -109,6 +120,19 @@ const Signup = props => {
         } else {
             setIsDisabled(true)
         }
+
+        if (formPassword.current.length < 8){
+            passwordDescription = "Weak";
+        }
+        else if (formPassword.current.length < 11){
+            passwordDescription = "Medium";
+        }
+        else if (formPassword.current.length < 13){
+            passwordDescription = "Strong";
+        }
+        else if (formPassword.current.length > 10){
+            passwordDescription = "Very Strong";
+        }
     }
 
     return (
@@ -130,9 +154,9 @@ const Signup = props => {
                 <Form.Group>
                     <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
                     
-                    <Form.Text className="">
-                        Password Strength: Strong
-                    </Form.Text>
+                    <PasswordStrength passwordStrengthStyle="passwordStrength__empty">
+                        Password Strength: {passwordDescription}
+                    </PasswordStrength>
                 </Form.Group>
                 <Form.Group>
                     <Form.Control type="password" placeholder="Confirm Password" id="formConfirmPassword" ref={formConfirmPassword} />
