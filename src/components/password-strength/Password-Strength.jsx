@@ -1,29 +1,32 @@
 import React from 'react';
+import "./password-strength.css";
 
 const STYLES = [
-    "password-strength__empty",
-    "password-strength__veryStrong",
-    "password-strength__strong",
-    "password-strength__medium",
-    "password-strength__weak"
+    "passwordStrength__empty",
+    "passwordStrength__veryStrong",
+    "passwordStrength__strong",
+    "passwordStrength__medium",
+    "passwordStrength__weak"
 ]
 
-export const Button = ({ 
-    children, 
-    type, 
-    onClick, 
-    passwordStrengthStyle,
-    disabled
+export const PasswordStrength = ({ 
+    children,
+    passwordStrengthStyle
 }) => {
     
 
-    const passwordStrengthStyle = STYLES.includes(passwordStrengthStyle) ? passwordStrengthStyle : STYLES[0];
+    const checkPasswordStrengthStyle = STYLES.includes(passwordStrengthStyle) ? passwordStrengthStyle : STYLES[0];
 
     return (
-        <span>
-            <div className = {`password-strength ${passwordStrengthStyle}`}></div>
+        <div>
+            <div className = {`passwordStrength-bar`}>
+                <div className = {`passwordStrength ${passwordStrengthStyle}`}></div>
+                <div className = {`passwordStrength ${passwordStrengthStyle}`}></div>
+                <div className = {`passwordStrength ${passwordStrengthStyle}`}></div>
+                <div className = {`passwordStrength ${passwordStrengthStyle}`}></div>
+            </div>
+            {/* <p>{children}</p> */}
             {children}
-        </span>
-        
+        </div>
     )
 }
