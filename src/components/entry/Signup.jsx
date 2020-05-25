@@ -18,7 +18,7 @@ const Signup = props => {
     const formFName = useRef(null);
     const formLName = useRef(null);
 
-    const passwordDescription = string;
+    let passwordDescription = string;
     
     // [
     //     "Very Strong",
@@ -121,24 +121,32 @@ const Signup = props => {
             setIsDisabled(true)
         }
 
-        if (formPassword.current.length < 8){
-            passwordDescription = "Weak";
+        if (formPassword.current.value.length == 0){
+            passwordDescription = "passwordStrength__empty";
+            console.log("Password length is ", passwordDescription);
         }
-        else if (formPassword.current.length < 11){
-            passwordDescription = "Medium";
+        else if (formPassword.current.value.length < 8){
+            passwordDescription = "passwordStrength__weak";
+            console.log("Password length is ", passwordDescription);
         }
-        else if (formPassword.current.length < 13){
-            passwordDescription = "Strong";
+        else if (formPassword.current.value.length < 11){
+            passwordDescription = "passwordStrength__medium";
+            console.log("Password length is ", passwordDescription);
         }
-        else if (formPassword.current.length > 10){
-            passwordDescription = "Very Strong";
+        else if (formPassword.current.value.length <= 13){
+            passwordDescription = "passwordStrength__strong";
+            console.log("Password length is ", passwordDescription);
+        }
+        else if (formPassword.current.value.length > 13){
+            passwordDescription = "passwordStrength__veryStrong";
+            console.log("Password length is ", passwordDescription);
         }
     }
 
     return (
         <Form onSubmit={handleSubmit} onChange={handleChange}>
-            <h2 class="margin-bottom-thirty">Let’s get started by creating an account</h2>
-            <div class="margin-sides">
+            <h2 className="margin-bottom-thirty">Let’s get started by creating an account</h2>
+            <div className="margin-sides">
                 <Form.Group>
                     <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
                     {/* <Form.Text className="text-muted">
@@ -153,9 +161,9 @@ const Signup = props => {
                 </Form.Group>
                 <Form.Group>
                     <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
-                    
-                    <PasswordStrength passwordStrengthStyle="passwordStrength__empty">
-                        Password Strength: {passwordDescription}
+                    <PasswordStrength passwordStrengthStyle={passwordDescription}>
+                        Password Strength: 
+                        {/* {passwordDescription} */}
                     </PasswordStrength>
                 </Form.Group>
                 <Form.Group>
