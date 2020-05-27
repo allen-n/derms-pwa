@@ -17,6 +17,13 @@ const Signup = props => {
     const formConfirmPassword = useRef(null);
     const formFName = useRef(null);
     const formLName = useRef(null);
+    const passwordDesc = [
+        "passwordStrength__empty",
+        "passwordStrength__veryStrong",
+        "passwordStrength__strong",
+        "passwordStrength__medium",
+        "passwordStrength__weak"
+    ]
 
     let passwordDescription = string;
     
@@ -110,6 +117,34 @@ const Signup = props => {
 
     }
 
+    const checkPasswordStrength = (event) =>{
+        if (formPassword.current.value.length == 0){
+            passwordDescription = "passwordStrength__empty";
+            console.log("Password length is ", passwordDescription);
+            return "passwordStrength__empty";
+        }
+        else if (formPassword.current.value.length < 8){
+            passwordDescription = "passwordStrength__weak";
+            console.log("Password length is ", passwordDescription);
+            return "passwordStrength__weak";
+        }
+        else if (formPassword.current.value.length < 11){
+            passwordDescription = "passwordStrength__medium";
+            console.log("Password length is ", passwordDescription);
+            return "passwordStrength__medium";
+        }
+        else if (formPassword.current.value.length <= 13){
+            passwordDescription = "passwordStrength__strong";
+            console.log("Password length is ", passwordDescription);
+            return "passwordStrength__strong";
+        }
+        else if (formPassword.current.value.length > 13){
+            passwordDescription = "passwordStrength__veryStrong";
+            console.log("Password length is ", passwordDescription);
+            return "passwordStrength__veryStrong";
+        }
+    }
+
     const handleChange = (event) => {
         if (formEmail.current.value != '' &&
             formPassword.current.value != '' &&
@@ -120,31 +155,10 @@ const Signup = props => {
         } else {
             setIsDisabled(true)
         }
-
-        if (formPassword.current.value.length == 0){
-            passwordDescription = "passwordStrength__empty";
-            console.log("Password length is ", passwordDescription);
-        }
-        else if (formPassword.current.value.length < 8){
-            passwordDescription = "passwordStrength__weak";
-            console.log("Password length is ", passwordDescription);
-        }
-        else if (formPassword.current.value.length < 11){
-            passwordDescription = "passwordStrength__medium";
-            console.log("Password length is ", passwordDescription);
-        }
-        else if (formPassword.current.value.length <= 13){
-            passwordDescription = "passwordStrength__strong";
-            console.log("Password length is ", passwordDescription);
-        }
-        else if (formPassword.current.value.length > 13){
-            passwordDescription = "passwordStrength__veryStrong";
-            console.log("Password length is ", passwordDescription);
-        }
     }
 
     return (
-        <Form onSubmit={handleSubmit} onChange={handleChange}>
+        <Form onSubmit={handleSubmit} onChange={handleChange, checkPasswordStrength}>
             <h2 className="margin-bottom-thirty">Let’s get started by creating an account</h2>
             <div className="margin-sides">
                 <Form.Group>
@@ -160,11 +174,7 @@ const Signup = props => {
                     <Form.Control type="email" placeholder="Email" id="formEmail" ref={formEmail} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
-                    <PasswordStrength passwordStrengthStyle={passwordDescription}>
-                        Password Strength: 
-                        {/* {passwordDescription} */}
-                    </PasswordStrength>
+                    <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword}/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Control type="password" placeholder="Confirm Password" id="formConfirmPassword" ref={formConfirmPassword} />
