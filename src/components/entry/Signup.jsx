@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import { Form } from "react-bootstrap";
 import { Button } from '../button/Button';
 import { Checkbox } from '../checkbox/Checkbox';
-import { PasswordStrength } from '../password-strength/Password-Strength';
 import { withFirebase } from '../../firebase/withFirebase'
 import { useHistory } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { string } from "prop-types";
 
 const Signup = props => {
@@ -17,22 +17,6 @@ const Signup = props => {
     const formConfirmPassword = useRef(null);
     const formFName = useRef(null);
     const formLName = useRef(null);
-    const passwordDesc = [
-        "passwordStrength__empty",
-        "passwordStrength__veryStrong",
-        "passwordStrength__strong",
-        "passwordStrength__medium",
-        "passwordStrength__weak"
-    ]
-
-    let passwordDescription = string;
-    
-    // [
-    //     "Very Strong",
-    //     "Strong",
-    //     "Medium",
-    //     "Weak"
-    // ]
 
     const [isDisabled, setIsDisabled] = useState(true)
 
@@ -117,34 +101,6 @@ const Signup = props => {
 
     }
 
-    const checkPasswordStrength = (event) =>{
-        if (formPassword.current.value.length == 0){
-            passwordDescription = "passwordStrength__empty";
-            console.log("Password length is ", passwordDescription);
-            return "passwordStrength__empty";
-        }
-        else if (formPassword.current.value.length < 8){
-            passwordDescription = "passwordStrength__weak";
-            console.log("Password length is ", passwordDescription);
-            return "passwordStrength__weak";
-        }
-        else if (formPassword.current.value.length < 11){
-            passwordDescription = "passwordStrength__medium";
-            console.log("Password length is ", passwordDescription);
-            return "passwordStrength__medium";
-        }
-        else if (formPassword.current.value.length <= 13){
-            passwordDescription = "passwordStrength__strong";
-            console.log("Password length is ", passwordDescription);
-            return "passwordStrength__strong";
-        }
-        else if (formPassword.current.value.length > 13){
-            passwordDescription = "passwordStrength__veryStrong";
-            console.log("Password length is ", passwordDescription);
-            return "passwordStrength__veryStrong";
-        }
-    }
-
     const handleChange = (event) => {
         if (formEmail.current.value != '' &&
             formPassword.current.value != '' &&
@@ -158,14 +114,15 @@ const Signup = props => {
     }
 
     return (
-        <Form onSubmit={handleSubmit} onChange={handleChange, checkPasswordStrength}>
+        <Form onSubmit={handleSubmit} onChange={handleChange}>
+            <Link class="margin-sides back" to="/">Back</Link>
             <h2 className="margin-bottom-thirty">Let’s get started by creating an account</h2>
             <div className="margin-sides">
                 <Form.Group>
                     <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
-                    {/* <Form.Text className="text-muted">
-                        We'll never share your last name with anyone else.
-                    </Form.Text> */}
+                    <Form.Text className="text-muted">
+                        We'll never share your name with anyone else.
+                    </Form.Text>
                 </Form.Group>
                 <Form.Group>
                     <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
