@@ -4,6 +4,7 @@ import "./button.css";
 const STYLES = [
     "btn-primary__active",
     "btn-secondary__active",
+    "btn-tertriary__active",
     "btn-general__inactive"
 ]
 
