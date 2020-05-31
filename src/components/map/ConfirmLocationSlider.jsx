@@ -31,7 +31,7 @@ const ConfirmLocationSlider = ({ in: inProp,
     const renderSetPin = () => {
         return (
             <>
-                <h4>Set your search area</h4>
+                <h2>Set your search area</h2>
                 <p>Move the map to set search area</p>
 
                 <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" onClick={handleConfirm}>Confirm</Button>
