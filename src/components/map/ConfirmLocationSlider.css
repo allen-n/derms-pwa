@@ -25,15 +25,12 @@
 }
 
 
-h2 {
-    font-family: "bookmania",serif !important;
-    font-size: 24px !important;
-    font-weight: 600 !important;
+.locationSlider-header {
     margin: 20px 20px 5px !important;
     color: var(--secondary-color) !important;
 }
 
-p {
+.locationSlider-text {
     font-family: "Roboto", sans-serif !important;
     font-size: 16px !important;
     font-weight: 400 !important;
