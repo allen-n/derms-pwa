@@ -31,11 +31,7 @@
 }
 
 .locationSlider-text {
-    font-family: "Roboto", sans-serif !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
     margin: 0px 20px !important;
-    color: var(--tertriary-color) !important;
 }
 
 /* ANIMATIONS */
