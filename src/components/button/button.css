@@ -104,7 +104,7 @@ setting z to 1000, I don't know how */
     position: absolute;
     top: 35px;
     right: 65px;
-    z-index: 1000;
+    z-index: 999 !important;
 }
 
 .btn-donations {
