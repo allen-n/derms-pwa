@@ -4,6 +4,8 @@ import { Button } from '../button/Button';
 import { Checkbox } from '../checkbox/Checkbox';
 import { withFirebase } from '../../firebase/withFirebase'
 import { useHistory } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { string } from "prop-types";
 
 const Signup = props => {
 
@@ -12,6 +14,7 @@ const Signup = props => {
 
     const formEmail = useRef(null);
     const formPassword = useRef(null);
+    const formConfirmPassword = useRef(null);
     const formFName = useRef(null);
     const formLName = useRef(null);
 
@@ -101,6 +104,7 @@ const Signup = props => {
     const handleChange = (event) => {
         if (formEmail.current.value != '' &&
             formPassword.current.value != '' &&
+            formPassword.current.value === formConfirmPassword.current.value &&
             formFName.current.value != '' &&
             formLName.current.value != '') {
             setIsDisabled(false)
@@ -111,30 +115,31 @@ const Signup = props => {
 
     return (
         <Form onSubmit={handleSubmit} onChange={handleChange}>
-            <Form.Group>
-                <Form.Label> Name</Form.Label>
-                <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
-                <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
-                <Form.Text className="text-muted">
-                    We'll never share your last name with anyone else.
+            <Link class="margin-sides back" to="/">Back</Link>
+            <h2 className="margin-bottom-thirty">Let’s get started by creating an account</h2>
+            <div className="margin-sides">
+                <Form.Group>
+                    <Form.Control type="text" id="firstName" placeholder="First Name" ref={formFName} />
+                    <Form.Text className="text-muted">
+                        We'll never share your name with anyone else.
                     </Form.Text>
-
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" id="formEmail" ref={formEmail} />
-                <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                    </Form.Text>
-            </Form.Group>
-
-            <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword} />
-            </Form.Group>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Control type="text" id="lastName" placeholder="Last Name" ref={formLName} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Control type="email" placeholder="Email" id="formEmail" ref={formEmail} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Control type="password" placeholder="Password" id="formPassword" ref={formPassword}/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Control type="password" placeholder="Confirm Password" id="formConfirmPassword" ref={formConfirmPassword} />
+                </Form.Group>
+            </div>
             <Checkbox>I have Read and understood <a href="#">the Privacy Policy.</a></Checkbox>
             <Checkbox>I agree to the <a href="#">Terms and Conditions.</a></Checkbox>
-            <Button variant="primary" type="submit" disabled={isDisabled}>Submit</Button>
+            <Button variant="primary" type="submit" disabled={isDisabled}><strong>Create Account</strong></Button>
         </Form>
     );
 

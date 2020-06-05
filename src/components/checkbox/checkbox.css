@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 :root {
-    --primaryColor: #0C3DF6;
-    --secondaryColor: #707070;
+    --primary-color: #0C3DF6;
+    --secondary-color: #1A3547;
+    --tertriary-color: #525252;
 }
  
 /* The container for the checkbox and its accompanying text */
@@ -10,7 +11,7 @@
     display: block;
     position: relative;
     margin-top: 22px;
-    margin-left:0px;
+    margin-left: 20px;
     padding-left: 26px;
     color: #6A6A6A;
     font-family: "Roboto", sans-serif;
@@ -20,11 +21,11 @@
 }
 
 .checkboxLabel a {
-    color: var(--primaryColor);
+    color: var(--primary-color);
     text-decoration: none;
 }
 .checkboxLabel a:hover {
-    color: var(--primaryColor);
+    color: var(--primary-color);
     text-decoration: underline;
 }
   
@@ -48,13 +49,13 @@
     border-radius: 2px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--secondaryColor);
+    border-color: #707070;
 }
   
   /* When the checkbox is checked a blue background appears */
   .checkboxLabel input:checked ~ .checkbox {
     border: none;
-    background-color: var(--primaryColor);
+    background-color: var(--primary-color);
 }
   
 /* The checkmark is hidden when not checked */
