@@ -36,6 +36,12 @@
     border: 1px var(--quaternary-color) solid !important;
 }
 
+.btn-tertriary__active {
+    background-color: white !important;
+    color: var(--secondary-color) !important;
+    border-radius: 0px !important;
+}
+
 .btn-general__inactive {
     background-color: var(--quinary-color) !important;
     color: white !important;
@@ -58,7 +64,8 @@
 }
 
 .btn-fit-half {
-    font-size: 15px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
     height: 100% !important;
     width: 50% !important;
 }
@@ -97,7 +104,7 @@ setting z to 1000, I don't know how */
     position: absolute;
     top: 35px;
     right: 65px;
-    z-index: 1000;
+    z-index: 999 !important;
 }
 
 .btn-donations {

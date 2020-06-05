@@ -1,23 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://use.typekit.net/xqi3emh.css');
 :root {
-    --primaryColor: #6482E8;
+    --primary-color: #0C3DF6;
+    --secondary-color: #1A3547;
+    --tertriary-color: #525252;
+    /* --primaryColor: #6482E8;
     --secondaryColor: #C7C7C7;
     --tertriaryColor: #FFEEA5;
     --successColor: #25AC87;
     --warningColor: #FFEEA5;
     --dangerColor: #D32438;
     --white: #ffffff;
-    --black: #000000;
+    --black: #000000; */
 }
 
 .location-slide-style {
-    background-color: var(--secondaryColor) !important;
+    background-color: white !important;
     position: absolute;
     bottom: 0vh;
     right: 0vw;
     width: 100vw;
     height: fit-content;
     z-index: 2000;
+}
+
+
+.locationSlider-header {
+    margin: 20px 20px 5px !important;
+    color: var(--secondary-color) !important;
+}
+
+.locationSlider-text {
+    margin: 0px 20px !important;
 }
 
 /* ANIMATIONS */

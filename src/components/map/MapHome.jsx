@@ -120,8 +120,8 @@ const MapHome = props => {
             </Row>
             {/* Workaround, this must complement the leaf map's height in LeafMap.css */}
             <Row className="map-buttons" style={{ height: buttonHeight }}>
-                <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={handleSearchClick}>Find Supplies</Button>
-                <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={handleReportClick}>Report Findings</Button>
+                <Button buttonStyle="btn-tertriary__active" buttonSize="btn-fit-half" onClick={handleSearchClick}>Find Supplies</Button>
+                <Button buttonStyle="btn-tertriary__active" buttonSize="btn-fit-half" onClick={handleReportClick}>Report Findings</Button>
             </Row>
             {/* TODO: This button jumps around when the page loads, likely due to CSS issues */}
             <button className="btn-menu" onClick={moveUserMenu}>
