@@ -8,6 +8,7 @@ import { Marker } from 'react-leaflet'
 import ReportListModal from './ReportListModal'
 import ExifOrientationImg from 'react-exif-orientation-img'
 import * as allItems from '../../firebase/items.json'
+import * as stockLevel from '../../firebase/stock.json'
 import '../utils/MapComponents.css'
 
 
@@ -20,7 +21,8 @@ const LocateItem = props => {
     const [modalItems, setModalItems] = useState([])
     const [resetZoom, setResetZoom] = useState(false)
 
-    const maxZoom = 18
+    const maxZoom = 18 // The zoom level at which results are grouped and shown
+    const initZoom = 11; // Initial zoom level of the map, default is 13
     const [mapZoom, setMapZoom] = useState(maxZoom)
     const [searchItemName, setSearchItemName] = useState('')
 
@@ -48,7 +50,8 @@ const LocateItem = props => {
         if (searchData.itemId == null) {
             history.push('/search-item-type')
         }
-        window.scrollTo(0,0)
+
+        // handleBrowserResize()
         // initiate the event handler
         window.addEventListener('resize', handleBrowserResize);
 
@@ -144,6 +147,9 @@ const LocateItem = props => {
         }
     }
 
+    const stockToNum = stockLevel.stockToNum
+    const numToStock = stockLevel.numToStock
+
     const reportToMedia = (report) => {
         var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
         d.setUTCSeconds(report.timestamp.seconds);
@@ -166,13 +172,14 @@ const LocateItem = props => {
                 <Media>
                     {img} {/* Dont load the image if there isn't one */}
                     <Media.Body>
-                        <h5>Store: {storeName}, Stock(0-3): {report.stock}</h5>
+                        <h6>{storeName} </h6>
+                        <h6>Stock Level: {numToStock['' + report.stock]}</h6>
                         <p>
                             Address: {report.locAddress} <br />
-                            Report Date: {d.toLocaleDateString()} <br />
-                            Report Time: {d.toLocaleTimeString()}
+                            Date: {d.toLocaleDateString()} <br />
+                            Time: {d.toLocaleTimeString()}
                         </p>
-                        <Button onClick={() => goToNavigate(report.id)}> Go </Button>
+                        <Button buttonSize="btn-fit-whole" onClick={() => goToNavigate(report.id)}> Go </Button>
                     </Media.Body>
                 </Media>
         });
@@ -212,15 +219,17 @@ const LocateItem = props => {
     // Handle map and button height resizing
     const mapHeightRatio = .9;
     const buttonHeightRatio = 1 - mapHeightRatio;
-    const [mapHeight, setMapHeight] = useState(mapHeightRatio * window.innerHeight)
-    const [buttonHeight, setButtonHeight] = useState(buttonHeightRatio * window.innerHeight)
+    const [mapHeight, setMapHeight] = useState(mapHeightRatio * window.outerHeight)
+    const [buttonHeight, setButtonHeight] = useState(buttonHeightRatio * window.outerHeight)
     /**
      * This function deals with the case that a mobile browser bar reduces the 
      visible component of the web app without changing the viewport size, 
      effectively clipping the bottom of the viewport
      */
     const handleBrowserResize = () => {
-        let vh = window.innerHeight;
+        // window.scrollTo(0, 0)
+        // const vh = document.documentElement.clientHeight
+        const vh = window.innerHeight
         setMapHeight(vh * mapHeightRatio)
         setButtonHeight(vh * buttonHeightRatio)
     }
@@ -228,9 +237,10 @@ const LocateItem = props => {
     return (
         <Container fluid>
             <Row>
-                <p className="item-tooltip">{searchItemName}</p>
+                <p className="item-tooltip" onClick={goHome}> &nbsp; &nbsp; {searchItemName} &nbsp; &nbsp; &nbsp; x  &nbsp;  &nbsp;</p>
+
                 <LeafMap
-                    style={{ height: mapHeight, width: "100vh" }}
+                    style={{ height: mapHeight, width: "100vw" }}
                     returnLocation={returnLocation}
                     delta={.5}
                     limit={3}
@@ -241,6 +251,7 @@ const LocateItem = props => {
                     displayCenterMarker={false}
                     resetZoom={resetZoom}
                     maxZoom={maxZoom}
+                    initZoom={initZoom}
                     returnZoom={returnZoom}
                 >
                 </LeafMap>
@@ -248,8 +259,7 @@ const LocateItem = props => {
             </Row>
             {/* Workaround, this must complement the leaf map's height in LeafMap.css */}
             <Row className="map-buttons" style={{ height: buttonHeight }}>
-                <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={zoomOut}>See All Results </Button>
-                <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-half" onClick={goHome}>Return Home</Button>
+                <Button buttonStyle="btn-secondary__active" buttonSize="btn-fit-whole" onClick={zoomOut}>Zoom to Results</Button>
             </Row>
         </Container >
     );

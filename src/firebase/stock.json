@@ -1,0 +1,14 @@
+{
+    "stockToNum": {
+        "Just Restocked": 3,
+        "Plenty": 2,
+        "Running Low": 1,
+        "Empty": 0
+    },
+    "numToStock": {
+        "3": "Just Restocked",
+        "2": "Plenty",
+        "1": "Running Low",
+        "0": "Empty"
+    }
+}

@@ -177,7 +177,7 @@ const ReportItemInfo = props => {
     }
 
     return (
-        <div style={{ marginTop: "15vh" }}>
+        <div style={{ paddingTop: "15vh" }}>
             < Form onSubmit={handleSubmit}>
                 <Form.Group controlId="stockLevel">
                     <Form.Label>Stock Level (Required)</Form.Label><br></br>
@@ -207,6 +207,7 @@ const ReportItemInfo = props => {
                     </div>
                     {renderImage()}
                 </Form.Group>
+                {renderUploadProg()}
                 <Button buttonStyle="btn-primary__active" buttonSize="btn-medium" type="submit" disabled={submitDisabled}>
                     {submitText}
                 </Button>
@@ -215,9 +216,6 @@ const ReportItemInfo = props => {
                 </Button> */}
             </Form >
             <Button buttonStyle="btn-secondary__active" buttonSize="btn-medium" onClick={handleCancel}>Cancel</Button>
-
-
-            {renderUploadProg()}
         </div>);
 }
 

@@ -5,14 +5,15 @@
     --secondary-color: #1A3547;
     --tertriary-color: #525252;
 }
-h1, h2, h3, h4, p, ul, li {
+
+/* h1, h2, h3, p, ul, li {
     margin-left: 15px;
     margin-right: 15px;
     text-align: center;
-}
+} */
 
 h2 {
-    font-family: "bookmania",serif !important;
+    font-family: "bookmania", serif !important;
     font-size: 24px !important;
     font-weight: 600 !important;
     margin-left: 50px;
@@ -39,14 +40,16 @@ h4 {
 }
 
 .header-img {
-    width:100vw;
+    width: 100vw;
     margin-bottom: 30px;
     max-width: 80vh;
 }
 
 .content {
     background-color: #FFF;
-    height:100vh;
+    /* TODO: Add code from here: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+    Remove code from MapHome and ItemLocate */
+    /* height: 100vh; */
 }
 
 .content h2 {
@@ -99,4 +102,5 @@ h4 {
 
 .categoryListNav>.nav {
     flex-wrap: nowrap;
+    overflow-x: scroll;
 }

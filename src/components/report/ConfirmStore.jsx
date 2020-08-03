@@ -170,7 +170,7 @@ const ConfirmStore = props => {
     }
 
     return (
-        <div style={{marginTop: "30vh"}}>
+        <div style={{paddingTop: "30vh"}}>
             < Form onSubmit={handleSubmit}>
                 <DropdownLocation
                     returnLocation={returnLocation}

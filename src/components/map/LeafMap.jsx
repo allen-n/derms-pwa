@@ -70,7 +70,8 @@ const LeafMap = props => {
                 const bounds = markerClusterRef.current.leafletElement.getBounds()
                 mapContainer.current.leafletElement.flyToBounds(bounds)
             } catch (error) {
-                console.error("Error zooming out:", error)
+                console.warn("Error zooming out:", error)
+                alert("All results already showing.")
             }
         }
     }, [props.resetZoom])

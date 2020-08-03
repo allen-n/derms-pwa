@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Container, Row, Nav } from 'react-bootstrap';
 
 /**
@@ -11,10 +11,13 @@ import { Container, Row, Nav } from 'react-bootstrap';
  * active category back to the parent component when updated, will be 
  * passed the id of the active category when called
  */
-const ItemCarousel = props => {
+const ItemCarousel = (props, ref) => {
 
     // State Vars
-    const [activeCategory, setActiveCategory] = useState("link-0")
+    const nullString = "link-0"
+    const [activeCategory, setActiveCategory] = useState(nullString)
+    const [activeCategoryIdx, setActiveCategoryIdx] = useState(0)
+    const [categoryIdToIdx, setCategoryIdToIdx] = useState({ nullString: -1 })
 
     // onClick functions
     const handleSelect = (selectedKey) => {
@@ -27,14 +30,51 @@ const ItemCarousel = props => {
     useEffect(() => {
         if (props.categories.length > 0) {
             setActiveCategory(props.categories[0].id)
+            var map = { nullString: -1 }
+            var idx = 0
+            for (let i in props.categories) {
+                map[props.categories[i].id] = idx
+                idx += 1
+            }
+            setCategoryIdToIdx(map)
         }
     }, [props.categories]);
 
     useEffect(() => {
         if (props.returnActiveCategory != null) {
             props.returnActiveCategory(activeCategory);
+            const idx = categoryIdToIdx[activeCategory]
+            setActiveCategoryIdx(idx)
         }
     }, [activeCategory]);
+
+    useEffect(() => {
+        if (props.handleSwipeVal) {
+            var newIdx = null
+            if (props.handleSwipeVal > 0) {
+                newIdx = Math.min(props.categories.length - 2, activeCategoryIdx + 1)
+            }
+            if (props.handleSwipeVal < 0) {
+                newIdx = Math.max(0, activeCategoryIdx - 1)
+            }
+            if (newIdx != null) {
+                const newCategory = props.categories[newIdx].id
+                handleScroll(props.handleSwipeVal)
+                setActiveCategoryIdx(newIdx)
+                setActiveCategory(newCategory)
+            }
+        }
+    }, [props.handleSwipeVal])
+
+    const carouselRef = useRef(null)
+
+    // Handle auto scrolling the carousel when swipes trigger nav
+    const handleScroll = (sign) => {
+        sign = Math.sign(sign)
+        let vw = window.outerWidth;
+        vw = vw / props.categories.length
+        carouselRef.current.scrollLeft += sign * vw
+    }
 
     // Render functions
     const renderCategories = () => {
@@ -55,7 +95,7 @@ const ItemCarousel = props => {
 
     return (
         <Container className="categoryListNav">
-            <Nav variant="tabs" activeKey={activeCategory}>
+            <Nav variant="tabs" activeKey={activeCategory} ref={carouselRef}>
                 {renderCategories()}
 
             </Nav>
@@ -69,6 +109,7 @@ const ItemCarousel = props => {
 
 ItemCarousel.defaultProps = {
     categories: [],
-    returnActiveCategory: null
+    returnActiveCategory: null,
+    handleSwipeVal: null // Set the active category from parent
 }
 export default ItemCarousel
