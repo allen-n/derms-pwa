@@ -6,6 +6,7 @@ import { Container, Row } from 'react-bootstrap'
 import { Button } from '../button/Button';
 import UserMenu from '../utils/UserMenu'
 import ConfirmLocationSlider from '../map/ConfirmLocationSlider'
+import { MapTag } from '../map-tag/MapTag';
 import '../utils/MapComponents.css'
 
 const MapHome = props => {
@@ -106,6 +107,9 @@ const MapHome = props => {
 
     return (
         <Container fluid className="fill-height">
+            <MapTag>
+                Paper Towels
+            </MapTag>
             <Row>
                 <LeafMap
                     style={{ height: mapHeight, width: "100vw" }}
